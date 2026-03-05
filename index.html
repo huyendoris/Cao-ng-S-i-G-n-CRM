@@ -81,12 +81,12 @@
       const paths = {
         pipeline: "M3 5h18M3 10h18M3 15h18",
         profiles: "M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v1h20v-1c0-3.3-6.7-5-10-5z",
-        miniapp: "M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-5 17a1 1 0 1 1 0-2 1 1 0 0 1 0 2z",
         scoring: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
         automation: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
         reports: "M18 20V10M12 20V4M6 20v-6",
-        minigame: "M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18-.21 0-.41-.06-.57-.18l-7.9-4.44A1 1 0 0 1 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.12.36-.18.57-.18.21 0 .41.06.57.18l7.9 4.44c.32.17.53.5.53.88v9z",
+
         survey: "M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11",
+        ai_hub: "M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41",
         collapse: "M15 18l-6-6 6-6",
         expand: "M9 18l6-6-6-6",
         grad: "M12 3L2 20h20L12 3z",
@@ -94,7 +94,7 @@
         settings_gear: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z",
       };
       const p = paths[id] || paths.pipeline;
-      const isFill = ["profiles", "miniapp", "grad", "settings_gear"].includes(id);
+      const isFill = ["profiles", "grad", "settings_gear"].includes(id);
       return (
         <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
           {isFill ? <path d={p} fill="currentColor" stroke="none" /> : <path d={p} />}
@@ -105,9 +105,8 @@
     const NAV_ITEMS = [
       { key: "pipeline", icon: "pipeline", label: "Tuyển Sinh" },
       { key: "profiles", icon: "profiles", label: "Hồ Sơ 360°" },
-      { key: "minigame", icon: "minigame", label: "Mini Game" },
+      { key: "ai_hub", icon: "ai_hub", label: "Zia AI Hub" },
       { key: "survey", icon: "survey", label: "Khảo Sát Nguyện Vọng" },
-      { key: "miniapp", icon: "miniapp", label: "Mini App" },
       { key: "reports", icon: "reports", label: "Dashboard CDP" },
       { key: "scoring", icon: "scoring", label: "Lead Scoring" },
       { key: "automation", icon: "automation", label: "Automation" },
@@ -119,7 +118,7 @@
       { id: "L003", name: "Lê Thị Hoa", phone: "0923456789", school: "THPT Võ Thị Sáu", province: "Đồng Nai", major: "Điều dưỡng", source: "Website", sale: "Văn Nam", temp: "cold", updated: "1 ngày trước", score: 45, stage: "da_lien_he", color: "#64748b", daysNoCall: 8, daysNoEngage: 7 },
       { id: "L004", name: "Phạm Minh Đức", phone: "0934567890", school: "THPT Trần Phú", province: "TP.HCM", major: "Thiết kế đồ họa", source: "Hotline", sale: "Minh Tú", temp: "hot", updated: "30 phút trước", score: 91, stage: "da_lien_he", color: "#7c3aed", daysNoCall: 0, daysNoEngage: 0 },
       { id: "L005", name: "Hoàng Thị Mai", phone: "0945678901", school: "THPT Gia Định", province: "TP.HCM", major: "Quản trị kinh doanh", source: "Zalo", sale: "Hồng Nhung", temp: "warm", updated: "3 giờ trước", score: 68, stage: "quan_tam", color: "#f5a623", daysNoCall: 3, daysNoEngage: 3 },
-      { id: "L006", name: "Vũ Quang Tuấn", phone: "0956789012", school: "THPT Bình Phú", province: "Long An", major: "Công nghệ thông tin", source: "Mini App", sale: "Văn Nam", temp: "hot", updated: "1 giờ trước", score: 88, stage: "quan_tam", color: "#00b4a0", daysNoCall: 0, daysNoEngage: 0 },
+      { id: "L006", name: "Vũ Quang Tuấn", phone: "0956789012", school: "THPT Bình Phú", province: "Long An", major: "Công nghệ thông tin", source: "Facebook", sale: "Văn Nam", temp: "hot", updated: "1 giờ trước", score: 88, stage: "quan_tam", color: "#00b4a0", daysNoCall: 0, daysNoEngage: 0 },
       { id: "L007", name: "Đặng Thị Thu", phone: "0967890123", school: "THPT Chu Văn An", province: "TP.HCM", major: "Dược học", source: "Facebook", sale: "Minh Tú", temp: "warm", updated: "4 giờ trước", score: 75, stage: "tu_van", color: "#e8421a", daysNoCall: 2, daysNoEngage: 2 },
       { id: "L008", name: "Bùi Văn Long", phone: "0978901234", school: "THPT An Lạc", province: "TP.HCM", major: "Kỹ thuật xây dựng", source: "TikTok", sale: "Hồng Nhung", temp: "hot", updated: "45 phút trước", score: 93, stage: "tu_van", color: "#f5a623", daysNoCall: 0, daysNoEngage: 0 },
       { id: "L009", name: "Ngô Thị Kiều", phone: "0989012345", school: "THPT Lê Quý Đôn", province: "Tiền Giang", major: "Điều dưỡng", source: "Hotline", sale: "Văn Nam", temp: "warm", updated: "2 ngày trước", score: 62, stage: "nop_ho_so", color: "#2563eb", daysNoCall: 5, daysNoEngage: 8 },
@@ -167,8 +166,6 @@
         frequency: 5,
         motivation: [
           { id: "m1", label: "Tải brochure", pts: 15, active: true },
-          { id: "m2", label: "Đăng ký học bổng", pts: 25, active: true },
-          { id: "m3", label: "Tham gia mini game", pts: 10, active: true },
         ]
       },
       sources: [
@@ -191,19 +188,7 @@
       ]
     };
 
-    const QUIZ_QUESTIONS = [
-      { q: "Khách hàng yêu cầu thay đổi logo vào phút chót ngay trước giờ pitching, bạn sẽ làm gì?", opts: ["Thuyết phục khách hàng giữ nguyên bản cũ", "Nỗ lực chỉnh sửa nhanh nhất có thể", "Đề xuất giải pháp trung gian hài hòa"] },
-      { q: "Bạn phát hiện một lỗi logic nghiêm trọng trong hệ thống khi chỉ còn 2 giờ là deadline?", opts: ["Báo cáo ngay và xin gia hạn deadline", "Tập trung sửa chữa và làm thêm giờ", "Patch tạm thời để chạy demo"] },
-      { q: "Ngân sách marketing bị cắt giảm 50%, sếp yêu cầu vẫn giữ nguyên KPI?", opts: ["Tối ưu hóa các kênh marketing miễn phí", "Đề xuất cắt giảm các mục tiêu kém hiệu quả", "Tìm kiếm các đối tác tiềm năng để collab"] },
-      { q: "Dữ liệu khảo sát người dùng cho thấy sản phẩm hiện tại quá khó dùng?", opts: ["Tổ chức buổi workshop đóng góp ý kiến", "Lên kế hoạch redesign toàn bộ UI/UX", "Phát triển bộ hướng dẫn chi tiết (Manuals)"] },
-    ];
 
-    const QUIZ_RESULTS = [
-      { major: "Công nghệ thông tin", match: 92, desc: "Phù hợp với tư duy logic, yêu thích công nghệ", icon: "💻" },
-      { major: "Điều dưỡng", match: 88, desc: "Có thiên hướng chăm sóc & y tế cộng đồng", icon: "🏥" },
-      { major: "Kế toán – Kiểm toán", match: 85, desc: "Giỏi phân tích số liệu, tư duy tài chính", icon: "📊" },
-      { major: "Thiết kế đồ họa", match: 79, desc: "Sáng tạo cao, có gu thẩm mỹ tốt", icon: "🎨" },
-    ];
 
     /* ── helpers ── */
     // Avatar — navy monochrome palette, no vivid colors
@@ -247,7 +232,10 @@
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <Avatar name={lead.name} size={32} />
             <div>
-              <div style={{ fontWeight: 700, fontSize: 12.5, color: "#0f2744" }}>{lead.name}</div>
+              <div style={{ fontWeight: 700, fontSize: 12.5, color: "#0f2744", display: "flex", gap: 4, alignItems: "center" }}>
+                {lead.name}
+                {lead.score >= 85 && <span title="Zia Recommended" style={{ fontSize: 10, cursor: "help" }}>🤖⭐</span>}
+              </div>
               <div style={{ fontSize: 10.5, color: "#8c96a6" }}>{lead.phone}</div>
             </div>
           </div>
@@ -338,10 +326,10 @@
       ];
 
       const ai = [
-        { icon: "📞", title: "Gọi lại hôm nay", desc: "Lead hoạt động cao, chưa có lịch hẹn chính thức", urgent: true },
-        { icon: "🎓", title: "Gửi học bổng ngành CNTT", desc: "Còn 3 suất học bổng 50% kỳ này", urgent: false },
-        { icon: "🎥", title: "Gửi video review ngành", desc: "Tăng engagement sau khi đã xem brochure", urgent: false },
-        { icon: "💰", title: "Ưu đãi đóng học phí sớm", desc: "Giảm thêm 1 triệu nếu đóng trước 28/02", urgent: false },
+        { icon: "🤖", title: "Dự báo từ Zia AI", desc: "Lead có 88% khả năng nộp hồ sơ trong tuần này", urgent: true },
+        { icon: "📞", title: "Giờ vàng gọi điện", desc: "Khách hàng thường rảnh từ 14:00 - 15:30", urgent: true },
+        { icon: "🛍️", title: "Đề xuất sản phẩm", desc: "Nên tư vấn thêm học bổng 'Tương lai số'", urgent: false },
+        { icon: "🧹", title: "Làm sạch dữ liệu", desc: "Phát hiện 1 tài khoản trùng tên tại THPT Chu Văn An", urgent: false },
       ];
 
       const cls = lead.score >= 80 ? "Promising" : lead.score >= 60 ? "Loyal" : "At Risk";
@@ -523,776 +511,9 @@
       );
     };
 
-    /* ── Mini App ── */
-    const MiniAppView = () => {
-      const [screen, setScreen] = useState("home");
-      const [quizStep, setQuizStep] = useState(0);
-      const [answers, setAnswers] = useState([]);
-      const [form, setForm] = useState({ name: "", phone: "", school: "", major: "" });
-      const [submitted, setSubmitted] = useState(false);
-      const [flashLead, setFlashLead] = useState(false);
-      const [selectedId, setSelectedId] = useState(null);
 
-      // Job Simulation state
-      const [salary, setSalary] = useState("");
-      const [skills, setSkills] = useState(["Tiếng Anh", "Giao tiếp", "Lãnh đạo"]);
-      const [environment, setEnvironment] = useState("Stable");
-      const [showJobResult, setShowJobResult] = useState(false);
 
-      const handleAnswer = (opt, idx) => {
-        setSelectedId(idx);
-        setTimeout(() => {
-          const next = [...answers, opt];
-          setAnswers(next);
-          setSelectedId(null);
-          if (quizStep < QUIZ_QUESTIONS.length - 1) setQuizStep(quizStep + 1);
-          else setScreen("result");
-        }, 300);
-      };
 
-      const handleSubmit = () => {
-        setSubmitted(true);
-        setFlashLead(true);
-        setTimeout(() => { setFlashLead(false); setSubmitted(false); setScreen("home"); setForm({ name: "", phone: "", school: "", major: "" }); }, 2400);
-      };
-
-      const FInput = ({ label, field, ph }) => (
-        <div style={{ marginBottom: 11 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "#4b5563", marginBottom: 5, letterSpacing: "0.02em" }}>{label}</div>
-          <input value={form[field]} onChange={e => setForm(p => ({ ...p, [field]: e.target.value }))} placeholder={ph}
-            style={{ width: "100%", border: "1px solid #E5E5E5", borderRadius: 10, padding: "10px 14px", fontSize: 13, outline: "none", background: "#fff", transition: "all 0.2s ease" }}
-            onFocus={e => { e.target.style.borderColor = "#E53935"; e.target.style.boxShadow = "0 0 0 3px rgba(229, 57, 53, 0.08)"; }}
-            onBlur={e => { e.target.style.borderColor = "#E5E5E5"; e.target.style.boxShadow = "none"; }} />
-        </div>
-      );
-
-      const BottomNav = () => (
-        <div style={{ display: "flex", justifyContent: "space-between", padding: "12px 20px", background: "#fff", borderTop: "1.5px solid #F3F4F6", borderBottomLeftRadius: 26, borderBottomRightRadius: 26 }}>
-          {[["home", "Trang chủ", "🏠"], ["quiz", "Hướng nghiệp", "🧭"], ["job", "Quà tặng", "🎁"], ["profile", "Cá nhân", "👤"]].map(([sc, lb, ic]) => (
-            <div key={sc} onClick={() => setScreen(sc)} style={{ textAlign: "center", cursor: "pointer", opacity: screen === sc ? 1 : 0.4 }}>
-              <div style={{ fontSize: 18, color: screen === sc ? "#E53935" : "#64748b" }}>{ic}</div>
-              <div style={{ fontSize: 9, fontWeight: 700, color: screen === sc ? "#E53935" : "#64748b", marginTop: 2 }}>{lb.toUpperCase()}</div>
-            </div>
-          ))}
-        </div>
-      );
-
-      return (
-        <div>
-          <div style={{ marginBottom: 20 }}>
-            <h1 style={{ fontSize: 20, fontWeight: 800, color: "#1e293b", marginBottom: 4 }}>📱 Mini App Tuyển Sinh</h1>
-            <p style={{ fontSize: 13, color: "#64748b" }}>Công cụ thu hút Lead tự động – Mô phỏng cơ hội, Thử thách thực chiến → CRM</p>
-          </div>
-          {flashLead && (
-            <div style={{ background: "#f0fdf4", border: "1.5px solid #16a34a", borderRadius: 12, padding: "12px 18px", marginBottom: 16, display: "flex", gap: 10, alignItems: "center" }}>
-              <span style={{ fontSize: 22 }}>✅</span>
-              <div><div style={{ fontWeight: 700, color: "#16a34a", fontSize: 13 }}>Lead mới đổ vào CRM thành công!</div><div style={{ fontSize: 11, color: "#64748b" }}>Đã phân công Sale & kích hoạt Lead Scoring tự động</div></div>
-            </div>
-          )}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, alignItems: "start" }}>
-            {/* Phone mockup */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <div style={{ width: 296, background: "#1a1a2e", borderRadius: 36, padding: "12px 10px 16px", boxShadow: "0 24px 60px rgba(0,0,0,.3)" }}>
-                <div style={{ background: "#fff", borderRadius: 26, overflow: "hidden", minHeight: 520, position: "relative", display: "flex", flexDirection: "column" }}>
-
-                  {/* Status Bar */}
-                  <div style={{ background: screen === "quiz" ? "transparent" : "#E53935", padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", position: "relative", zIndex: 10 }}>
-                    <span style={{ color: screen === "quiz" ? "#1e293b" : "#fff", fontWeight: 800, fontSize: 13, letterSpacing: "0.01em" }}>9:41</span>
-                    <div style={{ display: "flex", gap: 4 }}>
-                      <div style={{ width: 14, height: 10, border: "1px solid " + (screen === "quiz" ? "#1e293b" : "#fff"), borderRadius: 2 }} />
-                      <div style={{ width: 4, height: 4, background: screen === "quiz" ? "#1e293b" : "#fff", borderRadius: "50%" }} />
-                    </div>
-                  </div>
-
-                  <div style={{ flex: 1, overflowY: "auto", background: screen === "quiz" ? "linear-gradient(#f8fafc 1px, transparent 1px), linear-gradient(90deg, #f8fafc 1px, transparent 1px)" : "#fff", backgroundSize: "20px 20px" }}>
-
-                    {screen === "home" && (
-                      <div style={{ padding: 14 }}>
-                        <div style={{ background: "#E53935", borderRadius: 16, padding: "20px 16px", marginBottom: 16, textAlign: "center" }}>
-                          <div style={{ fontSize: 28, marginBottom: 8 }}>🏛️</div>
-                          <div style={{ color: "#fff", fontWeight: 800, fontSize: 15 }}>Cao Đẳng Sài Gòn</div>
-                          <div style={{ color: "rgba(255,255,255,0.8)", fontSize: 11, fontWeight: 500 }}>Chọn tương lai của bạn</div>
-                        </div>
-                        {[
-                          ["quiz", "🎯", "Thử thách thực chiến", "Mô phỏng 60 giây", "#E53935"],
-                          ["job", "💼", "Mô phỏng nghề nghiệp", "Tính tỷ lệ thành công", "#F97316"],
-                          ["scholarship", "🎓", "Học bổng SGC", "Học bổng lên đến 50%", "#E53935"],
-                          ["career", "🚀", "Cơ hội việc làm", "Career Hub tuyển dụng", "#1e293b"]
-                        ].map(([sc, ic, ti, sub, cl]) => (
-                          <div key={sc} onClick={() => setScreen(sc)} style={{ display: "flex", gap: 10, alignItems: "center", background: "#fff", borderRadius: 14, padding: "12px", marginBottom: 8, cursor: "pointer", border: `1px solid #F3F4F6`, boxShadow: "0 1px 2px rgba(0,0,0,0.02)", transition: "all 0.2s ease" }}
-                            onMouseEnter={e => { e.currentTarget.style.borderColor = cl; e.currentTarget.style.background = cl + "05"; }} onMouseLeave={e => { e.currentTarget.style.borderColor = "#F3F4F6"; e.currentTarget.style.background = "#fff"; }}>
-                            <div style={{ width: 40, height: 40, background: cl + "10", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0, color: cl }}>{ic}</div>
-                            <div><div style={{ fontWeight: 700, fontSize: 12.5, color: "#1F2937" }}>{ti}</div><div style={{ fontSize: 11, color: "#6B7280", marginTop: 2 }}>{sub}</div></div>
-                            <span style={{ marginLeft: "auto", color: "#D1D5DB", fontSize: 16 }}>›</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {screen === "career" && (
-                      <div style={{ background: "#F8FAFC", minHeight: "100%" }}>
-                        <div style={{ padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", background: "#fff" }}>
-                          <button onClick={() => setScreen("home")} style={{ background: "none", border: "none", fontSize: 20, cursor: "pointer" }}>‹</button>
-                          <span style={{ fontWeight: 800, fontSize: 15, color: "#1e293b" }}>Career Hub</span>
-                          <span style={{ fontSize: 18 }}>🔔</span>
-                        </div>
-
-                        <div style={{ padding: 16 }}>
-                          <div style={{ position: "relative", marginBottom: 16 }}>
-                            <input placeholder="Tìm kiếm việc làm, công ty..." style={{ width: "100%", border: "1px solid #E5E5E5", borderRadius: 12, padding: "10px 12px 10px 36px", fontSize: 12 }} />
-                            <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#94a3b8" }}>🔍</span>
-                          </div>
-
-                          <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 4, marginBottom: 20 }} className="no-scrollbar">
-                            {["Ngành nghề", "Địa điểm", "Mức lương"].map(f => (
-                              <button key={f} style={{ background: "#fff", border: "1px solid #E5E5E5", borderRadius: 20, padding: "6px 12px", fontSize: 11, fontWeight: 600, color: "#475569", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 4 }}>
-                                {f === "Ngành nghề" ? "💼" : f === "Địa điểm" ? "📍" : "💵"} {f}
-                              </button>
-                            ))}
-                          </div>
-
-                          <div style={{ marginBottom: 24 }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                              <span style={{ fontSize: 11, fontWeight: 800, color: "#64748b", textTransform: "uppercase" }}>Đối tác chiến lược</span>
-                              <span style={{ fontSize: 11, fontWeight: 700, color: "#E53935" }}>Xem tất cả</span>
-                            </div>
-                            <div style={{ display: "flex", gap: 10, overflowX: "auto" }} className="no-scrollbar">
-                              {["#0f2744", "#d4af37", "#f1f5f9", "#064e3b", "#064e3b"].map((bg, i) => (
-                                <div key={i} style={{ width: 44, height: 44, borderRadius: 10, background: bg, border: "1px solid #F1F5F9", flexShrink: 0 }} />
-                              ))}
-                            </div>
-                          </div>
-
-                          <div>
-                            <span style={{ fontSize: 11, fontWeight: 800, color: "#64748b", textTransform: "uppercase", display: "block", marginBottom: 12 }}>Cơ hội thực tập & việc làm</span>
-
-                            {[
-                              { title: "Thực tập sinh Mar...", company: "Media Pro Co., Ltd", tag: "HỖ TRỢ 100%", salary: "6-8 triệu/tháng", loc: "Quận 1, HCM", updated: "2 giờ trước" },
-                              { title: "Lập trình viên Java (Fresher)", company: "TechGlobal Solution", tag: "", salary: "8-12 triệu/tháng", loc: "Quận 9, HCM", updated: "Hết hạn sau 5 ngày" }
-                            ].map((job, i) => (
-                              <div key={i} style={{ background: "#fff", borderRadius: 16, padding: 14, marginBottom: 12, border: "1px solid #F1F5F9", boxShadow: "0 4px 12px rgba(0,0,0,0.02)" }}>
-                                <div style={{ display: "flex", gap: 12, marginBottom: 12 }}>
-                                  <div style={{ width: 40, height: 40, background: "#064e3b", borderRadius: 8, flexShrink: 0 }} />
-                                  <div style={{ flex: 1 }}>
-                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start" }}>
-                                      <div style={{ fontWeight: 800, fontSize: 13, color: "#1e293b", marginBottom: 2 }}>{job.title}</div>
-                                      {job.tag && <span style={{ background: "#f0fdf4", color: "#16a34a", fontSize: 8, fontWeight: 800, padding: "2px 6px", borderRadius: 4 }}>{job.tag}</span>}
-                                    </div>
-                                    <div style={{ fontSize: 11, color: "#64748b" }}>{job.company}</div>
-                                  </div>
-                                </div>
-                                <div style={{ display: "flex", gap: 12, marginBottom: 12 }}>
-                                  <div style={{ fontSize: 10, color: "#ef4444", fontWeight: 700 }}>💵 {job.salary}</div>
-                                  <div style={{ fontSize: 10, color: "#64748b", fontWeight: 500 }}>📍 {job.loc}</div>
-                                </div>
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 10, borderTop: "1px solid #F3F4F6" }}>
-                                  <span style={{ fontSize: 10, color: "#94a3b8", fontStyle: "italic" }}>{job.updated}</span>
-                                  <button style={{ background: "#E53935", color: "#fff", border: "none", borderRadius: 10, padding: "6px 14px", fontSize: 11, fontWeight: 800 }}>Ứng tuyển ngay</button>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {screen === "quiz" && quizStep < QUIZ_QUESTIONS.length && (
-                      <div style={{ padding: "0 16px 16px" }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-                          <button onClick={() => { setScreen("home"); setQuizStep(0); setAnswers([]) }} style={{ width: 32, height: 32, borderRadius: "50%", background: "#fff", border: "1px solid #E5E5E5", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontWeight: 900, color: "#1e293b" }}>×</button>
-                          <div style={{ background: "#fff", borderRadius: 20, padding: "4px 10px", border: "1px solid #E5E5E5", display: "flex", alignItems: "center", gap: 4 }}>
-                            <span style={{ fontSize: 12 }}>⭐</span>
-                            <span style={{ fontSize: 11, fontWeight: 700, color: "#1e293b" }}>Tổng điểm: 450</span>
-                            <span style={{ fontSize: 10, fontWeight: 800, color: "#22c55e" }}>+50 pts</span>
-                          </div>
-                        </div>
-
-                        <div style={{ textAlign: "center", marginBottom: 20 }}>
-                          <span style={{ background: "#ef444415", color: "#ef4444", fontSize: 8, fontWeight: 800, padding: "2px 8px", borderRadius: 20, letterSpacing: "0.1em" }}>• ĐANG DIỄN RA</span>
-                          <h3 style={{ fontSize: 15, fontWeight: 800, color: "#1e293b", marginTop: 8 }}>Thử thách thực chiến 60 giây</h3>
-                        </div>
-
-                        {/* Circular Timer */}
-                        <div style={{ position: "relative", width: 80, height: 80, margin: "0 auto 24px" }}>
-                          <svg width="80" height="80" viewBox="0 0 80 80">
-                            <circle cx="40" cy="40" r="36" fill="none" stroke="#f1f5f9" strokeWidth="4" />
-                            <circle cx="40" cy="40" r="36" fill="none" stroke="#ef4444" strokeWidth="4" strokeDasharray="226" strokeDashoffset={226 - (226 * 45 / 60)} strokeLinecap="round" transform="rotate(-90 40 40)" />
-                          </svg>
-                          <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontSize: 20, fontWeight: 900, color: "#ef4444" }}>45</div>
-                        </div>
-
-                        <div style={{ background: "#fff", borderRadius: 20, padding: "18px", border: "1.5px solid #F3F4F6", boxShadow: "0 8px 20px rgba(0,0,0,0.04)", position: "relative", marginBottom: 24 }}>
-                          <div style={{ position: "absolute", top: -8, right: -8, background: "#ef4444", color: "#fff", fontSize: 8, fontWeight: 800, padding: "3px 8px", borderRadius: 10, transform: "rotate(10deg)" }}>MỚI</div>
-                          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
-                            <span style={{ fontSize: 10 }}>💡</span>
-                            <span style={{ fontSize: 9, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase" }}>TÌNH HUỐNG SỐ {quizStep + 1}</span>
-                          </div>
-                          <p style={{ fontSize: 13, fontWeight: 700, color: "#1e293b", lineHeight: 1.4 }}>"{QUIZ_QUESTIONS[quizStep].q}"</p>
-                        </div>
-
-                        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                          {QUIZ_QUESTIONS[quizStep].opts.map((opt, i) => (
-                            <button key={i} onClick={() => handleAnswer(opt, i)} style={{
-                              display: "flex", alignItems: "center", gap: 10, padding: "10px 16px",
-                              background: selectedId === i ? "#fff1f2" : "#fff",
-                              border: selectedId === i ? "2px solid #ef4444" : "1px solid #f1f5f9",
-                              borderRadius: 100, cursor: "pointer", textAlign: "left", transition: "all 0.2s"
-                            }}>
-                              <div style={{ width: 28, height: 28, borderRadius: "50%", background: selectedId === i ? "#ef4444" : "#f1f5f9", color: selectedId === i ? "#fff" : "#64748b", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800 }}>{String.fromCharCode(65 + i)}</div>
-                              <span style={{ fontSize: 12, fontWeight: 700, color: "#475569" }}>{opt}</span>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {screen === "result" && (
-                      <div style={{ padding: 14 }}>
-                        <div style={{ textAlign: "center", marginBottom: 12 }}><div style={{ fontSize: 34 }}>🎯</div><div style={{ fontWeight: 800, fontSize: 14, color: "#1e293b" }}>Kết quả phù hợp nhất</div></div>
-                        {QUIZ_RESULTS.map((r, i) => (
-                          <div key={i} style={{ background: i === 0 ? "#E53935" : "#fff", borderRadius: 14, padding: "14px", marginBottom: 8, border: i === 0 ? "none" : "1px solid #F3F4F6", boxShadow: "0 1px 3px rgba(0,0,0,0.02)" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-                              <div style={{ display: "flex", gap: i === 0 ? 8 : 7, alignItems: "center" }}>
-                                {i !== 0 && <span style={{ fontSize: 16 }}>{r.icon}</span>}
-                                <span style={{ fontWeight: 700, fontSize: 12, color: i === 0 ? "#fff" : "#1F2937" }}>{r.major}</span>
-                              </div>
-                              <span style={{ background: i === 0 ? "rgba(255,255,255,0.15)" : "#E5393510", color: i === 0 ? "#fff" : "#E53935", borderRadius: 20, padding: "2px 10px", fontSize: 11, fontWeight: 700 }}>{r.match}%</span>
-                            </div>
-                            <div style={{ fontSize: 10, color: i === 0 ? "rgba(255,255,255,.7)" : "#64748b" }}>{r.desc}</div>
-                          </div>
-                        ))}
-                        <button onClick={() => { setScreen("home"); setQuizStep(0); setAnswers([]) }} style={{ width: "100%", background: "#f1f5f9", border: "none", borderRadius: 10, padding: "9px", fontSize: 12, fontWeight: 600, cursor: "pointer", color: "#64748b" }}>Làm lại thử thách</button>
-                      </div>
-                    )}
-
-                    {screen === "job" && (
-                      <div style={{ padding: "0 16px 16px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
-                          <button onClick={() => setScreen("home")} style={{ background: "none", border: "none", fontSize: 24, cursor: "pointer", color: "#1F2937" }}>‹</button>
-                          <h3 style={{ fontSize: 15, fontWeight: 800, color: "#1F2937" }}>Mô phỏng cơ hội việc làm</h3>
-                        </div>
-
-                        {!showJobResult ? (
-                          <div style={{ background: "#fff", borderRadius: 20, padding: "4px" }}>
-                            <div style={{ marginBottom: 16 }}>
-                              <div style={{ fontSize: 11, fontWeight: 700, color: "#64748b", marginBottom: 6 }}>Mức lương mong muốn</div>
-                              <select value={salary} onChange={e => setSalary(e.target.value)} style={{ width: "100%", border: "1.5px solid #F3F4F6", borderRadius: 12, padding: "12px", fontSize: 13, background: "#f8fafc", color: "#1e293b", appearance: "none" }}>
-                                <option value="">Chọn mức lương</option>
-                                <option value="8-12">8 – 12 triệu/tháng</option>
-                                <option value="12-20">12 – 20 triệu/tháng</option>
-                                <option value="20+">Trên 20 triệu/tháng</option>
-                              </select>
-                            </div>
-
-                            <div style={{ marginBottom: 16 }}>
-                              <div style={{ fontSize: 11, fontWeight: 700, color: "#64748b", marginBottom: 6 }}>Kỹ năng hiện tại</div>
-                              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, border: "1.5px solid #F3F4F6", borderRadius: 16, padding: "12px", background: "#fff" }}>
-                                {skills.map(sk => (
-                                  <span key={sk} style={{ background: "#ef444410", color: "#ef4444", borderRadius: 20, padding: "4px 10px", fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", gap: 4 }}>
-                                    {sk} <span style={{ opacity: 0.5, cursor: "pointer" }}>×</span>
-                                  </span>
-                                ))}
-                                <span style={{ fontSize: 11, color: "#94a3b8", alignSelf: "center", cursor: "pointer" }}>Thêm kỹ năng...</span>
-                              </div>
-                            </div>
-
-                            <div style={{ marginBottom: 20 }}>
-                              <div style={{ fontSize: 11, fontWeight: 700, color: "#64748b", marginBottom: 8 }}>Môi trường mong muốn</div>
-                              {["Năng động (Dynamic)", "Ổn định (Stable)", "Quốc tế (International)"].map(env => (
-                                <label key={env} style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 14px", border: "1px solid #F1F5F9", borderRadius: 12, marginBottom: 6, cursor: "pointer", background: environment === env.split(" ")[0] ? "#fff" : "#f8fafc" }}>
-                                  <div style={{ width: 18, height: 18, borderRadius: "50%", border: "2px solid #ef4444", display: "flex", alignItems: "center", justifyContent: "center" }} onClick={() => setEnvironment(env.split(" ")[0])}>
-                                    {environment === env.split(" ")[0] && <div style={{ width: 10, height: 10, background: "#ef4444", borderRadius: "50%" }} />}
-                                  </div>
-                                  <span style={{ fontSize: 12, fontWeight: 500, color: "#475569" }}>{env}</span>
-                                </label>
-                              ))}
-                            </div>
-
-                            <button onClick={() => setShowJobResult(true)} style={{ width: "100%", background: "#ef4444", color: "#fff", border: "none", borderRadius: 16, padding: "14px", fontSize: 13, fontWeight: 800, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, boxShadow: "0 4px 12px rgba(239, 68, 68, 0.2)" }}>
-                              📊 Tính tỷ lệ có việc làm
-                            </button>
-                          </div>
-                        ) : (
-                          <div>
-                            <div style={{ background: "#fff", borderRadius: 24, padding: "24px", border: "1.5px solid #F3F4F6", boxShadow: "0 10px 30px rgba(0,0,0,0.04)", textAlign: "center" }}>
-                              <div style={{ position: "relative", width: 120, height: 120, margin: "0 auto 20px" }}>
-                                <svg width="120" height="120" viewBox="0 0 120 120">
-                                  <circle cx="60" cy="60" r="54" fill="none" stroke="#f1f5f9" strokeWidth="8" />
-                                  <circle cx="60" cy="60" r="54" fill="none" stroke="#ef4444" strokeWidth="8" strokeDasharray="339" strokeDashoffset={339 - (339 * 92 / 100)} strokeLinecap="round" transform="rotate(-90 60 60)" />
-                                </svg>
-                                <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
-                                  <div style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8" }}>TỶ LỆ</div>
-                                  <div style={{ fontSize: 24, fontWeight: 900, color: "#1e293b" }}>92%</div>
-                                </div>
-                                <div style={{ position: "absolute", top: -10, right: -20, width: 40, height: 40, background: "#f1f5f9", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>⭐</div>
-                              </div>
-                              <div style={{ display: "flex", gap: 12, alignItems: "center", padding: "14px", background: "#f8fafc", borderRadius: 16, marginBottom: 10, textAlign: "left" }}>
-                                <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#e0f2fe", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🎓</div>
-                                <div>
-                                  <div style={{ fontSize: 9, color: "#94a3b8", fontWeight: 700 }}>Ngành học gợi ý</div>
-                                  <div style={{ fontSize: 12, fontWeight: 800, color: "#1e293b" }}>QUẢN TRỊ KHÁCH SẠN</div>
-                                </div>
-                              </div>
-                              <div style={{ display: "flex", gap: 12, alignItems: "center", padding: "14px", background: "#f8fafc", borderRadius: 16, marginBottom: 14, textAlign: "left" }}>
-                                <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#fef3c7", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🏨</div>
-                                <div>
-                                  <div style={{ fontSize: 9, color: "#94a3b8", fontWeight: 700 }}>Thực tập mục tiêu</div>
-                                  <div style={{ fontSize: 12, fontWeight: 800, color: "#1e293b" }}>Vinpearl Group</div>
-                                </div>
-                              </div>
-                              <div style={{ border: "1.5px dashed #ef4444", borderRadius: 12, padding: "10px", color: "#ef4444", fontSize: 11, fontWeight: 700 }}>
-                                ✨ Hoàn vốn sau 1.5 năm làm việc
-                              </div>
-                            </div>
-                            <button onClick={() => setShowJobResult(false)} style={{ width: "100%", background: "#f1f5f9", border: "none", borderRadius: 12, padding: "12px", fontSize: 12, fontWeight: 700, cursor: "pointer", color: "#64748b", marginTop: 16 }}>Mô phỏng lại</button>
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {(screen === "scholarship" || screen === "visit") && (
-                      <div style={{ padding: 14 }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 13 }}>
-                          <button onClick={() => setScreen("home")} style={{ background: "none", border: "none", fontSize: 18, cursor: "pointer" }}>‹</button>
-                          <span style={{ fontWeight: 700, fontSize: 13, color: "#1e293b" }}>{screen === "scholarship" ? "🏆 Đăng Ký Học Bổng" : "🏫 Đặt Lịch Tham Quan"}</span>
-                        </div>
-                        {!submitted ? (
-                          <div>
-                            {screen === "scholarship" && <div style={{ background: "#E53935", borderRadius: 14, padding: 20, marginBottom: 16, textAlign: "center", boxShadow: "0 4px 12px rgba(229, 57, 53, 0.15)" }}><div style={{ color: "#fff", fontWeight: 800, fontSize: 18, marginBottom: 4 }}>🎓 HỌC BỔNG 50%</div><div style={{ color: "rgba(255,255,255,0.85)", fontSize: 12, fontWeight: 500 }}>Còn 12 suất • Hết hạn 28/02</div></div>}
-                            {screen === "visit" && <div style={{ background: "#E53935", borderRadius: 14, padding: 16, marginBottom: 16, textAlign: "center" }}><div style={{ color: "#fff", fontWeight: 800, fontSize: 16 }}>🏫 THAM QUAN TRƯỜNG</div><div style={{ color: "rgba(255,255,255,0.9)", fontSize: 11, marginTop: 4 }}>Tư vấn 1-1 miễn phí</div></div>}
-                            <FInput label="Họ và tên *" field="name" ph="Nguyễn Văn A" />
-                            <FInput label="Số điện thoại *" field="phone" ph="09xxxxxxxx" />
-                            <FInput label="Trường THPT" field="school" ph="THPT Lê Hồng Phong" />
-                            <FInput label="Ngành quan tâm" field="major" ph="Công nghệ thông tin" />
-                            <button onClick={handleSubmit} style={{ width: "100%", background: "#E53935", border: "none", borderRadius: 14, padding: "14px", color: "#fff", fontWeight: 800, fontSize: 14, cursor: "pointer", marginTop: 8, boxShadow: "0 2px 4px rgba(229, 57, 53, 0.1)", letterSpacing: "0.02em" }}>
-                              {screen === "scholarship" ? "ĐĂNG KÝ HỌC BỔNG" : "ĐẶT LỊCH THAM QUAN"}
-                            </button>
-                          </div>
-                        ) : (
-                          <div style={{ textAlign: "center", padding: "40px 20px" }}>
-                            <div style={{ fontSize: 50, marginBottom: 12 }}>🎉</div>
-                            <div style={{ fontWeight: 800, fontSize: 15, color: "#E53935", marginBottom: 6 }}>Đăng ký thành công!</div>
-                            <div style={{ fontSize: 12, color: "#6B7280" }}>Tư vấn viên sẽ liên hệ với bạn soon!</div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Bottom Navigation */}
-                  <div style={{ display: "flex", justifyContent: "space-between", padding: "12px 20px", background: "#fff", borderTop: "1.5px solid #F3F4F6", borderBottomLeftRadius: 26, borderBottomRightRadius: 26 }}>
-                    {[
-                      { key: "home", label: "TRANG CHỦ", icon: "🏠" },
-                      { key: "quiz", label: "HƯỚNG NGHIỆP", icon: "🧭" },
-                      { key: "job", label: "QUÀ TẶNG", icon: "🎁" },
-                      { key: "profile", label: "CÁ NHÂN", icon: "👤" }
-                    ].map(item => (
-                      <div key={item.key} onClick={() => setScreen(item.key)} style={{ textAlign: "center", cursor: "pointer", flex: 1 }}>
-                        <div style={{ fontSize: 18, color: screen === item.key ? "#E53935" : "#94A3B8", marginBottom: 4 }}>{item.icon}</div>
-                        <div style={{ fontSize: 8, fontWeight: 900, color: screen === item.key ? "#E53935" : "#94A3B8" }}>{item.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Grid indicators for preview */}
-              <div style={{ marginTop: 12, textAlign: "center" }}>
-                <div style={{ fontSize: 12, color: "#64748b", marginBottom: 7 }}>Chọn nhanh màn hình điện thoại</div>
-                <div style={{ display: "flex", gap: 5, justifyContent: "center", flexWrap: "wrap" }}>
-                  {[["home", "🏠"], ["quiz", "🧭"], ["job", "💼"], ["career", "🚀"], ["scholarship", "🏆"]].map(([sc, ic]) => (
-                    <button key={sc} onClick={() => { setScreen(sc); setQuizStep(0); setAnswers([]); setSubmitted(false); setShowJobResult(false); }} style={{ background: screen === sc ? N[800] : "#f1f5f9", color: screen === sc ? "#fff" : "#64748b", border: "none", borderRadius: 8, padding: "5px 10px", fontSize: 11, cursor: "pointer", fontWeight: 600 }}>{ic}</button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Stats panel */}
-            <div style={{ display: "grid", gap: 14 }}>
-              <div style={{ background: "#fff", borderRadius: 14, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,.06)" }}>
-                <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 14, color: "#1e293b" }}>📊 Thống kê tháng này</div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-                  {[["🧭", "Quiz hoàn thành", "247", "↑ 23%", "#2563eb"], ["🎫", "Voucher đã nhận", "189", "↑ 18%", "#f5a623"], ["🏆", "Đăng ký học bổng", "94", "↑ 31%", "#16a34a"], ["🏫", "Lịch tham quan", "67", "↑ 15%", "#7c3aed"]].map(([ic, lb, v, ch, cl]) => (
-                    <div key={lb} style={{ background: "#f8fafc", borderRadius: 10, padding: "12px", border: `2px solid ${cl}18` }}>
-                      <div style={{ fontSize: 11, color: "#64748b", marginBottom: 2 }}>{ic} {lb}</div>
-                      <div style={{ fontSize: 22, fontWeight: 800, color: "#1e293b" }}>{v}</div>
-                      <div style={{ fontSize: 11, color: cl, fontWeight: 600 }}>{ch}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div style={{ background: "#fff", borderRadius: 14, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,.06)" }}>
-                <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 6, color: "#1e293b" }}>🔄 Lead tự động đổ vào CRM</div>
-                <div style={{ fontSize: 12, color: "#64748b", marginBottom: 12 }}>Mọi form trên Mini App tự động tạo Lead mới, phân công Sale và kích hoạt Scoring</div>
-                <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
-                  {["✅ Phân công Sale", "✅ Gắn nguồn Lead", "✅ Tính điểm Scoring", "✅ Trigger Automation"].map(t => (
-                    <span key={t} style={{ background: "#f0fdf4", color: "#16a34a", borderRadius: 20, padding: "3px 10px", fontSize: 11, fontWeight: 600 }}>{t}</span>
-                  ))}
-                </div>
-              </div>
-              <div style={{ background: "#fff", borderRadius: 14, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,.06)" }}>
-                <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 12, color: "#1e293b" }}>📡 Kênh phân phối Mini App</div>
-                {[["Facebook Ads", "🔵", "#1877f2", "85 leads"], ["TikTok", "⚫", "#000", "42 leads"], ["Zalo OA", "🔷", "#00a2e9", "61 leads"], ["QR tại trường", "🟢", "#16a34a", "23 leads"]].map(([lb, ic, cl, cnt]) => (
-                  <div key={lb} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: "1px solid #f1f5f9" }}>
-                    <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                      <div style={{ width: 28, height: 28, background: cl + "18", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13 }}>{ic}</div>
-                      <span style={{ fontSize: 13, fontWeight: 600, color: "#475569" }}>{lb}</span>
-                    </div>
-                    <span style={{ fontSize: 12, fontWeight: 700, color: cl }}>{cnt}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div >
-      );
-    };
-
-    /* ── Mini Game — Trắc nghiệm định hướng nghề nghiệp ── */
-    const GAME_QS = [
-      {
-        id: 1, q: "Bạn thích làm việc theo cách nào nhất?", emoji: "🎯", category: "PHONG CÁCH LÀM VIỆC",
-        opts: [
-          { label: "Làm việc với máy tính, hệ thống, dữ liệu", icon: "💻", tags: ["cntt", "ketoan"] },
-          { label: "Giao tiếp, tư vấn, thuyết phục người khác", icon: "🤝", tags: ["marketing", "qtns"] },
-          { label: "Sáng tạo nội dung, hình ảnh, ý tưởng mới", icon: "🎨", tags: ["thietke", "marketing"] },
-          { label: "Lập kế hoạch, tổ chức và quản lý công việc", icon: "📋", tags: ["qtns", "ketoan"] },
-        ]
-      },
-      {
-        id: 2, q: "Môn học bạn cảm thấy tự tin nhất?", emoji: "📚", category: "THẾ MẠNH HỌC TẬP",
-        opts: [
-          { label: "Toán / Tin học", icon: "🔢", tags: ["cntt", "ketoan"] },
-          { label: "Ngữ văn / Ngoại ngữ", icon: "✍️", tags: ["marketing", "qtns"] },
-          { label: "Mỹ thuật / Thiết kế / Media", icon: "🎨", tags: ["thietke", "marketing"] },
-          { label: "Kinh tế / GDCD / Quản trị", icon: "📊", tags: ["ketoan", "qtns"] },
-        ]
-      },
-      {
-        id: 3, q: "Khi làm việc nhóm, bạn thường là người:", emoji: "👥", category: "VAI TRÒ TRONG NHÓM",
-        opts: [
-          { label: "Giải quyết vấn đề kỹ thuật", icon: "🔧", tags: ["cntt", "xaydung"] },
-          { label: "Trình bày và thuyết phục", icon: "🎤", tags: ["marketing", "qtns"] },
-          { label: "Đưa ra ý tưởng sáng tạo", icon: "💡", tags: ["thietke", "marketing"] },
-          { label: "Phân chia nhiệm vụ và quản lý tiến độ", icon: "📌", tags: ["qtns", "ketoan"] },
-        ]
-      },
-      {
-        id: 4, q: "Bạn mong muốn môi trường làm việc tương lai như thế nào?", emoji: "🏢", category: "MÔI TRƯỜNG LÝ TƯỞNG",
-        opts: [
-          { label: "Văn phòng công nghệ, IT, startup", icon: "🚀", tags: ["cntt", "marketing"] },
-          { label: "Doanh nghiệp, ngân hàng, kinh doanh", icon: "🏦", tags: ["ketoan", "qtns"] },
-          { label: "Agency, marketing, truyền thông", icon: "📣", tags: ["thietke", "marketing"] },
-          { label: "Công ty lớn, lộ trình thăng tiến rõ ràng", icon: "🏢", tags: ["qtns", "ketoan"] },
-        ]
-      },
-      {
-        id: 5, q: "Điều khiến bạn hứng thú nhất khi chọn ngành học?", emoji: "⭐", category: "ĐỘNG LỰC CHỌN NGÀNH",
-        opts: [
-          { label: "Cơ hội việc làm cao, ngành công nghệ phát triển mạnh", icon: "💻", tags: ["cntt", "xaydung"] },
-          { label: "Thu nhập hấp dẫn, kỹ năng giao tiếp tốt", icon: "💰", tags: ["marketing", "qtns"] },
-          { label: "Được sáng tạo, thể hiện cá tính", icon: "🎨", tags: ["thietke", "marketing"] },
-          { label: "Có vị trí quản lý, lãnh đạo trong tương lai", icon: "👑", tags: ["qtns", "ketoan"] },
-        ]
-      },
-    ];
-
-    const MAJORS_DB = {
-      cntt: { name: "Công nghệ thông tin", icon: "💻", salary: "18–35 triệu", time: "2 năm", job: "Lập trình viên, DevOps, Data Analyst" },
-      ketoan: { name: "Kế toán – Kiểm toán", icon: "📊", salary: "12–22 triệu", time: "2 năm", job: "Kế toán doanh nghiệp, Kiểm toán viên" },
-      dieudưỡng: { name: "Điều dưỡng", icon: "🏥", salary: "10–20 triệu", time: "2 năm", job: "Điều dưỡng bệnh viện, Chăm sóc sức khỏe" },
-      thietke: { name: "Thiết kế đồ họa", icon: "🎨", salary: "12–28 triệu", time: "2 năm", job: "Graphic Designer, UI/UX, Motion" },
-      marketing: { name: "Marketing – Truyền thông", icon: "📣", salary: "14–30 triệu", time: "2 năm", job: "Content, Digital Marketing, Social Media" },
-      xaydung: { name: "Kỹ thuật xây dựng", icon: "🏗️", salary: "15–30 triệu", time: "2.5 năm", job: "Giám sát công trình, BIM Engineer" },
-      codien: { name: "Cơ điện lạnh", icon: "🔧", salary: "12–25 triệu", time: "2 năm", job: "Kỹ thuật điện lạnh, Bảo trì hệ thống" },
-      qtns: { name: "Quản trị nhân sự", icon: "👔", salary: "12–20 triệu", time: "2 năm", job: "HR Specialist, Tuyển dụng, Đào tạo" },
-      duoc: { name: "Dược học", icon: "💊", salary: "12–22 triệu", time: "2 năm", job: "Dược sĩ nhà thuốc, Trình dược viên" },
-    };
-
-    const MiniGameView = () => {
-      const [phase, setPhase] = useState("intro"); // intro | playing | result | capture
-      const [qIdx, setQIdx] = useState(0);
-      const [answers, setAnswers] = useState({});
-      const [scores, setScores] = useState({});
-      const [form, setForm] = useState({ name: "", phone: "", email: "" });
-      const [submitted, setSubmitted] = useState(false);
-      const [selectedId, setSelectedId] = useState(null);
-
-      const pick = (opt, idx) => {
-        setSelectedId(idx);
-        setTimeout(() => {
-          const next = { ...answers, [GAME_QS[qIdx].id]: opt.label };
-          const nextScores = { ...scores };
-          opt.tags.forEach(t => { nextScores[t] = (nextScores[t] || 0) + 1; });
-          setAnswers(next);
-          setScores(nextScores);
-          setSelectedId(null);
-          if (qIdx < GAME_QS.length - 1) setQIdx(qIdx + 1);
-          else setPhase("result");
-        }, 300);
-      };
-
-      const topMajors = Object.entries(scores)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 3)
-        .map(([key]) => {
-          const major = MAJORS_DB[key];
-          const score = scores[key];
-          const maxPossible = 5; // Simplified scale
-          const percentage = Math.min(95, 60 + (score * 10)); // Artificial logic to make it look like the image
-          return { ...major, percentage };
-        })
-        .filter(Boolean);
-
-      const restart = () => { setPhase("intro"); setQIdx(0); setAnswers({}); setScores({}); setForm({ name: "", phone: "", email: "" }); setSubmitted(false); };
-
-      const pct = Math.round(((qIdx + 1) / GAME_QS.length) * 100);
-
-      const FInp = ({ label, field, ph, type = "text" }) => (
-        <div style={{ marginBottom: 16 }}>
-          <div style={{ fontSize: 11.5, fontWeight: 700, color: "#475569", marginBottom: 6, letterSpacing: "0.02em" }}>{label}</div>
-          <input type={type} value={form[field]} onChange={e => setForm(p => ({ ...p, [field]: e.target.value }))} placeholder={ph}
-            style={{ width: "100%", border: "1px solid #E5E5E5", borderRadius: 10, padding: "12px 14px", fontSize: 13, outline: "none", color: N[800] }}
-            onFocus={e => e.target.style.borderColor = "#ef4444"} onBlur={e => e.target.style.borderColor = "#E5E5E5"} />
-        </div>
-      );
-
-      return (
-        <div style={{ maxWidth: 880, margin: "0 auto" }}>
-          <div style={{ marginBottom: 20 }}>
-            <h1 style={{ fontSize: 20, fontWeight: 800, color: "#1F2937", marginBottom: 4 }}>Trắc nghiệm định hướng AI</h1>
-            <p style={{ fontSize: 13, color: "#6B7280" }}>Ứng dụng trí tuệ nhân tạo để phân tích sở trường và lộ trình học tập</p>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 24, alignItems: "start" }}>
-
-            {/* Game Screen Content */}
-            <div style={{ background: "#fff", borderRadius: 24, border: "1px solid #F3F4F6", overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.04)" }}>
-              {/* Notebook Grid Background Container */}
-              <div style={{
-                minHeight: 640,
-                position: "relative",
-                background: phase === "playing" ? `linear-gradient(#f1f5f9 1px, transparent 1px), linear-gradient(90deg, #f1f5f9 1px, transparent 1px)` : "#fff",
-                backgroundSize: "20px 20px"
-              }}>
-
-                {phase === "intro" && (
-                  <div style={{ padding: "60px 40px", textAlign: "center" }}>
-                    <div style={{ fontSize: 56, marginBottom: 24 }}>🧭</div>
-                    <h2 style={{ fontSize: 24, fontWeight: 800, color: "#1F2937", marginBottom: 12 }}>Khai phá nghề nghiệp</h2>
-                    <p style={{ fontSize: 14, color: "#6B7280", lineHeight: 1.6, marginBottom: 40, maxWidth: 360, margin: "0 auto 40px" }}>
-                      Khám phá tiềm năng bản thân và nhận lộ trình học tập tối ưu từ SAIGONTECH AI chỉ sau 60 giây trắc nghiệm.
-                    </p>
-                    <button onClick={() => setPhase("playing")} style={{ background: "#ef4444", color: "#fff", border: "none", borderRadius: 16, padding: "16px 48px", fontSize: 15, fontWeight: 800, cursor: "pointer", transition: "transform 0.2s" }}
-                      onMouseEnter={e => e.currentTarget.style.transform = "scale(1.02)"} onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
-                      BẮT ĐẦU NGAY
-                    </button>
-                  </div>
-                )}
-
-                {phase === "playing" && (
-                  <div style={{ padding: "24px" }}>
-                    {/* Header: Score and Status */}
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#fff", border: "1px solid #E5E5E5", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontWeight: 900, color: "#1e293b" }}>×</div>
-                      <div style={{ background: "#fff", borderRadius: 20, padding: "4px 12px", border: "1px solid #E5E5E5", display: "flex", alignItems: "center", gap: 8, boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
-                        <span style={{ fontSize: 16 }}>⭐</span>
-                        <span style={{ fontSize: 13, fontWeight: 700, color: "#1e293b" }}>Tổng điểm: 450</span>
-                        <span style={{ fontSize: 11, fontWeight: 800, color: "#22c55e", marginLeft: 4 }}>+50 pts</span>
-                      </div>
-                    </div>
-
-                    <div style={{ textAlign: "center", marginBottom: 32 }}>
-                      <span style={{ background: "#ef444415", color: "#ef4444", fontSize: 9, fontWeight: 800, padding: "2px 10px", borderRadius: 20, letterSpacing: "0.1em", textTransform: "uppercase" }}>• ĐANG DIỄN RA</span>
-                      <h3 style={{ fontSize: 18, fontWeight: 800, color: "#1e293b", marginTop: 12 }}>Thử thách thực chiến 60 giây</h3>
-                    </div>
-
-                    {/* Timer Circle */}
-                    <div style={{ position: "relative", width: 100, height: 100, margin: "0 auto 40px" }}>
-                      <svg width="100" height="100" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="#f1f5f9" strokeWidth="6" />
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="#ef4444" strokeWidth="6" strokeDasharray="283" strokeDashoffset={283 - (283 * 45 / 60)} strokeLinecap="round" transform="rotate(-90 50 50)" />
-                      </svg>
-                      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontSize: 26, fontWeight: 900, color: "#ef4444" }}>45</div>
-                    </div>
-
-                    {/* Question Card */}
-                    <div style={{ position: "relative", marginBottom: 32 }}>
-                      {/* Ribbon "Mới" */}
-                      <div style={{ position: "absolute", top: -10, right: -10, background: "#ef4444", color: "#fff", fontSize: 9, fontWeight: 800, padding: "4px 10px", borderRadius: 10, transform: "rotate(10deg)", boxShadow: "0 4px 10px rgba(239, 68, 68, 0.3)", zIndex: 10 }}>MỚI</div>
-
-                      <div style={{ background: "#fff", borderRadius: 24, padding: "28px", border: "1.5px solid #F3F4F6", boxShadow: "0 15px 35px rgba(0,0,0,0.06)" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
-                          <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#1e293b", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 14 }}>💡</div>
-                          <span style={{ fontSize: 11, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.05em", textTransform: "uppercase" }}>TÌNH HUỐNG SỐ {qIdx + 1}</span>
-                        </div>
-                        <p style={{ fontSize: 16, fontWeight: 700, color: "#1e293b", lineHeight: 1.5 }}>"{GAME_QS[qIdx].q}"</p>
-                      </div>
-                    </div>
-
-                    {/* Options */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                      {GAME_QS[qIdx].opts.map((opt, i) => {
-                        const isSelected = selectedId === i;
-                        return (
-                          <button key={i} onClick={() => pick(opt, i)} style={{
-                            display: "flex", alignItems: "center", gap: 16, padding: "14px 20px",
-                            background: "#fff", border: isSelected ? "2px solid #ef4444" : "1px solid #f1f5f9",
-                            borderRadius: 100, cursor: "pointer", textAlign: "left", transition: "all 0.2s",
-                            boxShadow: isSelected ? "0 4px 15px rgba(239, 68, 68, 0.15)" : "0 2px 10px rgba(0,0,0,0.02)"
-                          }}>
-                            <div style={{
-                              width: 36, height: 36, borderRadius: "50%",
-                              background: isSelected ? "#ef4444" : "#f1f5f9",
-                              display: "flex", alignItems: "center", justifyContent: "center",
-                              color: isSelected ? "#fff" : "#64748b", fontWeight: 800, fontSize: 14
-                            }}>{String.fromCharCode(65 + i)}</div>
-                            <span style={{ fontSize: 14, fontWeight: 700, color: isSelected ? "#1e293b" : "#475569" }}>{opt.label}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    {/* Footer Progress */}
-                    <div style={{ marginTop: 40, textAlign: "center" }}>
-                      <div style={{ width: "100%", height: 6, background: "#f1f5f9", borderRadius: 10, marginBottom: 10, position: "relative", overflow: "hidden" }}>
-                        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, background: "#ef4444", width: `${pct}%`, transition: "width 0.4s" }} />
-                      </div>
-                      <span style={{ fontSize: 10, fontWeight: 800, color: "#94a3b8", textTransform: "uppercase" }}>CÂU HỎI {qIdx + 1}/{GAME_QS.length}</span>
-                    </div>
-                  </div>
-                )}
-
-                {phase === "result" && (
-                  <div style={{ padding: "40px" }}>
-                    <div style={{ textAlign: "center", marginBottom: 40 }}>
-                      <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#f1f5f9", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontWeight: 900, color: "#64748b", position: "absolute", top: 20, left: 24 }} onClick={restart}>‹</div>
-                      <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#f1f5f9", display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", top: 20, right: 24 }}><span style={{ fontSize: 16 }}>📋</span></div>
-
-                      <h2 style={{ fontSize: 24, fontWeight: 900, color: "#1e293b", marginBottom: 4 }}>Kết quả của bạn</h2>
-                      <p style={{ fontSize: 11, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.02em" }}>Dựa trên phân tích từ SAIGONTECH AI</p>
-                    </div>
-
-                    {/* Result Illustration */}
-                    <div style={{ position: "relative", width: 220, height: 220, margin: "0 auto 40px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      {/* Decorative dots and shapes */}
-                      <div style={{ position: "absolute", top: 10, right: 30, width: 8, height: 8, background: "#ef4444", borderRadius: 2 }} />
-                      <div style={{ position: "absolute", bottom: 40, left: 10, width: 6, height: 6, background: "#1e293b", borderRadius: "50%" }} />
-                      <div style={{ position: "absolute", top: 40, left: 20, width: 6, height: 6, border: "2px solid #ef4444", borderRadius: "50%" }} />
-
-                      {/* Ring System */}
-                      <div style={{ position: "absolute", width: "100%", height: "100%", border: "1px dashed #e2e8f0", borderRadius: "50%" }} />
-                      <div style={{ position: "absolute", width: "85%", height: "85%", border: "2px solid #ef4444", borderRadius: "50%", borderLeftColor: "transparent", borderBottomColor: "transparent", transform: "rotate(45deg)" }} />
-
-                      <div style={{
-                        width: 140, height: 140, borderRadius: "50%", background: "#fff",
-                        boxShadow: "0 10px 30px rgba(0,0,0,0.1)", display: "flex", flexDirection: "column",
-                        alignItems: "center", justifyContent: "center", textAlign: "center", padding: 15, zIndex: 5,
-                        border: "1.5px solid #F3F4F6"
-                      }}>
-                        <span style={{ fontSize: 14, color: "#ef4444", marginBottom: 4 }}>✨</span>
-                        <div style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase", marginBottom: 4 }}>BẠN LÀ</div>
-                        <div style={{ fontSize: 16, fontWeight: 900, color: "#1e293b", lineHeight: 1.2 }}>{topMajors[0]?.name}</div>
-                      </div>
-                    </div>
-
-                    {/* Industry compatibility bar charts */}
-                    <div style={{ marginBottom: 40 }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-                        <span style={{ fontSize: 11, fontWeight: 800, color: "#94a3b8", textTransform: "uppercase" }}>ĐỘ TƯƠNG THÍCH NGÀNH NGHỀ</span>
-                        <span style={{ fontSize: 14 }}>ℹ️</span>
-                      </div>
-
-                      {topMajors.map((m, i) => (
-                        <div key={i} style={{ marginBottom: 14 }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                            <span style={{ fontSize: 13, fontWeight: 700, color: "#1e293b" }}>{m.name}</span>
-                            <span style={{ fontSize: 13, fontWeight: 800, color: "#ef4444" }}>{m.percentage}%</span>
-                          </div>
-                          <div style={{ width: "100%", height: 8, background: "#f1f5f9", borderRadius: 10, overflow: "hidden" }}>
-                            <div style={{ width: `${m.percentage}%`, height: "100%", background: i === 0 ? "#ef4444" : "#ef444480", borderRadius: 10 }} />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                      <button onClick={() => setPhase("capture")} style={{ background: "#ef4444", color: "#fff", border: "none", borderRadius: 16, padding: "16px", fontSize: 14, fontWeight: 800, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
-                        <span style={{ fontSize: 18 }}>🛣️</span> Xem lộ trình học
-                      </button>
-                      <button onClick={() => setPhase("capture")} style={{ background: "#1e293b", color: "#fff", border: "none", borderRadius: 16, padding: "16px", fontSize: 14, fontWeight: 800, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
-                        <span style={{ fontSize: 18 }}>🎧</span> Đăng ký tư vấn
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {phase === "capture" && !submitted && (
-                  <div style={{ padding: "40px" }}>
-                    <div style={{ textAlign: "center", marginBottom: 32 }}>
-                      <div style={{ fontSize: 40, marginBottom: 16 }}>📩</div>
-                      <h3 style={{ fontSize: 20, fontWeight: 800, color: "#1e293b", marginBottom: 8 }}>Nhận phân tích chi tiết</h3>
-                      <p style={{ fontSize: 14, color: "#64748b" }}>Chúng tôi sẽ gửi bản phân tích năng lực và học bổng phù hợp qua email của bạn.</p>
-                    </div>
-                    <FInp label="Họ và tên học sinh" field="name" ph="VD: Nguyễn Văn A" />
-                    <FInp label="Số điện thoại nhận SMS" field="phone" ph="VD: 0912xxxxxx" type="tel" />
-                    <FInp label="Email nhận kết quả AI" field="email" ph="VD: name@gmail.com" type="email" />
-                    <button onClick={() => { if (form.name && form.phone) setSubmitted(true); }}
-                      style={{ width: "100%", background: "#ef4444", color: "#fff", border: "none", borderRadius: 16, padding: "16px", fontSize: 15, fontWeight: 800, cursor: "pointer", marginTop: 12 }}>
-                      XEM KẾT QUẢ NGAY
-                    </button>
-                    <p style={{ fontSize: 11, color: "#94a3b8", textAlign: "center", marginTop: 20 }}>Bằng cách tiếp tục, bạn đồng ý với Điều khoản của SGC</p>
-                  </div>
-                )}
-
-                {phase === "capture" && submitted && (
-                  <div style={{ padding: "60px 40px", textAlign: "center" }}>
-                    <div style={{ fontSize: 64, marginBottom: 24 }}>🚀</div>
-                    <h3 style={{ fontSize: 22, fontWeight: 800, color: "#1e293b", marginBottom: 12 }}>Dữ liệu AI đã sẵn sàng!</h3>
-                    <p style={{ fontSize: 14, color: "#64748b", lineHeight: 1.6, marginBottom: 40 }}>
-                      Hệ thống đang xử lý phân tích chuyên sâu cho <strong>{form.name}</strong>. Tư vấn viên sẽ liên hệ trong 24h để giải thích chi tiết lộ trình.
-                    </p>
-                    <button onClick={restart} style={{ background: "#f1f5f9", color: "#475569", border: "none", borderRadius: 16, padding: "14px 32px", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
-                      TRỞ VỀ TRANG CHỦ
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Support Info Panel (Right) */}
-            <div style={{ display: "grid", gap: 16 }}>
-              <div style={{ background: "#fff", borderRadius: 20, padding: "20px", border: "1px solid #F3F4F6", boxShadow: "0 4px 12px rgba(0,0,0,0.03)" }}>
-                <div style={{ fontWeight: 800, fontSize: 13, color: "#1e293b", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
-                  <span style={{ color: "#ef4444" }}>🎮</span> Hướng dẫn chơi
-                </div>
-                <ul style={{ padding: 0, margin: 0, listStyle: "none" }}>
-                  {[
-                    "Trả lời thật lòng 5 câu hỏi thực chiến",
-                    "Dữ liệu AI phân tích dựa trên hơn 10,000 hồ sơ",
-                    "Nhận tích điểm SGC Rewards khi hoàn thành",
-                    "Mở khóa các voucher học bổng đặc biệt"
-                  ].map((txt, i) => (
-                    <li key={i} style={{ display: "flex", gap: 10, fontSize: 12, color: "#64748b", marginBottom: 10 }}>
-                      <span style={{ color: "#ef4444", fontWeight: 900 }}>✓</span> {txt}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div style={{ background: "#1e293b", borderRadius: 20, padding: "20px", color: "#fff" }}>
-                <div style={{ fontWeight: 800, fontSize: 13, marginBottom: 12 }}>📣 Tin nhắn từ SGC</div>
-                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>"Chúng tôi tin rằng mỗi học sinh đều có một tài năng thiên bẩm. AI này sinh ra để giúp bạn tìm thấy nó sớm hơn."</p>
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 16 }}>
-                  <div style={{ width: 32, height: 32, borderRadius: "50%", background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>🤖</div>
-                  <span style={{ fontSize: 11, fontWeight: 600 }}>SGC AI Engine v2.0</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    };
 
     const CDPDashboardView = () => {
       const [campaign, setCampaign] = useState("all");
@@ -1380,6 +601,24 @@
                 </div>
               </Card>
             ))}
+          </div>
+
+          {/* Campaign Focus Box */}
+          <div style={{ background: "linear-gradient(135deg, #1e293b, #0f172a)", borderRadius: 16, padding: "20px 24px", color: "#fff", marginBottom: 24, boxShadow: "0 10px 25px rgba(15,23,42,0.15)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div>
+              <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 6 }}>
+                <span style={{ background: "#3b82f6", color: "#fff", padding: "2px 8px", borderRadius: 6, fontSize: 10.5, fontWeight: 800, letterSpacing: 0.5 }}>ACTIVE CAMPAIGN</span>
+                <span style={{ fontSize: 12, color: "#94a3b8" }}>Kết thúc trong 5 ngày</span>
+              </div>
+              <div style={{ fontSize: 20, fontWeight: 800, marginBottom: 4 }}>School Tour – THPT Lê Quý Đôn</div>
+              <div style={{ fontSize: 13, color: "#cbd5e1" }}>Chiến dịch tư vấn hướng nghiệp trực tiếp tại trường</div>
+            </div>
+            <div style={{ display: "flex", gap: 24 }}>
+              <div style={{ textAlign: "center" }}><div style={{ fontSize: 24, fontWeight: 800, color: "#38bdf8" }}>320</div><div style={{ fontSize: 11, color: "#94a3b8", fontWeight: 600 }}>TỔNG LEAD</div></div>
+              <div style={{ textAlign: "center" }}><div style={{ fontSize: 24, fontWeight: 800, color: "#fcd34d" }}>45%</div><div style={{ fontSize: 11, color: "#94a3b8", fontWeight: 600 }}>QT MARKETING</div></div>
+              <div style={{ textAlign: "center" }}><div style={{ fontSize: 24, fontWeight: 800, color: "#a78bfa" }}>30%</div><div style={{ fontSize: 11, color: "#94a3b8", fontWeight: 600 }}>QT CNTT</div></div>
+              <div style={{ textAlign: "center" }}><div style={{ fontSize: 24, fontWeight: 800, color: "#4ade80" }}>18%</div><div style={{ fontSize: 11, color: "#94a3b8", fontWeight: 600 }}>CONVERSION</div></div>
+            </div>
           </div>
 
           {/* Main Charts Grid */}
@@ -1703,7 +942,7 @@
         { id: "s3", action: "Tải brochure ngành", pts: 15, icon: "📄", color: "#f5a623" },
         { id: "s4", action: "Xem trang ngành > 3 lần", pts: 12, icon: "👁️", color: "#7c3aed" },
         { id: "s5", action: "Tham gia sự kiện", pts: 25, icon: "🎪", color: "#e8421a" },
-        { id: "s6", action: "Hoàn thành Quiz định hướng", pts: 18, icon: "✅", color: "#00b4a0" },
+
         { id: "s7", action: "Nhận voucher / học bổng", pts: 8, icon: "🎫", color: "#f5a623" },
         { id: "s8", action: "Đăng ký tham quan trường", pts: 22, icon: "🏫", color: "#64748b" },
       ];
@@ -1972,6 +1211,7 @@
         { id: "sources", label: "Quản lý nguồn Lead", icon: "📡" },
         { id: "roles", label: "Phân quyền người dùng", icon: "👥" },
         { id: "automation", label: "Automation", icon: "⚡" },
+        { id: "ai", label: "Kiến trúc AI (Zia)", icon: "🤖" },
       ];
 
       const Card = ({ children, title }) => (
@@ -2134,6 +1374,205 @@
                 </div>
               </Card>
             )}
+
+            {activeTab === "ai" && (
+              <Card title="Kiến trúc AI CRM (Chuẩn Zoho Zia Layer)">
+                <p style={{ fontSize: 12, color: "#64748b", marginBottom: 20 }}>Quản lý các module trí tuệ nhân tạo (AI) chạy ngầm để hỗ trợ Sales & Marketing trong hệ thống SGC CRM.</p>
+                <div style={{ display: "grid", gap: 14 }}>
+                  {[
+                    { title: "Lead Scoring AI", desc: "Tự động phân tích và chấm điểm khách hàng dựa trên hành vi tương tác đa kênh (Web, App, Gọi điện).", icon: "🎯", color: "#1877f2", active: true },
+                    { title: "Prediction AI", desc: "Dự báo tỷ lệ chốt deal (Win Rate), thời gian đóng deal và doanh thu kỳ vọng tự động.", icon: "📈", color: "#7c3aed", active: true },
+                    { title: "Email & Chat AI", desc: "Phân tích sắc thái (Sentiment Analysis), tự động thiết kế nội dung phản hồi, nhận diện từ khóa.", icon: "💬", color: "#f5a623", active: false },
+                    { title: "Recommendation AI", desc: "Đề xuất khóa học, học bổng phù hợp (Cross-sell/Up-sell) dựa trên thông tin 360 độ của khách hàng.", icon: "🛍️", color: "#e8421a", active: true },
+                    { title: "Campaign AI", desc: "Phân tích và tối ưu hóa thời điểm gửi SMS/Email, A/B Testing và phát hiện bất thường phễu tuyển sinh.", icon: "🚀", color: "#10b981", active: true }
+                  ].map((ai, idx) => (
+                    <div key={idx} style={{ display: "flex", gap: 16, padding: "16px", background: "#f8f9fa", borderRadius: 12, border: "1px solid #e2e8f0" }}>
+                      <div style={{ width: 44, height: 44, borderRadius: 10, background: ai.color + "15", color: ai.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }}>{ai.icon}</div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                          <span style={{ fontWeight: 700, fontSize: 13, color: "#1a2d47" }}>{ai.title}</span>
+                          <span style={{ background: ai.active ? "#dcfce7" : "#f1f5f9", color: ai.active ? "#15803d" : "#64748b", padding: "2px 8px", borderRadius: 12, fontSize: 10, fontWeight: 700, cursor: "pointer" }} onClick={(e) => { e.currentTarget.textContent = e.currentTarget.textContent === "Đang chạy" ? "Tạm dừng" : "Đang chạy"; e.currentTarget.style.background = e.currentTarget.textContent === "Đang chạy" ? "#dcfce7" : "#f1f5f9"; e.currentTarget.style.color = e.currentTarget.textContent === "Đang chạy" ? "#15803d" : "#64748b"; }}>{ai.active ? "Đang chạy" : "Tạm dừng"}</span>
+                        </div>
+                        <p style={{ fontSize: 12, color: "#64748b", lineHeight: 1.5, margin: 0 }}>{ai.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    /* ── Zia AI Assistant ── */
+    const ZiaChat = ({ isOpen, onClose, leads }) => {
+      const [messages, setMessages] = useState([
+        { role: "zia", text: "Chào bạn! Tôi là Zia, trợ lý AI của SGC. Tôi có thể giúp bạn phân tích dữ liệu CRM, đề xuất automation hoặc làm sạch danh bạ. Bạn muốn hỏi gì không?", time: "Vừa xong" }
+      ]);
+      const [input, setInput] = useState("");
+      const chatEndRef = React.useRef(null);
+      React.useEffect(() => { chatEndRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
+
+      const handleSend = () => {
+        if (!input.trim()) return;
+        setMessages(prev => [...prev, { role: "user", text: input, time: "Vừa xong" }]);
+        setInput("");
+        setTimeout(() => {
+          let aiText = "Tôi đang phân tích...";
+          let chart = null;
+          const q = input.toLowerCase();
+          if (q.includes("nguồn") || q.includes("kênh")) {
+            aiText = "Đây là phân bổ Lead theo nguồn:";
+            chart = { type: "bar", data: [{ label: "Facebook", val: 45, color: "#1877f2" }, { label: "Website", val: 30, color: "#0ea5e9" }, { label: "Hotline", val: 15, color: "#e8421a" }, { label: "Khác", val: 10, color: "#94a3b8" }] };
+          } else if (q.includes("dự báo") || q.includes("doanh thu")) {
+            aiText = "Dự báo doanh thu 3 tháng tới (Triệu đồng):";
+            chart = { type: "forecast", data: [{ m: "T3", val: 1.2 }, { m: "T4", val: 1.5, forecast: true }, { m: "T5", val: 1.9, forecast: true }] };
+          } else {
+            aiText = "Dựa trên dữ liệu, tôi thấy tỷ lệ chốt deal của team đang giảm 5% so với tháng trước. Tôi đề xuất bạn kiểm tra giai đoạn 'Nộp hồ sơ'.";
+          }
+          setMessages(prev => [...prev, { role: "zia", text: aiText, chart, time: "Vừa xong" }]);
+        }, 1000);
+      };
+
+      if (!isOpen) return null;
+      return (
+        <div style={{ position: "fixed", bottom: 85, right: 24, width: 360, height: 500, background: "#fff", borderRadius: 20, boxShadow: "0 10px 40px rgba(0,0,0,0.15)", display: "flex", flexDirection: "column", zIndex: 3000, overflow: "hidden", border: "1px solid #E6E8EC" }}>
+          <div style={{ background: N[900], padding: "14px 18px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <div style={{ width: 28, height: 28, background: "linear-gradient(135deg, #7c3aed, #2563eb)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>🤖</div>
+              <div style={{ color: "#fff", fontWeight: 700, fontSize: 13 }}>Zia AI Assistant</div>
+            </div>
+            <button onClick={onClose} style={{ background: "none", border: "none", color: "#fff", fontSize: 18, cursor: "pointer" }}>×</button>
+          </div>
+          <div style={{ flex: 1, padding: 16, overflowY: "auto", display: "flex", flexDirection: "column", gap: 12 }}>
+            {messages.map((m, i) => (
+              <div key={i} style={{ alignSelf: m.role === "user" ? "flex-end" : "flex-start", maxWidth: "85%" }}>
+                <div style={{ background: m.role === "user" ? N[800] : "#f1f5f9", color: m.role === "user" ? "#fff" : N[800], padding: "8px 12px", borderRadius: 12, fontSize: 12 }}>
+                  {m.text}
+                  {m.chart && (
+                    <div style={{ marginTop: 8, padding: 8, background: "#fff", borderRadius: 8, border: "1px solid #eee" }}>
+                      {m.chart.type === "bar" && m.chart.data.map(d => (
+                        <div key={d.label} style={{ marginBottom: 4 }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, fontWeight: 700 }}><span>{d.label}</span><span>{d.val}%</span></div>
+                          <div style={{ height: 4, background: "#f1f5f9", borderRadius: 2 }}><div style={{ width: `${d.val}%`, height: "100%", background: d.color }} /></div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+            <div ref={chatEndRef} />
+          </div>
+          <div style={{ padding: 12, borderTop: "1px solid #eee", display: "flex", gap: 6 }}>
+            <input value={input} onChange={e => setInput(e.target.value)} onKeyPress={e => e.key === "Enter" && handleSend()} placeholder="Hỏi Zia..." style={{ flex: 1, border: "1px solid #eee", borderRadius: 8, padding: "6px 12px", fontSize: 12, outline: "none" }} />
+            <button onClick={handleSend} style={{ background: N[800], color: "#fff", border: "none", borderRadius: 8, padding: "6px 12px", fontSize: 12, cursor: "pointer" }}>Gửi</button>
+          </div>
+        </div>
+      );
+    };
+
+    /* ── Zia AI Hub ── */
+    const ZiaAIHubView = () => {
+      const Card = ({ title, icon, color, desc, children }) => (
+        <div style={{ background: "#fff", borderRadius: 16, padding: "20px", border: "1px solid #E6E8EC", display: "flex", flexDirection: "column", gap: 16 }}>
+          <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+            <div style={{ width: 44, height: 44, background: color + "15", color: color, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }}>{icon}</div>
+            <div>
+              <div style={{ fontWeight: 800, fontSize: 14.5, color: "#1a2d47", marginBottom: 3 }}>{title}</div>
+              <div style={{ fontSize: 11.5, color: "#64748b" }}>{desc}</div>
+            </div>
+          </div>
+          <div style={{ flex: 1, padding: "16px", background: "#f8f9fa", borderRadius: 12, border: "1px dashed #cbd5e1" }}>
+            {children}
+          </div>
+        </div>
+      );
+
+      return (
+        <div>
+          <div style={{ marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div>
+              <h1 style={{ fontSize: 22, fontWeight: 800, color: "#1a2d47", marginBottom: 4 }}>🤖 Zia AI Hub</h1>
+              <p style={{ fontSize: 13, color: "#64748b", margin: 0 }}>Trung tâm điều hành Trí tuệ nhân tạo (AI) hỗ trợ Sales & Marketing</p>
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+            {/* 1. Major Recommendation AI */}
+            <Card title="AI Tư vấn ngành học phù hợp" icon="🎓" color="#1877f2" desc="Phân tích điểm, sở thích & hành vi để gợi ý ngành">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, borderBottom: "1px solid #e2e8f0", paddingBottom: 10 }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "#475569" }}>Lê Thị Hoa • Lớp 12A1</span>
+                <span style={{ fontSize: 11, color: "#64748b" }}>Quan tâm: Công nghệ, Game</span>
+              </div>
+              <div style={{ display: "flex", gap: 8, flexDirection: "column" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#fff", padding: "10px 14px", borderRadius: 8, border: "1px solid #e2e8f0", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+                  <span style={{ fontSize: 12.5, fontWeight: 700, color: "#1a2d47" }}>1. Công nghệ thông tin</span>
+                  <span style={{ background: "#dcfce7", color: "#15803d", padding: "3px 10px", borderRadius: 10, fontSize: 10.5, fontWeight: 800 }}>Phù hợp 95%</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#fff", padding: "10px 14px", borderRadius: 8, border: "1px solid #e2e8f0", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+                  <span style={{ fontSize: 12.5, fontWeight: 700, color: "#1a2d47" }}>2. Thiết kế đồ họa</span>
+                  <span style={{ background: "#fef3c7", color: "#b45309", padding: "3px 10px", borderRadius: 10, fontSize: 10.5, fontWeight: 800 }}>Phù hợp 82%</span>
+                </div>
+              </div>
+            </Card>
+
+            {/* 2. Call Coaching AI */}
+            <Card title="AI Call Coaching cho Telesales" icon="📞" color="#f5a623" desc="Phân tích cuộc gọi, gợi ý kịch bản & cảnh báo rủi ro">
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+                <div style={{ flex: 1, background: "#e2e8f0", height: 28, borderRadius: 14, display: "flex", overflow: "hidden" }}>
+                  <div style={{ width: "65%", background: "#3b82f6", display: "flex", alignItems: "center", paddingLeft: 12, color: "#fff", fontSize: 10.5, fontWeight: 700 }}>Sales nói: 65%</div>
+                  <div style={{ width: "35%", background: "#f5a623", display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: 12, color: "#fff", fontSize: 10.5, fontWeight: 700 }}>Khách nói: 35%</div>
+                </div>
+              </div>
+              <div style={{ background: "#fff", padding: 14, borderRadius: 8, border: "1px solid #fee2e2", borderLeft: "4px solid #ef4444", boxShadow: "0 2px 8px rgba(239,68,68,0.1)" }}>
+                <div style={{ fontSize: 11.5, fontWeight: 800, color: "#ef4444", marginBottom: 6 }}>💡 Zia Gợi ý (Real-time):</div>
+                <div style={{ fontSize: 12.5, color: "#1e293b", lineHeight: 1.5 }}>Khách hàng nhắc cụm từ "Học phí" 3 lần. Đề xuất: Tư vấn ngay <strong>Chính sách Học bổng Tân sinh viên</strong> giảm 500k.</div>
+              </div>
+            </Card>
+
+            {/* 3. Lead Priority AI */}
+            <Card title="Lead Priority AI" icon="🔥" color="#e8421a" desc="Xếp hạng khách tự động, gợi ý ai cần gọi trước">
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {[
+                  { name: "Phạm Minh Đức", action: "Đã tải Brochure", tag: "🔥 Hot Lead", color: "#ef4444", score: 95 },
+                  { name: "Nguyễn Thị Lan", action: "Xem học phí > 2 lần", tag: "⚡ Warm Lead", color: "#f59e0b", score: 72 },
+                  { name: "Phan Văn Khoa", action: "Mới đăng ký form", tag: "🧊 Cold Lead", color: "#3b82f6", score: 30 },
+                ].map(l => (
+                  <div key={l.name} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#fff", padding: "12px 14px", borderRadius: 10, border: "1px solid #e2e8f0", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+                    <div>
+                      <div style={{ fontSize: 12.5, fontWeight: 800, color: "#1e293b", marginBottom: 3 }}>{l.name} <span style={{ color: "#94a3b8", fontWeight: 600 }}>({l.score} điểm)</span></div>
+                      <div style={{ fontSize: 11, color: "#64748b" }}>{l.action}</div>
+                    </div>
+                    <span style={{ fontSize: 10.5, fontWeight: 800, color: l.color, background: l.color + "15", padding: "4px 10px", borderRadius: 14 }}>{l.tag}</span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* 4. Smart Follow-up AI */}
+            <Card title="Smart Follow-up AI" icon="⏰" color="#10b981" desc="Dự đoán thời điểm & kênh tương tác tiếp theo tốt nhất">
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ display: "flex", gap: 14, alignItems: "center", background: "#fff", padding: "14px", borderRadius: 10, border: "1px solid #e2e8f0", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#ef4444", boxShadow: "0 0 0 4px #fee2e2" }} />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 12.5, fontWeight: 800, color: "#1a2d47", marginBottom: 3 }}>Trần Văn Hùng</div>
+                    <div style={{ fontSize: 11.5, color: "#475569" }}>Mới rời khỏi trang "Học phí"</div>
+                  </div>
+                  <button style={{ background: "#2563eb", color: "#fff", border: "none", borderRadius: 8, padding: "8px 12px", fontSize: 11, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}>📞 Gọi ngay</button>
+                </div>
+                <div style={{ display: "flex", gap: 14, alignItems: "center", background: "#fff", padding: "14px", borderRadius: 10, border: "1px solid #e2e8f0", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#10b981", boxShadow: "0 0 0 4px #d1fae5" }} />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 12.5, fontWeight: 800, color: "#1a2d47", marginBottom: 3 }}>Đặng Thị Thu</div>
+                    <div style={{ fontSize: 11.5, color: "#475569" }}>Thường rảnh vào 19:00 - 20:00</div>
+                  </div>
+                  <button style={{ background: "#f1f5f9", color: "#64748b", border: "1px solid #e2e8f0", borderRadius: 8, padding: "7px 12px", fontSize: 11, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}>⏰ Hẹn gọi 19:00</button>
+                </div>
+              </div>
+            </Card>
+
           </div>
         </div>
       );
@@ -2148,6 +1587,20 @@
       const [filterSrc, setFilterSrc] = useState("all");
       const [filterTemp, setFilterTemp] = useState("all");
       const [col, setCol] = useState(false);
+      const [isZiaOpen, setIsZiaOpen] = useState(false);
+      const [ziaAlert, setZiaAlert] = useState(null);
+
+      // Effect to simulate Zia proactive alerts
+      React.useEffect(() => {
+        const timer = setTimeout(() => {
+          setZiaAlert({
+            title: "Phát hiện bất thường!",
+            text: "Doanh thu dự kiến kỳ này đang thấp hơn 12.5% so với mục tiêu. Tôi có một vài gợi ý automation để cải thiện.",
+            type: "warning"
+          });
+        }, 5000);
+        return () => clearTimeout(timer);
+      }, []);
 
       const filtered = leads.filter(l => {
         const ms = !search || l.name.toLowerCase().includes(search.toLowerCase()) || l.phone.includes(search);
@@ -2338,9 +1791,9 @@
                 </>
               )}
 
-              {page === "minigame" && <MiniGameView />}
+
+              {page === "ai_hub" && <ZiaAIHubView />}
               {page === "survey" && <SurveyView />}
-              {page === "miniapp" && <MiniAppView />}
               {page === "scoring" && <LeadScoringView leads={leads} />}
               {page === "automation" && <AutomationView leads={leads} />}
               {page === "reports" && <CDPDashboardView />}
@@ -2348,6 +1801,34 @@
             </div>
           </div>
 
+          {ziaAlert && (
+            <div style={{ position: "fixed", top: 24, right: 24, width: 320, background: "#fff", borderRadius: 16, boxShadow: "0 10px 40px rgba(15,39,68,0.15)", border: "1px solid #E6E8EC", borderLeft: `4px solid ${ziaAlert.type === 'warning' ? '#f5a623' : '#10b981'}`, padding: 16, zIndex: 2000, animation: "slideIn .3s ease-out" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
+                <span style={{ fontWeight: 800, fontSize: 12, color: ziaAlert.type === 'warning' ? '#f5a623' : '#10b981' }}>ZIA ALERT</span>
+                <button onClick={() => setZiaAlert(null)} style={{ background: "none", border: "none", cursor: "pointer", color: "#94a3b8" }}>×</button>
+              </div>
+              <div style={{ fontWeight: 700, fontSize: 13, color: N[800], marginBottom: 4 }}>{ziaAlert.title}</div>
+              <div style={{ fontSize: 11.5, color: "#64748b", lineHeight: 1.5, marginBottom: 12 }}>{ziaAlert.text}</div>
+              <div style={{ display: "flex", gap: 8 }}>
+                <button onClick={() => { setIsZiaOpen(true); setZiaAlert(null); }} style={{ background: N[800], color: "#fff", border: "none", borderRadius: 6, padding: "6px 12px", fontSize: 11, fontWeight: 600, cursor: "pointer" }}>Hỏi Zia</button>
+                <button onClick={() => setZiaAlert(null)} style={{ background: "#f1f5f9", color: "#64748b", border: "none", borderRadius: 6, padding: "6px 12px", fontSize: 11, fontWeight: 600, cursor: "pointer" }}>Bỏ qua</button>
+              </div>
+            </div>
+          )}
+
+          {/* Zia Chat Bubble */}
+          <button onClick={() => setIsZiaOpen(!isZiaOpen)} style={{
+            position: "fixed", bottom: 24, right: 24, width: 56, height: 56,
+            background: "linear-gradient(135deg, #7c3aed, #2563eb)",
+            borderRadius: "50%", boxShadow: "0 8px 25px rgba(124,58,237,0.4)",
+            border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+            zIndex: 1001, transition: "transform .2s"
+          }} onMouseEnter={e => e.currentTarget.style.transform = "scale(1.1)"} onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
+            <span style={{ fontSize: 24 }}>🤖</span>
+            {ziaAlert && <div style={{ position: "absolute", top: -2, right: -2, width: 14, height: 14, background: "#ef4444", borderRadius: "50%", border: "2px solid #fff" }} />}
+          </button>
+
+          <ZiaChat isOpen={isZiaOpen} onClose={() => setIsZiaOpen(false)} leads={leads} />
           {selLead && <Profile360 lead={selLead} onClose={() => setSelLead(null)} />}
         </div>
       );
