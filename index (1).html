@@ -68,8 +68,8 @@
 
     const TEMP_COLORS = {
       hot: "#ef4444",   // Red
-      warm: "#f97316",  // Orange
-      cold: "#0ea5e9"   // Sky Blue
+      warm: "#359846",  // Dark Green
+      cold: "#8DCB74"   // Light Green
     };
 
     const getTempColor = (temp) => TEMP_COLORS[temp] || "#64748b";
@@ -351,7 +351,8 @@
     };
 
     /* ── Profile 360 ── */
-    const Profile360 = ({ lead, onClose }) => {
+    const Profile360 = ({ lead: initialLead, onClose, onSave }) => {
+      const [lead, updateLeadLocal] = useState({ ...initialLead });
       const [tab, setTab] = useState("khach_hang");
       const [tags, setTags] = useState([]);
       const [showTagMenu, setShowTagMenu] = useState(false);
@@ -373,15 +374,24 @@
                 <Avatar name={lead.name} size={40} />
                 <h2 style={{ fontSize: 18, fontWeight: 800, color: "#1a2d47", margin: 0 }}>{lead.name}</h2>
                 <span style={{ background: "#fef3c7", color: "#b45309", padding: "2px 10px", borderRadius: 12, fontSize: 11, fontWeight: 700 }}>Nhóm B</span>
-                <span style={{ background: "#fee2e2", color: "#ef4444", padding: "2px 10px", borderRadius: 12, fontSize: 11, fontWeight: 700 }}>Nóng • {lead.score}đ</span>
+                <span style={{ background: `${getTempColor(lead.temp)}20`, color: getTempColor(lead.temp), padding: "2px 10px", borderRadius: 12, fontSize: 11, fontWeight: 700 }}>
+                   {lead.temp === "hot" ? "Nóng" : lead.temp === "warm" ? "Ấm" : "Lạnh"} • {lead.score}đ
+                </span>
                 <div style={{ display: "flex", gap: 8, marginLeft: 16 }}>
-                   <button style={{ background: "#3b82f6", color: "#fff", border: "none", padding: "6px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>→ Quan tâm</button>
-                   <button style={{ background: "#fff", color: "#475569", border: "1px solid #e2e8f0", padding: "6px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>Chốt hợp</button>
-                   <button style={{ background: "#fff", color: "#1a2d47", border: "1px solid #e2e8f0", padding: "6px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}>Đang gọi</button>
-                   <button style={{ background: "#2563eb", color: "#fff", border: "none", padding: "6px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>Lead mới</button>
+                   <button onClick={() => updateLeadLocal({ ...lead, stage: 'quan_tam' })} style={{ background: lead.stage === 'quan_tam' ? "#3b82f6" : "#f1f5f9", color: lead.stage === 'quan_tam' ? "#fff" : "#475569", border: "none", padding: "6px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>→ Quan tâm</button>
+                   <button onClick={() => updateLeadLocal({ ...lead, stage: 'chot_hop_dong' })} style={{ background: lead.stage === 'chot_hop_dong' ? "#10b981" : "#fff", color: lead.stage === 'chot_hop_dong' ? "#fff" : "#475569", border: "1px solid #e2e8f0", padding: "6px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>Chốt hợp</button>
+                   <button onClick={() => updateLeadLocal({ ...lead, stage: 'da_lien_he' })} style={{ background: lead.stage === 'da_lien_he' ? "#1a2d47" : "#fff", color: lead.stage === 'da_lien_he' ? "#fff" : "#1a2d47", border: "1px solid #e2e8f0", padding: "6px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}>Đang gọi</button>
+                   <button onClick={() => updateLeadLocal({ ...lead, stage: 'lead_moi' })} style={{ background: lead.stage === 'lead_moi' ? "#2563eb" : "#eff6ff", color: lead.stage === 'lead_moi' ? "#fff" : "#2563eb", border: "none", padding: "6px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>Lead mới</button>
                 </div>
               </div>
-              <button onClick={onClose} style={{ background: "#f1f5f9", border: "none", width: 32, height: 32, borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, color: "#64748b" }}>×</button>
+              <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                {onSave && (
+                  <button onClick={() => onSave(lead)} style={{ background: "#2563eb", color: "#fff", border: "none", padding: "8px 24px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", boxShadow: "0 2px 8px rgba(37,99,235,0.2)", transition: "all 0.2s" }} onMouseEnter={e => e.currentTarget.style.background = "#1d4ed8"} onMouseLeave={e => e.currentTarget.style.background = "#2563eb"}>
+                    Lưu
+                  </button>
+                )}
+                <button onClick={onClose} style={{ background: "#f1f5f9", border: "none", width: 32, height: 32, borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, color: "#64748b" }}>×</button>
+              </div>
             </div>
 
             {/* Sub-header Filter Strip */}
@@ -466,22 +476,25 @@
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
                       <div>
                         <div style={{ fontSize: 12, fontWeight: 700, color: "#64748b", marginBottom: 8 }}>Tên khách hàng</div>
-                        <input defaultValue={lead.name} style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 14, outline: "none" }} />
+                        <input value={lead.name} onChange={e => updateLeadLocal({...lead, name: e.target.value})} style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 14, outline: "none" }} />
                       </div>
                       <div>
                         <div style={{ fontSize: 12, fontWeight: 700, color: "#64748b", marginBottom: 8 }}>Số điện thoại</div>
-                        <input defaultValue={lead.phone} style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 14, outline: "none" }} />
+                        <input value={lead.phone} onChange={e => updateLeadLocal({...lead, phone: e.target.value})} style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 14, outline: "none" }} />
                       </div>
                       <div>
                         <div style={{ fontSize: 12, fontWeight: 700, color: "#64748b", marginBottom: 8 }}>Email</div>
-                        <input defaultValue="hung433@gmail.com" style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 14, outline: "none" }} />
+                        <input value={lead.email || ""} onChange={e => updateLeadLocal({...lead, email: e.target.value})} style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 14, outline: "none" }} />
                       </div>
                       <div>
                         <div style={{ fontSize: 12, fontWeight: 700, color: "#64748b", marginBottom: 8 }}>Khu vực</div>
-                        <select style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 14, outline: "none", background: "#fff" }}>
-                           <option>TP.HCM</option>
-                           <option>Bình Dương</option>
-                           <option>Đồng Nai</option>
+                        <select value={lead.province} onChange={e => updateLeadLocal({...lead, province: e.target.value})} style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 14, outline: "none", background: "#fff" }}>
+                           <option value="TP.HCM">TP.HCM</option>
+                           <option value="Hà Nội">Hà Nội</option>
+                           <option value="Bình Dương">Bình Dương</option>
+                           <option value="Đồng Nai">Đồng Nai</option>
+                           <option value="Tiền Giang">Tiền Giang</option>
+                           <option value="Long An">Long An</option>
                         </select>
                       </div>
                     </div>
@@ -996,9 +1009,9 @@
             <Card title="Phân loại sức nóng Lead">
               <div style={{ display: "flex", flexDirection: "column", gap: 10, height: "100%", justifyContent: "center" }}>
                 {[
-                  { label: "Hot Lead", val: 125, color: "#ef4444", icon: "fire", desc: "Sẵn sàng đăng ký ngay" },
-                  { label: "Warm Lead", val: 210, color: "#f5a623", icon: "alert", desc: "Đang cân nhắc chi tiết" },
-                  { label: "Cold Lead", val: 85, color: "#3b82f6", icon: "alert", desc: "Mới chỉ quan tâm sơ bộ" }
+                  { label: "Hot Lead", val: 125, color: TEMP_COLORS.hot, icon: "fire", desc: "Sẵn sàng đăng ký ngay" },
+                  { label: "Warm Lead", val: 210, color: TEMP_COLORS.warm, icon: "alert", desc: "Đang cân nhắc chi tiết" },
+                  { label: "Cold Lead", val: 85, color: TEMP_COLORS.cold, icon: "alert", desc: "Mới chỉ quan tâm sơ bộ" }
                 ].map((l, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 14px", borderRadius: 12, border: "1px solid #f1f5f9" }}>
                     <div style={{ width: 32, height: 32, background: "#f1f5f9", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#94a3b8" }}>
@@ -1064,43 +1077,42 @@
       const [pick, setPick] = useState(null);
       const sorted = [...leads].sort((a, b) => b.score - a.score);
       const rules = [
-        { id: "s1", action: "Mở chat Facebook/Zalo", pts: 10, icon: "💬", color: "#1877f2" },
-        { id: "s2", action: "Gọi lại (nhận máy)", pts: 20, icon: "📞", color: "#16a34a" },
-        { id: "s3", action: "Tải brochure ngành", pts: 15, icon: "📄", color: "#f5a623" },
-        { id: "s4", action: "Xem trang ngành > 3 lần", pts: 12, icon: "👁️", color: "#7c3aed" },
-        { id: "s5", action: "Tham gia sự kiện", pts: 25, icon: "🎪", color: "#e8421a" },
-
-        { id: "s7", action: "Nhận voucher / học bổng", pts: 8, icon: "🎫", color: "#f5a623" },
-        { id: "s8", action: "Đăng ký tham quan trường", pts: 22, icon: "🏫", color: "#64748b" },
+        { id: "s1", action: "Mở chat Facebook/Zalo", pts: 10, color: "#64748b" },
+        { id: "s2", action: "Gọi lại (nhận máy)", pts: 20, color: "#64748b" },
+        { id: "s3", action: "Tải brochure ngành", pts: 15, color: "#64748b" },
+        { id: "s4", action: "Xem trang ngành > 3 lần", pts: 12, color: "#64748b" },
+        { id: "s5", action: "Tham gia sự kiện", pts: 25, color: "#64748b" },
+        { id: "s7", action: "Nhận voucher / học bổng", pts: 8, color: "#64748b" },
+        { id: "s8", action: "Đăng ký tham quan trường", pts: 22, color: "#64748b" },
       ];
 
       return (
         <div>
           <div style={{ marginBottom: 20 }}>
-            <h1 style={{ fontSize: 20, fontWeight: 800, color: "#1e293b", marginBottom: 4 }}>⭐ Lead Scoring</h1>
-            <p style={{ fontSize: 13, color: "#64748b" }}>Chấm điểm hành vi tự động – Lead đạt ngưỡng sẽ tự động chuyển nhóm 🔥 Nóng</p>
+            <h1 style={{ fontSize: 20, fontWeight: 800, color: "#1e293b", marginBottom: 4 }}>Lead Scoring</h1>
+            <p style={{ fontSize: 13, color: "#64748b" }}>Chấm điểm hành vi tự động – Lead đạt ngưỡng sẽ tự động chuyển nhóm Nóng</p>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: 20, alignItems: "start" }}>
             <div>
               <div style={{ background: "#fff", borderRadius: 12, padding: "16px", boxShadow: "0 2px 8px rgba(0,0,0,.04)", marginBottom: 14 }}>
-                <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 4, color: "#1e293b" }}>📋 Hành vi & Điểm</div>
-                <div style={{ fontSize: 11, color: "#64748b", marginBottom: 10 }}>Lead đạt <strong>≥ 70 điểm</strong> → Tự động 🔥 Nóng</div>
+                <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 4, color: "#1e293b" }}>Hành vi & Điểm</div>
+                <div style={{ fontSize: 11, color: "#64748b", marginBottom: 10 }}>Lead đạt <strong>≥ 70 điểm</strong> → Tự động Nóng</div>
                 {rules.map(r => (
                   <div key={r.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 0", borderBottom: "1px solid #f1f5f9" }}>
                     <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                      <div style={{ width: 24, height: 24, background: r.color + "18", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12 }}>{r.icon}</div>
+                      <div style={{ width: 6, height: 6, background: "#cbd5e1", borderRadius: "50%" }} />
                       <span style={{ fontSize: 11, fontWeight: 600, color: "#475569" }}>{r.action}</span>
                     </div>
-                    <span style={{ background: r.color + "18", color: r.color, borderRadius: 20, padding: "2px 8px", fontSize: 11, fontWeight: 800 }}>+{r.pts}</span>
+                    <span style={{ background: "#f1f5f9", color: "#1e293b", borderRadius: 20, padding: "2px 8px", fontSize: 11, fontWeight: 800 }}>+{r.pts}</span>
                   </div>
                 ))}
               </div>
-              <div style={{ background: "linear-gradient(135deg,#f0fdf4,#dcfce7)", border: "1px solid #86efac", borderRadius: 10, padding: 12 }}>
-                <div style={{ fontWeight: 700, fontSize: 12, color: "#15803d", marginBottom: 6 }}>🚀 Ngưỡng tự động hóa</div>
-                {[["< 30", "Lạnh – Nhắc sale", "#2563eb"], ["30–69", "Ấm – Nuôi dưỡng", "#f5a623"], ["70–89", "Nóng – Gọi trong 24h", "#e8421a"], ["≥ 90", "Siêu hot – Gọi ngay", "#7c3aed"]].map(([range, act, cl]) => (
+              <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 10, padding: 12 }}>
+                <div style={{ fontWeight: 700, fontSize: 12, color: "#1e293b", marginBottom: 6 }}>Ngưỡng tự động hóa</div>
+                {[["< 30", "Lạnh – Nhắc sale", TEMP_COLORS.cold], ["30–69", "Ấm – Nuôi dưỡng", TEMP_COLORS.warm], ["70–89", "Nóng – Gọi trong 24h", TEMP_COLORS.hot], ["≥ 90", "Siêu hot – Gọi ngay", TEMP_COLORS.hot]].map(([range, act, cl]) => (
                   <div key={range} style={{ display: "flex", gap: 8, marginBottom: 5 }}>
-                    <span style={{ background: "#fff", borderRadius: 4, padding: "1px 6px", fontSize: 10, fontWeight: 700, color: cl, flexShrink: 0 }}>{range}</span>
-                    <span style={{ fontSize: 10.5, color: "#166534", fontWeight: 500 }}>{act}</span>
+                    <span style={{ background: "#fff", borderRadius: 4, border:"1px solid #e2e8f0", padding: "1px 6px", fontSize: 10, fontWeight: 700, color: cl, flexShrink: 0 }}>{range}</span>
+                    <span style={{ fontSize: 10.5, color: "#475569", fontWeight: 500 }}>{act}</span>
                   </div>
                 ))}
               </div>
@@ -1108,11 +1120,11 @@
 
             <div>
               <div style={{ background: "#fff", borderRadius: 14, padding: 20, boxShadow: "0 2px 8px rgba(0,0,0,.06)" }}>
-                <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 14, color: "#1e293b" }}>🏆 Bảng xếp hạng Lead</div>
+                <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 14, color: "#1e293b" }}>Bảng xếp hạng Lead</div>
                 {sorted.map((lead, i) => (
                   <div key={lead.id} onClick={() => onLeadClick(lead)} style={{ display: "flex", alignItems: "center", gap: 11, padding: "10px 11px", borderRadius: 11, marginBottom: 5, cursor: "pointer", background: pick?.id === lead.id ? "#eff6ff" : "#f8fafc", border: pick?.id === lead.id ? "1.5px solid #2563eb" : "1.5px solid transparent", transition: "all .2s" }}>
-                    <div style={{ width: 26, height: 26, borderRadius: "50%", background: i < 3 ? "#f5a623" : "#e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: i < 3 ? "#fff" : "#94a3b8", flexShrink: 0 }}>
-                      {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i + 1}
+                    <div style={{ width: 26, height: 26, borderRadius: "50%", background: i < 3 ? "#1a2d47" : "#e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: "#fff", flexShrink: 0 }}>
+                      {i + 1}
                     </div>
                     <Avatar name={lead.name} size={32} />
                     <div style={{ flex: 1, minWidth: 0 }}>
@@ -1133,10 +1145,10 @@
                     <div><div style={{ fontWeight: 800, fontSize: 14, color: "#1e293b" }}>{pick.name}</div><div style={{ fontSize: 11, color: "#64748b" }}>Tổng điểm: <strong style={{ color: getTempColor(pick.temp), fontSize: 14 }}>{pick.score}</strong>/100</div></div>
                   </div>
                   <div style={{ fontSize: 13, fontWeight: 700, color: "#475569", marginBottom: 10 }}>Chi tiết điểm:</div>
-                  {[["💬", "Chat FB/Zalo", 10, "#1877f2"], ["📞", "Gọi lại", pick.score > 70 ? 20 : 0, "#16a34a"], ["📄", "Tải brochure", 15, "#f5a623"], ["👁️", "Xem ngành > 3 lần", 12, "#7c3aed"], ["🎪", "Tham gia sự kiện", pick.score > 80 ? 25 : 0, "#e8421a"]].map(([ic, lb, pts, cl]) => (
+                  {[[ "Chat FB/Zalo", 10, "#475569"], [ "Gọi lại", pick.score > 70 ? 20 : 0, "#475569"], [ "Tải brochure", 15, "#475569"], [ "Xem ngành > 3 lần", 12, "#475569"], [ "Tham gia sự kiện", pick.score > 80 ? 25 : 0, "#475569"]].map(([ lb, pts, cl]) => (
                     <div key={lb} style={{ marginBottom: 10 }}>
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                        <span style={{ fontSize: 12, color: "#475569" }}>{ic} {lb}</span>
+                        <span style={{ fontSize: 12, color: "#475569" }}>{lb}</span>
                         <span style={{ fontSize: 12, fontWeight: 700, color: cl }}>+{pts}</span>
                       </div>
                       <div style={{ background: "#e5e7eb", borderRadius: 4, height: 5 }}>
@@ -1695,8 +1707,8 @@
             </div>
           </div>
           <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
-            <span style={{ background: "#eff6ff", color: "#2563eb", padding: "2px 8px", borderRadius: 4, fontSize: 10, fontWeight: 700 }}>▼ Hành Test</span>
-            {lead.score >= 80 && <span style={{ background: "#fffbeb", color: "#d97706", padding: "2px 8px", borderRadius: 4, fontSize: 10, fontWeight: 700 }}>▼ Dzu</span>}
+            <TempBadge temp={lead.temp} />
+            <span style={{ background: "#f1f5f9", color: "#64748b", padding: "2px 8px", borderRadius: 4, fontSize: 10, fontWeight: 700 }}>{lead.source}</span>
           </div>
           <div style={{ background: "#f8fafc", borderRadius: 6, padding: "8px 12px", display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
             <span style={{ fontSize: 10, color: "#64748b", fontWeight: 600 }}>DS DỰ KIẾN</span>
@@ -1746,8 +1758,7 @@
 
 
 
-    const MarketingFunnelView = ({ onOpenLeads, activeFunnel = "marketing_funnel" }) => {
-      if (activeFunnel === "f_edu_mkt") {
+    const FunnelEduMkt = ({ onOpenLeads }) => {
         const [hovKpi, setHovKpi]         = useState(null);
         const [hovSrc, setHovSrc]         = useState(null);
         const [hovAdv, setHovAdv]         = useState(null);
@@ -2118,8 +2129,9 @@
             </div>
           </div>
         );
-      }
-      if (activeFunnel === "f_phone_ins") {
+    };
+
+    const FunnelPhoneIns = ({ onOpenLeads }) => {
 
         const [hoveredKpi, setHoveredKpi] = useState(null);
         const [hoveredProduct, setHoveredProduct] = useState(null);
@@ -2143,7 +2155,7 @@
           { label: "Hồ sơ được duyệt",   val: 4210 },
           { label: "Hoàn tất mua",        val: 3825 },
         ];
-        const funnelColors = ["#1a2d47", "#23395d", "#2e4d7a", "#3b639a", "#6b8cb8"];
+        const funnelColors = ["#b91c1c", "#dc2626", "#ef4444", "#f87171", "#fca5a5"];
 
         const paymentMethods = [
           { name: "Visa",       count: 1580, pct: 41.3 },
@@ -2151,7 +2163,7 @@
           { name: "JCB",        count: 689,  pct: 18.0 },
           { name: "Amex",       count: 411,  pct: 10.8 },
         ];
-        const donutColors = ["#23395d", "#2e4d7a", "#6b8cb8", "#a0b4c8"];
+        const donutColors = ["#dc2626", "#ef4444", "#f87171", "#fca5a5"];
 
         const topProducts = [
           { name: "iPhone 15 Pro Max",        qty: 842, avg: "38.5 tr", growth: "+24.5%", positive: true },
@@ -2245,7 +2257,7 @@
                   <option value="online">Online</option>
                   <option value="store">Cua hang</option>
                 </select>
-                <button style={{ background: N[800], color: "#fff", padding: "7px 18px", borderRadius: 8, border: "none", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>
+                <button style={{ background: "#b91c1c", color: "#fff", padding: "7px 18px", borderRadius: 8, border: "none", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>
                   Xuat bao cao
                 </button>
               </div>
@@ -2362,7 +2374,7 @@
                           </div>
                         </div>
                         <div style={{ height: 5, background: "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
-                          <div style={{ width: `${barW}%`, height: "100%", background: "#23395d", borderRadius: 3 }} />
+                          <div style={{ width: `${barW}%`, height: "100%", background: "#dc2626", borderRadius: 3 }} />
                         </div>
                       </div>
                     );
@@ -2378,9 +2390,9 @@
                   <div key={br.name}
                     onMouseEnter={() => setHoveredBranch(i)}
                     onMouseLeave={() => setHoveredBranch(null)}
-                    style={{ padding: "14px 16px", background: hoveredBranch === i ? "#f4f7fb" : "#f8fafc", borderRadius: 12, border: "1px solid #f1f5f9", transition: "all .2s", boxShadow: hoveredBranch === i ? "0 4px 14px rgba(0,0,0,0.05)" : "none" }}>
+                    style={{ padding: "14px 16px", background: hoveredBranch === i ? "#fef2f2" : "#f8fafc", borderRadius: 12, border: "1px solid #f1f5f9", transition: "all .2s", boxShadow: hoveredBranch === i ? "0 4px 14px rgba(0,0,0,0.05)" : "none" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 12 }}>
-                      <div style={{ width: 20, height: 20, background: i === 0 ? "#1a2d47" : "#e2e8f0", borderRadius: 5, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, color: i === 0 ? "#fff" : "#94a3b8", flexShrink: 0 }}>{i + 1}</div>
+                      <div style={{ width: 20, height: 20, background: i === 0 ? "#b91c1c" : "#e2e8f0", borderRadius: 5, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, color: i === 0 ? "#fff" : "#94a3b8", flexShrink: 0 }}>{i + 1}</div>
                       <span style={{ fontSize: 12.5, fontWeight: 600, color: "#1a2d47" }}>{br.name}</span>
                     </div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 10 }}>
@@ -2399,7 +2411,7 @@
                         <span style={{ fontSize: 10, fontWeight: 700, color: "#1a2d47" }}>{br.perf}%</span>
                       </div>
                       <div style={{ height: 4, background: "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
-                        <div style={{ width: `${br.perf}%`, height: "100%", background: "#23395d", borderRadius: 3 }} />
+                        <div style={{ width: `${br.perf}%`, height: "100%", background: "#dc2626", borderRadius: 3 }} />
                       </div>
                     </div>
                   </div>
@@ -2408,10 +2420,11 @@
             </Card>
           </div>
         );
-      }
-      if (activeFunnel === "f_sales_retail") {
+    };
+
+    const FunnelSalesRetail = ({ onOpenLeads }) => {
         const [hoveredRow, setHoveredRow] = useState(null);
-        const brandRed = "#E53935";
+        const brandColor = "#1a1a1a";
 
         const kpis = [
           { label: "Tổng lượt tiếp cận", val: "1.2M", sub: "+12% vs kỳ trước", positive: true },
@@ -2439,10 +2452,10 @@
         ];
 
         const categories = [
-          { name: "Áo sơ mi", val: 1000, color: brandRed },
-          { name: "Quần tây", val: 800, color: "#FF7043" },
-          { name: "Áo polo", val: 600, color: "#FFAB91" },
-          { name: "Phụ kiện", val: 350, color: "#FFCCBC" },
+          { name: "Áo sơ mi", val: 1000, color: brandColor },
+          { name: "Quần tây", val: 800, color: "#666666" },
+          { name: "Áo polo", val: 600, color: "#999999" },
+          { name: "Phụ kiện", val: 350, color: "#CCCCCC" },
         ];
 
         const channelsData = [
@@ -2471,7 +2484,7 @@
         const thStyle = { padding: "10px 14px", fontSize: 10.5, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase", textAlign: "left", borderBottom: "1px solid #f1f5f9" };
         const tdStyle = { padding: "10px 14px", fontSize: 12.5, color: "#1e293b", borderBottom: "1px solid #f8f9fa" };
 
-        const MiniBar = ({ val, max, color = brandRed }) => (
+        const MiniBar = ({ val, max, color = brandColor }) => (
           <div style={{ width: "100%", height: 14, background: "#f1f5f9", borderRadius: 3, overflow: "hidden" }}>
             <div style={{ width: `${(val / max) * 100}%`, height: "100%", background: color, borderRadius: 3, transition: "width .4s" }} />
           </div>
@@ -2482,7 +2495,7 @@
             {/* Header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div style={{ width: 36, height: 36, background: brandRed, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 900, fontSize: 16 }}>T</div>
+                <div style={{ width: 36, height: 36, background: brandColor, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 900, fontSize: 16 }}>T</div>
                 <h1 style={{ fontSize: 20, fontWeight: 800, color: "#1e293b", margin: 0 }}>Phễu bán hàng – Torano</h1>
               </div>
               <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
@@ -2501,7 +2514,7 @@
                   onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}>
                   <div style={{ fontSize: 10, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase", letterSpacing: 0.2, marginBottom: 8 }}>{k.label}</div>
                   <div style={{ fontSize: 22, fontWeight: 900, color: "#1e293b", marginBottom: 4 }}>{k.val}</div>
-                  <div style={{ fontSize: 10.5, fontWeight: 600, color: k.positive === true ? "#10b981" : k.positive === false ? brandRed : "#94a3b8" }}>{k.sub}</div>
+                  <div style={{ fontSize: 10.5, fontWeight: 600, color: k.positive === true ? "#10b981" : k.positive === false ? brandColor : "#94a3b8" }}>{k.sub}</div>
                 </div>
               ))}
             </div>
@@ -2536,7 +2549,7 @@
                         <td style={tdStyle}>{p.revenue}</td>
                         <td style={tdStyle}>{p.cr}</td>
                         <td style={tdStyle}>
-                          <span style={{ color: p.pos ? "#10b981" : brandRed, fontWeight: 600 }}>{p.growth}</span>
+                          <span style={{ color: p.pos ? "#10b981" : brandColor, fontWeight: 600 }}>{p.growth}</span>
                         </td>
                       </tr>
                     ))}
@@ -2558,16 +2571,16 @@
                         {/* Conversion rate badge between funnels */}
                         {step.rate && (
                           <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", padding: "0 8px", height: 16 }}>
-                            <span style={{ fontSize: 10, fontWeight: 700, color: brandRed }}>{step.rate}</span>
+                            <span style={{ fontSize: 10, fontWeight: 700, color: brandColor }}>{step.rate}</span>
                           </div>
                         )}
                         {/* Funnel step — trapezoid using clip-path */}
                         <div style={{ width: `${step.w}%`, margin: "0 auto", position: "relative" }}>
                           <div style={{
-                            background: idx === 0 ? brandRed :
-                              idx === 1 ? "#EF5350" :
-                              idx === 2 ? "#FF8A80" :
-                              idx === 3 ? "#FFAB91" : "#FFCCBC",
+                            background: idx === 0 ? brandColor :
+                              idx === 1 ? "#4d4d4d" :
+                              idx === 2 ? "#808080" :
+                              idx === 3 ? "#b3b3b3" : "#e6e6e6",
                             padding: "12px 8px",
                             textAlign: "center",
                             borderRadius: idx === 0 ? "8px 8px 0 0" : idx === funnelData.length - 1 ? "0 0 8px 8px" : 0,
@@ -2588,7 +2601,7 @@
                 </div>
                 {/* Bottom note */}
                 <div style={{ marginTop: 12, display: "flex", gap: 16, justifyContent: "center" }}>
-                  <div style={{ background: "#FFF3E0", padding: "4px 10px", borderRadius: 6, fontSize: 10, fontWeight: 700, color: "#E65100" }}>Tỷ lệ rời cao: 82.4%</div>
+                  <div style={{ background: "#f1f5f9", padding: "4px 10px", borderRadius: 6, fontSize: 10, fontWeight: 700, color: "#333333" }}>Tỷ lệ rời cao: 82.4%</div>
                 </div>
               </div>
 
@@ -2615,10 +2628,10 @@
                   {/* Donut mini */}
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, padding: "8px 0" }}>
                     <svg width={60} height={60} viewBox="0 0 60 60">
-                      <circle cx="30" cy="30" r="22" fill="none" stroke="#FFCCBC" strokeWidth="8" />
-                      <circle cx="30" cy="30" r="22" fill="none" stroke="#FF8A80" strokeWidth="8" strokeDasharray="55 83" transform="rotate(-90 30 30)" />
-                      <circle cx="30" cy="30" r="22" fill="none" stroke="#EF5350" strokeWidth="8" strokeDasharray="35 103" transform="rotate(-90 30 30)" />
-                      <circle cx="30" cy="30" r="22" fill="none" stroke={brandRed} strokeWidth="8" strokeDasharray="20 118" transform="rotate(-90 30 30)" />
+                      <circle cx="30" cy="30" r="22" fill="none" stroke="#E6E6E6" strokeWidth="8" />
+                      <circle cx="30" cy="30" r="22" fill="none" stroke="#808080" strokeWidth="8" strokeDasharray="55 83" transform="rotate(-90 30 30)" />
+                      <circle cx="30" cy="30" r="22" fill="none" stroke="#4d4d4d" strokeWidth="8" strokeDasharray="35 103" transform="rotate(-90 30 30)" />
+                      <circle cx="30" cy="30" r="22" fill="none" stroke={brandColor} strokeWidth="8" strokeDasharray="20 118" transform="rotate(-90 30 30)" />
                     </svg>
                     <div>
                       <div style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600 }}>Doanh VND</div>
@@ -2678,8 +2691,8 @@
               <div style={{ background: "#fff", borderRadius: 14, padding: "18px", border: "1px solid #f1f3f5" }}>
                 <h3 style={{ fontSize: 14, fontWeight: 800, color: "#1e293b", margin: 0, marginBottom: 6 }}>Hiệu suất chi nhánh</h3>
                 <div style={{ display: "flex", gap: 16, marginBottom: 14, fontSize: 10 }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#64748b" }}><div style={{ width: 8, height: 8, borderRadius: "50%", background: brandRed }} />Top sản store</span>
-                  <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#64748b" }}><div style={{ width: 8, height: 8, borderRadius: "50%", background: "#FFAB91" }} />Cửa hàng offline</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#64748b" }}><div style={{ width: 8, height: 8, borderRadius: "50%", background: brandColor }} />Top sản store</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#64748b" }}><div style={{ width: 8, height: 8, borderRadius: "50%", background: "#cccccc" }} />Cửa hàng offline</span>
                 </div>
                 {/* Grouped bar chart */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -2687,8 +2700,8 @@
                     <div key={b.name}>
                       <div style={{ fontSize: 10.5, color: "#64748b", fontWeight: 600, marginBottom: 4 }}>{b.name}</div>
                       <div style={{ display: "flex", gap: 3 }}>
-                        <div style={{ height: 10, background: brandRed, borderRadius: 2, width: `${(b.store / 200) * 100}%`, transition: "width .4s" }} />
-                        <div style={{ height: 10, background: "#FFAB91", borderRadius: 2, width: `${(b.offline / 200) * 100}%`, transition: "width .4s" }} />
+                        <div style={{ height: 10, background: brandColor, borderRadius: 2, width: `${(b.store / 200) * 100}%`, transition: "width .4s" }} />
+                        <div style={{ height: 10, background: "#cccccc", borderRadius: 2, width: `${(b.offline / 200) * 100}%`, transition: "width .4s" }} />
                       </div>
                     </div>
                   ))}
@@ -2704,13 +2717,13 @@
               <div style={{ background: "#fff", borderRadius: 14, padding: "18px", border: "1px solid #f1f3f5" }}>
                 <h3 style={{ fontSize: 14, fontWeight: 800, color: "#1e293b", margin: 0, marginBottom: 6 }}>Hành vi khách hàng</h3>
                 <div style={{ display: "flex", gap: 16, marginBottom: 14, fontSize: 10 }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#64748b" }}><div style={{ width: 8, height: 8, borderRadius: "50%", background: brandRed }} />Mức vị chi nhánh</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#64748b" }}><div style={{ width: 8, height: 8, borderRadius: "50%", background: brandColor }} />Mức vị chi nhánh</span>
                 </div>
                 <div style={{ display: "flex", gap: 6, alignItems: "flex-end", height: 120 }}>
                   {behaviorData.map(b => (
                     <div key={b.name} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
                       <span style={{ fontSize: 9, color: "#64748b", fontWeight: 700 }}>{b.val}K</span>
-                      <div style={{ width: "80%", height: `${b.val}%`, background: brandRed, borderRadius: "3px 3px 0 0", transition: "height .5s", opacity: 0.7 + (b.val / 300) }} />
+                      <div style={{ width: "80%", height: `${b.val}%`, background: brandColor, borderRadius: "3px 3px 0 0", transition: "height .5s", opacity: 0.7 + (b.val / 300) }} />
                       <span style={{ fontSize: 8.5, color: "#94a3b8", fontWeight: 600 }}>{b.name}</span>
                     </div>
                   ))}
@@ -2719,7 +2732,13 @@
             </div>
           </div>
         );
-      }
+    };
+
+    const MarketingFunnelView = ({ onOpenLeads, activeFunnel = "marketing_funnel" }) => {
+      if (activeFunnel === "f_edu_mkt") return <FunnelEduMkt onOpenLeads={onOpenLeads} />;
+      if (activeFunnel === "f_phone_ins") return <FunnelPhoneIns onOpenLeads={onOpenLeads} />;
+      if (activeFunnel === "f_sales_retail") return <FunnelSalesRetail onOpenLeads={onOpenLeads} />;
+
       return (
         <div style={{ paddingBottom: 40 }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
@@ -3082,7 +3101,7 @@
         <div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
             <div>
-              <h1 style={{ fontSize: 24, fontWeight: 900, color: "#1a2d47", marginBottom: 4 }}>📋 Chiến dịch đã tạo</h1>
+              <h1 style={{ fontSize: 24, fontWeight: 900, color: "#1a2d47", marginBottom: 4 }}>Chiến dịch đã tạo</h1>
               <p style={{ fontSize: 13, color: "#64748b" }}>Quản lý và theo dõi hiệu suất các chiến dịch đang triển khai</p>
             </div>
             <button onClick={onCreateClick} style={{ background: N[800], color: "#fff", padding: "12px 24px", borderRadius: 12, border: "none", fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(35, 57, 93, 0.2)", display: "flex", alignItems: "center", gap: 8 }}>
@@ -3150,10 +3169,371 @@
       );
     };
 
+    /* ── Add Lead Modal ── */
+    const MAJORS_LIST = ["Công nghệ thông tin","Điều dưỡng","Thiết kế đồ họa","Kế toán","Quản trị kinh doanh","Dược học","Kỹ thuật xây dựng","Công nghệ thực phẩm","Ngôn ngữ Anh","Marketing số","Tài chính – Ngân hàng","Luật kinh tế"];
+    const SOURCES_LIST = ["Facebook","TikTok","Zalo","Website","Hotline","Facebook Ads","TikTok Ads","Sự kiện THPT","Import Excel","Giới thiệu","Mini Game","Google Ads","YouTube"];
+    const ADVISORS_LIST = ["Minh Tú","Hồng Nhung","Văn Nam","Quế Anh","Bảo Khánh","Thanh Lan"];
+    const PROVINCES_LIST = ["TP.HCM","Hà Nội","Bình Dương","Đồng Nai","Long An","Tiền Giang","Bà Rịa-Vũng Tàu","Cần Thơ","Đà Nẵng","Khác"];
+    const FUNNELS_LIST = ["Phễu học sinh","Phễu người đi làm","Phễu phụ huynh","Phễu CTV"];
+    const HOBBIES = ["Đọc sách","Đá bóng","Âm nhạc","Vẽ","Gaming","Du lịch","Nấu ăn","Thể thao","Công nghệ","Y tế"];
+
+    const fmtPhone = (d) => {
+      const x = d.replace(/\D/g,"").slice(0,10);
+      if(x.length<=4) return x;
+      if(x.length<=7) return x.slice(0,4)+" "+x.slice(4);
+      return x.slice(0,4)+" "+x.slice(4,7)+" "+x.slice(7);
+    };
+    const validPhone = (v) => /^0[3-9]\d{8}$/.test(v.replace(/\s/g,""));
+    const validEmail = (v) => !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+    const AddLeadModal = ({ campaigns, onClose, onSaveNew, onSaveView }) => {
+      const [f, setF] = useState({
+        name:"", phone:"", email:"", school:"", province:"TP.HCM",
+        major:"", source:"", campaign:"", note:"", sale:"",
+        temp:"warm", funnel:"Phễu học sinh", team:"Đội 1",
+        hobby:"", strength:"", orientation:"", event:"Điền form nhận tư vấn",
+      });
+      const [err, setErr] = useState({});
+      const [touched, setTouched] = useState({});
+      const [submitting, setSubmitting] = useState(false);
+      const [tags, setTags] = useState([]);
+      const [showTagMenu, setShowTagMenu] = useState(false);
+      const nameRef = React.useRef(null);
+      React.useEffect(() => { setTimeout(()=>nameRef.current?.focus(),80); }, []);
+
+      const up = (k,v) => { setF(p=>({...p,[k]:v})); if(touched[k]) revalidate({...f,[k]:v}); };
+      const touch = (k) => { setTouched(p=>({...p,[k]:true})); revalidate(f); };
+      const revalidate = (fv) => {
+        const e={};
+        if(!fv.name.trim()) e.name="Họ tên bắt buộc";
+        if(!fv.phone.trim()) e.phone="SĐT bắt buộc";
+        else if(!validPhone(fv.phone)) e.phone="SĐT không hợp lệ (10 số, bắt đầu 03–09)";
+        if(!validEmail(fv.email)) e.email="Email không hợp lệ";
+        setErr(e); return Object.keys(e).length===0;
+      };
+
+      const buildLead = () => {
+        const camp = f.campaign ? (campaigns||[]).find(c=>c.name===f.campaign) : null;
+        const autoTags = [
+          f.major ? "#"+f.major.split(" ").slice(0,2).join("_") : null,
+          f.source ? "#"+f.source.replace(/\s/g,"_") : null,
+        ].filter(Boolean);
+        return {
+          id:"L"+(Date.now()%1000000).toString().padStart(3,"0"),
+          name:f.name.trim(), phone:f.phone.replace(/\s/g,""),
+          email:f.email.trim()||"", school:f.school.trim()||"—",
+          major:f.major||"Chưa chọn", source:f.source||"Khác",
+          sale:f.sale||"Chưa gán", temp:f.temp, note:f.note.trim(),
+          score:f.temp==="hot"?85:f.temp==="warm"?65:40,
+          stage:"lead_moi", color:"#64748b",
+          daysNoCall:0, daysNoEngage:0, updated:"Vừa xong",
+          province:f.province, tags:[...tags,...autoTags],
+          campaignId:camp?camp.id:null, campaignName:camp?camp.name:null,
+          hobby:f.hobby, strength:f.strength, orientation:f.orientation,
+        };
+      };
+
+      const save = (mode) => {
+        setTouched({name:true,phone:true,email:true});
+        if(!revalidate(f)) return;
+        setSubmitting(true);
+        setTimeout(()=>{ const lead=buildLead(); mode==="new"?onSaveNew(lead):onSaveView(lead); },300);
+      };
+
+      const baseInput = {width:"100%",border:"1px solid #e2e8f0",borderRadius:8,padding:"12px 16px",fontSize:14,outline:"none",fontFamily:"inherit",color:"#1a2d47"};
+      const errInput = {...baseInput,border:"1px solid #ef4444"};
+      const okInput = {...baseInput,border:"1px solid #10b981"};
+      const inp = (k) => err[k]&&touched[k] ? errInput : touched[k]&&!err[k] ? okInput : baseInput;
+      const lbl = {display:"block",fontSize:12,fontWeight:700,color:"#64748b",marginBottom:8};
+
+      const tempOpts=[{k:"hot",label:"● Nóng",color:"#ef4444",bg:"#fee2e2"},{k:"warm",label:"● Ấm",color:"#359846",bg:"#ebf5eb"},{k:"cold",label:"● Lạnh",color:"#8DCB74",bg:"#f3faf0"}];
+      const cur = tempOpts.find(t=>t.k===f.temp);
+
+      const SectionHead = ({children}) => <h4 style={{fontSize:11,fontWeight:800,color:"#94a3b8",textTransform:"uppercase",letterSpacing:0.5,marginBottom:16}}>{children}</h4>;
+
+      return (
+        <div onKeyDown={e=>e.key==="Escape"&&onClose()} style={{position:"fixed",inset:0,background:"rgba(0,0,0,.5)",zIndex:4000,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}
+          onClick={e=>e.target===e.currentTarget&&onClose()}>
+          <style>{`
+            .alm-i:focus{border-color:#23395d!important;box-shadow:0 0 0 3px rgba(35,57,93,.1)}
+            .alm-i::placeholder{color:#b0bac7}
+            .alm-row:hover{background:#fafbfc}
+          `}</style>
+
+          <div style={{width:"100%",maxWidth:1100,height:"90vh",background:"#fff",borderRadius:16,display:"flex",flexDirection:"column",overflow:"hidden",boxShadow:"0 20px 50px rgba(0,0,0,0.2)"}}>
+
+            {/* ── Header ── */}
+            <div style={{padding:"16px 24px",borderBottom:"1px solid #f1f5f9",display:"flex",justifyContent:"space-between",alignItems:"center",flexShrink:0}}>
+              <div style={{display:"flex",alignItems:"center",gap:12}}>
+                <Avatar name={f.name||"?"} size={40}/>
+                <div>
+                  <div style={{fontWeight:800,fontSize:13,color:"#94a3b8",marginBottom:2}}>LEAD MỚI</div>
+                  <div style={{fontWeight:800,fontSize:17,color:"#1a2d47",minWidth:180,minHeight:22}}>
+                    {f.name||<span style={{color:"#cbd5e1",fontWeight:400,fontSize:14}}>Nhập họ tên...</span>}
+                  </div>
+                </div>
+                <span style={{background:"#fef3c7",color:"#b45309",padding:"2px 10px",borderRadius:12,fontSize:11,fontWeight:700,marginLeft:8}}>Nhóm A</span>
+                <span style={{background:cur.bg,color:cur.color,padding:"2px 10px",borderRadius:12,fontSize:11,fontWeight:700}}>
+                  {cur.label} • {f.temp==="hot"?85:f.temp==="warm"?65:40}đ
+                </span>
+                <div style={{display:"flex",gap:6,marginLeft:12}}>
+                  {tempOpts.map(t=>(
+                    <button key={t.k} onClick={()=>up("temp",t.k)}
+                      style={{padding:"5px 12px",borderRadius:7,border:`1.5px solid ${f.temp===t.k?t.color:"#e2e8f0"}`,background:f.temp===t.k?t.bg:"#fff",color:f.temp===t.k?t.color:"#94a3b8",fontSize:11.5,fontWeight:700,cursor:"pointer"}}>
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div style={{display:"flex",gap:8,alignItems:"center"}}>
+                <button onClick={onClose}
+                  style={{background:"#f1f5f9",border:"none",width:32,height:32,borderRadius:"50%",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,color:"#64748b"}}>×</button>
+              </div>
+            </div>
+
+            {/* ── Sub-header ── */}
+            <div style={{padding:"10px 24px",background:"#f8fafc",borderBottom:"1px solid #f1f5f9",display:"flex",alignItems:"center",gap:20,fontSize:12,flexShrink:0}}>
+              <div style={{color:"#94a3b8"}}>Phễu:&nbsp;
+                <select className="alm-i" value={f.funnel} onChange={e=>up("funnel",e.target.value)}
+                  style={{background:"none",border:"none",fontWeight:700,color:"#1a2d47",cursor:"pointer",outline:"none",fontSize:12,fontFamily:"inherit"}}>
+                  {FUNNELS_LIST.map(x=><option key={x}>{x}</option>)}
+                </select>
+              </div>
+              <div style={{color:"#94a3b8"}}>Đội:&nbsp;
+                <select className="alm-i" value={f.team} onChange={e=>up("team",e.target.value)}
+                  style={{background:"none",border:"none",fontWeight:700,color:"#1a2d47",cursor:"pointer",outline:"none",fontSize:12,fontFamily:"inherit"}}>
+                  {["Đội 1","Đội 2","Đội 3","Đội 4"].map(x=><option key={x}>{x}</option>)}
+                </select>
+              </div>
+              <div style={{color:"#94a3b8"}}>Nguồn lead:&nbsp;
+                <select className="alm-i" value={f.source} onChange={e=>up("source",e.target.value)}
+                  style={{background:"none",border:"none",fontWeight:700,color:"#1a2d47",cursor:"pointer",outline:"none",fontSize:12,fontFamily:"inherit"}}>
+                  <option value="">— Chọn —</option>
+                  {SOURCES_LIST.map(x=><option key={x}>{x}</option>)}
+                </select>
+              </div>
+              <div style={{color:"#94a3b8"}}>Tư vấn viên:&nbsp;
+                <select className="alm-i" value={f.sale} onChange={e=>up("sale",e.target.value)}
+                  style={{background:"none",border:"none",fontWeight:700,color:"#1a2d47",cursor:"pointer",outline:"none",fontSize:12,fontFamily:"inherit"}}>
+                  <option value="">— Chưa gán —</option>
+                  {ADVISORS_LIST.map(x=><option key={x}>{x}</option>)}
+                </select>
+              </div>
+            </div>
+
+            {/* ── Body ── */}
+            <div style={{flex:1,display:"flex",overflow:"hidden"}}>
+
+              {/* LEFT */}
+              <div style={{flex:1,overflowY:"auto",borderRight:"1px solid #f1f5f9",display:"flex",flexDirection:"column"}}>
+
+                {/* Event banner */}
+                <div style={{margin:"20px 24px 0",background:"#eff6ff",border:"1px solid #dbeafe",borderRadius:12,padding:"14px 18px"}}>
+                  <div style={{fontSize:10,fontWeight:800,color:"#2563eb",textTransform:"uppercase",letterSpacing:0.5,marginBottom:4}}>Sự kiện tạo lead</div>
+                  <select className="alm-i" value={f.event} onChange={e=>up("event",e.target.value)}
+                    style={{background:"none",border:"none",fontWeight:700,color:"#1a2d47",fontSize:14,outline:"none",fontFamily:"inherit",cursor:"pointer",width:"100%"}}>
+                    {["Điền form nhận tư vấn","Tham gia Mini Game","Đăng ký sự kiện THPT","Tải brochure ngành","Gọi điện hotline","Quét QR tại sự kiện"].map(x=><option key={x}>{x}</option>)}
+                  </select>
+                </div>
+
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:32,padding:"20px 24px"}}>
+                  {/* Timeline */}
+                  <div>
+                    <SectionHead>Hành trình xét tuyển</SectionHead>
+                    <div style={{position:"relative",paddingLeft:30}}>
+                      <div style={{position:"absolute",left:14,top:8,bottom:8,width:2,background:"#f1f5f9"}}/>
+                      {[{t:"Điền form nhận tư vấn",s:"Vừa xong",done:true},{t:"Chuyên viên liên hệ",s:"Chờ phân công",done:false},{t:"Phụ huynh nộp hồ sơ",s:"Chưa thực hiện",done:false},{t:"Xác nhận nhập học",s:"Đang chờ duyệt",done:false}].map((s,i)=>(
+                        <div key={i} style={{marginBottom:22,position:"relative"}}>
+                          <div style={{position:"absolute",left:-30,width:26,height:26,borderRadius:"50%",background:s.done?"#dbeafe":"#fff",border:s.done?"none":"2px solid #f1f5f9",display:"flex",alignItems:"center",justifyContent:"center",zIndex:1}}>
+                            {s.done?<span style={{color:"#2563eb",fontSize:10,fontWeight:800}}>ON</span>:<div style={{width:6,height:6,borderRadius:"50%",background:"#f1f5f9"}}/>}
+                          </div>
+                          <div style={{fontSize:13,fontWeight:700,color:s.done?"#1a2d47":"#cbd5e1"}}>{s.t}</div>
+                          <div style={{fontSize:11,color:"#94a3b8",marginTop:2}}>{s.s}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Major + docs */}
+                  <div>
+                    <div style={{marginBottom:28}}>
+                      <SectionHead>Nguyện vọng đăng ký</SectionHead>
+                      <select className="alm-i" value={f.major} onChange={e=>up("major",e.target.value)}
+                        style={{...baseInput,marginBottom:8,fontWeight:700,fontSize:14,color:f.major?"#2563eb":"#94a3b8",cursor:"pointer"}}>
+                        <option value="">— Chọn ngành quan tâm —</option>
+                        {MAJORS_LIST.map(m=><option key={m}>{m}</option>)}
+                      </select>
+                      <div style={{fontSize:12,color:"#94a3b8",marginBottom:4}}>Hình thức: <span style={{color:"#475569",fontWeight:600}}>Xét tuyển học bạ THPT</span></div>
+                      <div style={{fontSize:12,color:"#94a3b8"}}>Trạng thái: <span style={{color:"#f59e0b",fontWeight:700}}>Chờ tiếp cận</span></div>
+                    </div>
+                    <div>
+                      <SectionHead>Chiến dịch liên kết</SectionHead>
+                      <select className="alm-i" value={f.campaign} onChange={e=>up("campaign",e.target.value)}
+                        style={{...baseInput,cursor:"pointer"}}>
+                        <option value="">— Không liên kết —</option>
+                        {(campaigns||[]).map(c=><option key={c.id} value={c.name}>{c.name}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick update form */}
+                <div style={{marginTop:"auto",borderTop:"1px solid #f1f5f9",padding:"20px 24px"}}>
+                  <SectionHead>Cập nhật thông tin nhanh</SectionHead>
+                  {err.name&&touched.name && <div style={{background:"#fef2f2",border:"1px solid #fecaca",borderRadius:8,padding:"8px 12px",marginBottom:12,fontSize:12,color:"#ef4444",fontWeight:600}}>⚠ {err.name}</div>}
+                  {err.phone&&touched.phone && <div style={{background:"#fef2f2",border:"1px solid #fecaca",borderRadius:8,padding:"8px 12px",marginBottom:12,fontSize:12,color:"#ef4444",fontWeight:600}}>⚠ {err.phone}</div>}
+                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20}}>
+                    <div>
+                      <label style={lbl}>Tên khách hàng <span style={{color:"#ef4444"}}>*</span></label>
+                      <input ref={nameRef} className="alm-i" style={inp("name")} placeholder="VD: Nguyễn Thị Lan" value={f.name}
+                        onChange={e=>up("name",e.target.value)} onBlur={()=>touch("name")} tabIndex={1}/>
+                    </div>
+                    <div>
+                      <label style={lbl}>Số điện thoại <span style={{color:"#ef4444"}}>*</span></label>
+                      <div style={{position:"relative"}}>
+                        <input className="alm-i" style={inp("phone")} placeholder="0901 234 567" value={f.phone} inputMode="tel"
+                          onChange={e=>up("phone",fmtPhone(e.target.value.replace(/\s/g,"")))}
+                          onBlur={()=>touch("phone")} tabIndex={2}/>
+                        {f.phone&&validPhone(f.phone)&&<span style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",color:"#10b981",fontSize:16}}>✓</span>}
+                      </div>
+                    </div>
+                    <div>
+                      <label style={lbl}>Email</label>
+                      <input className="alm-i" style={inp("email")} placeholder="vd: lan@gmail.com" value={f.email} type="email"
+                        onChange={e=>up("email",e.target.value)} onBlur={()=>touch("email")} tabIndex={3}/>
+                    </div>
+                    <div>
+                      <label style={lbl}>Khu vực</label>
+                      <select className="alm-i" style={{...baseInput,cursor:"pointer"}} value={f.province} onChange={e=>up("province",e.target.value)} tabIndex={4}>
+                        {PROVINCES_LIST.map(p=><option key={p}>{p}</option>)}
+                      </select>
+                    </div>
+                    <div style={{gridColumn:"1/-1"}}>
+                      <label style={lbl}>Ghi chú</label>
+                      <textarea className="alm-i" style={{...baseInput,resize:"vertical",minHeight:60,lineHeight:1.5}} placeholder="Ghi chú nhanh về lead này…"
+                        value={f.note} onChange={e=>up("note",e.target.value)} tabIndex={5}/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT */}
+              <div style={{width:340,overflowY:"auto",padding:24,display:"flex",flexDirection:"column",gap:24}}>
+
+                {/* Contact card */}
+                <div style={{background:"#f8fafc",borderRadius:12,padding:16,border:"1px solid #f1f5f9"}}>
+                  <div style={{display:"flex",gap:12,alignItems:"center",marginBottom:12}}>
+                    <Avatar name={f.name||"?"} size={48}/>
+                    <div style={{flex:1}}>
+                      <div style={{fontWeight:800,fontSize:14,color:"#1a2d47"}}>{f.name||<span style={{color:"#cbd5e1"}}>Họ tên</span>}</div>
+                      <div style={{fontSize:12,color:"#94a3b8"}}>SĐT: {f.phone||"—"}</div>
+                      <div style={{fontSize:11,color:"#cbd5e1",marginTop:2}}>{f.email||"Email chưa nhập"}</div>
+                    </div>
+                    <div style={{display:"flex",gap:6}}>
+                      <button style={{width:36,height:30,borderRadius:6,background:"#dcfce7",color:"#16a34a",border:"none",cursor:"pointer",fontSize:11,fontWeight:700}}>Call</button>
+                      <button style={{width:36,height:30,borderRadius:6,background:"#fee2e2",color:"#ef4444",border:"none",cursor:"pointer",fontSize:11,fontWeight:700}}>Del</button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Chân dung học sinh */}
+                <div>
+                  <SectionHead>Chân dung học sinh</SectionHead>
+                  <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                    <div>
+                      <div style={{fontSize:12,fontWeight:700,color:"#64748b",marginBottom:6}}>Trường đang học</div>
+                      <input className="alm-i" style={baseInput} placeholder="VD: THPT Lê Hồng Phong" value={f.school}
+                        onChange={e=>up("school",e.target.value)} tabIndex={6}/>
+                    </div>
+                    <div>
+                      <div style={{fontSize:12,fontWeight:700,color:"#64748b",marginBottom:6}}>Sở thích</div>
+                      <select className="alm-i" style={{...baseInput,cursor:"pointer"}} value={f.hobby} onChange={e=>up("hobby",e.target.value)} tabIndex={7}>
+                        <option value="">— Chọn sở thích —</option>
+                        {HOBBIES.map(h=><option key={h}>{h}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <div style={{fontSize:12,fontWeight:700,color:"#64748b",marginBottom:6}}>Sở trường</div>
+                      <input className="alm-i" style={baseInput} placeholder="VD: Ngoại ngữ, Lập trình…" value={f.strength}
+                        onChange={e=>up("strength",e.target.value)} tabIndex={8}/>
+                    </div>
+                    <div>
+                      <div style={{fontSize:12,fontWeight:700,color:"#64748b",marginBottom:6}}>Định hướng</div>
+                      <input className="alm-i" style={baseInput} placeholder="VD: Nghiên cứu viên, Kỹ sư…" value={f.orientation}
+                        onChange={e=>up("orientation",e.target.value)} tabIndex={9}/>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Thông tin Marketing */}
+                <div>
+                  <SectionHead>Thông tin Marketing</SectionHead>
+                  {[["Nguồn",f.source||"—"],["Mức quan tâm",{hot:"Nóng",warm:"Ấm",cold:"Lạnh"}[f.temp],true],["Điểm tương tác",f.temp==="hot"?85:f.temp==="warm"?65:40,false,"#2563eb"],["Chiến dịch",f.campaign||"—"]].map(([lb,v,badge,cl])=>(
+                    <div key={lb} style={{display:"flex",justifyContent:"space-between",fontSize:12,marginBottom:10,alignItems:"center"}}>
+                      <span style={{color:"#64748b",fontWeight:500}}>{lb}</span>
+                      {badge
+                        ?<span style={{background:f.temp==="hot"?"#fee2e2":f.temp==="warm"?"#fff7ed":"#f0f9ff",color:f.temp==="hot"?"#ef4444":f.temp==="warm"?"#f97316":"#0ea5e9",padding:"1px 8px",borderRadius:4,fontWeight:700}}>{v}</span>
+                        :<span style={{color:cl||"#1a2d47",fontWeight:700}}>{v}</span>
+                      }
+                    </div>
+                  ))}
+                </div>
+
+                {/* Tags */}
+                <div style={{position:"relative"}}>
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+                    <SectionHead>Hành vi &amp; Thẻ Tags</SectionHead>
+                    <button onClick={()=>setShowTagMenu(p=>!p)} style={{background:"#f1f5f9",border:"none",padding:"2px 8px",borderRadius:4,fontSize:10,fontWeight:800,cursor:"pointer",color:"#2563eb"}}>+ Thêm tag</button>
+                  </div>
+                  {showTagMenu&&(
+                    <div style={{position:"absolute",top:30,right:0,width:160,background:"#fff",border:"1px solid #e2e8f0",borderRadius:8,boxShadow:"0 10px 20px rgba(0,0,0,.1)",zIndex:10,padding:4}}>
+                      {["Hot Lead","Potential","Partner","Interested","Follow-up","Scholarship"].map(t=>(
+                        <div key={t} onClick={()=>{if(!tags.includes(t))setTags(p=>[...p,t]);setShowTagMenu(false);}}
+                          style={{padding:"6px 12px",fontSize:11,fontWeight:600,cursor:"pointer",borderRadius:4}}
+                          onMouseEnter={e=>e.currentTarget.style.background="#f1f5f9"} onMouseLeave={e=>e.currentTarget.style.background="none"}>{t}</div>
+                      ))}
+                    </div>
+                  )}
+                  <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+                    {f.major&&<span style={{background:"#eff6ff",color:"#2563eb",padding:"3px 9px",borderRadius:10,fontSize:11,fontWeight:700}}>#{f.major.split(" ").slice(0,2).join("_")}</span>}
+                    {f.source&&<span style={{background:"#f0fdf4",color:"#16a34a",padding:"3px 9px",borderRadius:10,fontSize:11,fontWeight:700}}>#{f.source.replace(/\s/g,"_")}</span>}
+                    {tags.map(t=>(
+                      <span key={t} onClick={()=>setTags(p=>p.filter(x=>x!==t))} title="Nhấn để xóa"
+                        style={{background:"#f1f5f9",color:"#475569",padding:"3px 9px",borderRadius:10,fontSize:11,fontWeight:700,cursor:"pointer",display:"flex",alignItems:"center",gap:4}}>
+                        ● {t}
+                      </span>
+                    ))}
+                    {!f.major&&!f.source&&tags.length===0&&<span style={{fontSize:12,color:"#cbd5e1"}}>Chưa có tag</span>}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* ── Footer ── */}
+            <div style={{padding:"16px 24px",borderTop:"1px solid #f1f5f9",display:"flex",justifyContent:"flex-end",gap:10,background:"#fff",flexShrink:0}}>
+              <button onClick={onClose}
+                style={{background:"#fff",color:"#64748b",border:"1px solid #e2e8f0",padding:"9px 20px",borderRadius:8,fontSize:13,fontWeight:600,cursor:"pointer"}}>
+                Hủy
+              </button>
+              <button onClick={()=>save("new")} disabled={submitting}
+                style={{background:"#23395d",color:"#fff",border:"none",padding:"9px 24px",borderRadius:8,fontSize:13,fontWeight:700,cursor:"pointer",opacity:submitting?.7:1,transition:"all .2s"}}
+                onMouseEnter={e=>e.currentTarget.style.background="#1a2d47"} onMouseLeave={e=>e.currentTarget.style.background="#23395d"}>
+                Lưu & tạo mới
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+
+
     /* ── APP ── */
     function App() {
       const [page, setPage] = useState("pipeline");
-      const [leads] = useState(LEADS_INIT);
+      const [leads, setLeads] = useState(LEADS_INIT);
+      const [showAddLead, setShowAddLead] = useState(false);
       const [campaigns, setCampaigns] = useState(CAMPAIGNS_INIT);
       const [selLead, setSelLead] = useState(null);
       const [search, setSearch] = useState("");
@@ -3313,7 +3693,10 @@
               </div>
               <div style={{ display: "flex", gap: 7 }}>
                 <button style={{ background: "#fff", border: "1px solid #E6E8EC", borderRadius: 8, padding: "7px 14px", fontSize: 11.5, fontWeight: 500, cursor: "pointer", color: "#6b7a90" }}>Import Excel</button>
-                <button style={{ background: N[800], border: "none", borderRadius: 8, padding: "7px 16px", fontSize: 11.5, fontWeight: 600, cursor: "pointer", color: "#fff", letterSpacing: 0.2 }}>+ Thêm Lead</button>
+                <button id="btn-them-lead" onClick={() => setShowAddLead(true)} style={{ background: N[800], border: "none", borderRadius: 8, padding: "7px 16px", fontSize: 11.5, fontWeight: 600, cursor: "pointer", color: "#fff", letterSpacing: 0.2, display: "flex", alignItems: "center", gap: 6 }}>
+                  <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  Thêm Lead
+                </button>
               </div>
             </div>
 
@@ -3411,12 +3794,28 @@
             border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
             zIndex: 1001, transition: "transform .2s"
           }} onMouseEnter={e => e.currentTarget.style.transform = "scale(1.1)"} onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
-            <span style={{ fontSize: 24 }}>🤖</span>
+            <span style={{ display: "flex", color: "#fff" }}><Icon id="automation" size={24} /></span>
             {ziaAlert && <div style={{ position: "absolute", top: -2, right: -2, width: 14, height: 14, background: "#ef4444", borderRadius: "50%", border: "2px solid #fff" }} />}
           </button>
 
           <ZiaChat isOpen={isZiaOpen} onClose={() => setIsZiaOpen(false)} leads={leads} />
-          {selLead && <Profile360 lead={selLead} onClose={() => setSelLead(null)} />}
+          {selLead && <Profile360 lead={selLead} onClose={() => setSelLead(null)} onSave={(updated) => { setLeads(prev => prev.map(l => l.id === updated.id ? updated : l)); setSelLead(null); }} />}
+          {showAddLead && (
+            <AddLeadModal
+              campaigns={campaigns}
+              onClose={() => setShowAddLead(false)}
+              onSaveNew={(lead) => {
+                setLeads(prev => [lead, ...prev]);
+                setShowAddLead(false);
+                setTimeout(() => setShowAddLead(true), 50);
+              }}
+              onSaveView={(lead) => {
+                setLeads(prev => [lead, ...prev]);
+                setShowAddLead(false);
+                setSelLead(lead);
+              }}
+            />
+          )}
         </div>
       );
     }
