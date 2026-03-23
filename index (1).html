@@ -173,13 +173,13 @@
     ];
 
     const STAGES = [
-      { key: "lead_moi", label: "Lead Mới", dot: "#9ba8b7" },
-      { key: "da_lien_he", label: "Đã Liên Hệ", dot: "#5b84b1" },
-      { key: "quan_tam", label: "Quan Tâm", dot: "#2e5c8a" },
-      { key: "tu_van", label: "Tư Vấn", dot: "#1a3a5c" },
-      { key: "nop_ho_so", label: "Nộp Hồ Sơ", dot: "#0f2744" },
-      { key: "dong_hoc_phi", label: "Đóng Học Phí", dot: "#0a1929" },
-      { key: "nhap_hoc", label: "Nhập Học", dot: "#04111e" },
+      { key: "lead_moi", label: "Lead Mới", dot: "#6ebcb1" },
+      { key: "da_lien_he", label: "Đã Liên Hệ", dot: "#4ca497" },
+      { key: "quan_tam", label: "Quan Tâm", dot: "#2e8c7e" },
+      { key: "tu_van", label: "Tư Vấn", dot: "#0d7f6e" },
+      { key: "nop_ho_so", label: "Nộp Hồ Sơ", dot: "#0b6658" },
+      { key: "dong_hoc_phi", label: "Đóng Học Phí", dot: "#094d42" },
+      { key: "nhap_hoc", label: "Nhập Học", dot: "#06332c" },
       { key: "huy", label: "Hủy", dot: "#d1d5db" },
     ];
 
@@ -208,11 +208,11 @@
         year: "2024 - 2025"
       },
       pipeline: [
-        { id: "p1", label: "Lead mới", color: "#9ba8b7" },
-        { id: "p2", label: "Đã liên hệ", color: "#5b84b1" },
-        { id: "p3", label: "Đã tư vấn", color: "#2e5c8a" },
-        { id: "p4", label: "Nộp hồ sơ", color: "#0f2744" },
-        { id: "p5", label: "Nhập học", color: "#04111e" },
+        { id: "p1", label: "Lead mới", color: "#6ebcb1" },
+        { id: "p2", label: "Đã liên hệ", color: "#4ca497" },
+        { id: "p3", label: "Đã tư vấn", color: "#0d7f6e" },
+        { id: "p4", label: "Nộp hồ sơ", color: "#0b6658" },
+        { id: "p5", label: "Nhập học", color: "#06332c" },
       ],
       rfm: {
         recency: 30,
@@ -244,9 +244,9 @@
 
 
     /* ── helpers ── */
-    // Avatar — navy monochrome palette, no vivid colors
+    // Avatar — teal monochrome palette
     const Avatar = ({ name, size = 40 }) => {
-      const shades = ["#0f2744", "#1a3a5c", "#2e5c8a", "#3f72a4", "#5b84b1", "#7a9ebb"];
+      const shades = ["#06332c", "#094d42", "#0b6658", "#0d7f6e", "#2e8c7e", "#4ca497"];
       const bg = shades[name.charCodeAt(0) % shades.length];
       return <div style={{ width: size, height: size, borderRadius: "50%", background: bg, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: size * .38, flexShrink: 0, border: "2px solid rgba(255,255,255,.9)" }}>{name.charAt(0)}</div>;
     };
@@ -340,9 +340,9 @@
       return (
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 20 }}>
           {cards.map(({ icon, label, val, sub, highlight }) => (
-            <div key={label} style={{ background: "#fff", borderRadius: 12, padding: "16px 18px", border: "1px solid #E6E8EC", boxShadow: highlight ? "0 4px 16px rgba(15,39,68,0.1)" : "0 1px 4px rgba(0,0,0,0.04)" }}>
+            <div key={label} style={{ background: "#fff", borderRadius: 12, padding: "16px 18px", border: "1px solid #E6E8EC", boxShadow: highlight ? "0 4px 16px rgba(13,127,110,0.15)" : "0 1px 4px rgba(0,0,0,0.04)" }}>
               <div style={{ fontSize: 11, color: "#8c96a6", marginBottom: 6, fontWeight: 500 }}>{icon} {label}</div>
-              <div style={{ fontSize: 28, fontWeight: 800, color: "#0f2744", lineHeight: 1 }}>{val}</div>
+              <div style={{ fontSize: 28, fontWeight: 800, color: "#0d7f6e", lineHeight: 1 }}>{val}</div>
               <div style={{ fontSize: 10.5, color: "#adb5bd", marginTop: 5 }}>{sub}</div>
             </div>
           ))}
@@ -590,23 +590,23 @@
       const [school, setSchool] = useState("all");
 
       const stats = [
-        { label: "Tổng Lead thu được", value: "1,248", change: "+12.5%", color: "#E53935" },
-        { label: "Bình quân Lead đủ ĐK", value: "84%", change: "+2.1%", color: "#E53935" },
-        { label: "Lead Tiềm năng cao", value: "326", change: "+5.4%", color: "#E53935" },
-        { label: "Tỷ lệ chuyển đổi", value: "18.2%", change: "+0.8%", color: "#E53935" },
-        { label: "Cost Per Lead", value: "42k", change: "-4%", color: "#E53935" },
+        { label: "Tổng Lead thu được", value: "1,248", change: "+12.5%", color: "#0d7f6e" },
+        { label: "Bình quân Lead đủ ĐK", value: "84%", change: "+2.1%", color: "#0d7f6e" },
+        { label: "Lead Tiềm năng cao", value: "326", change: "+5.4%", color: "#0d7f6e" },
+        { label: "Tỷ lệ chuyển đổi", value: "18.2%", change: "+0.8%", color: "#0d7f6e" },
+        { label: "Cost Per Lead", value: "42k", change: "-4%", color: "#0d7f6e" },
       ];
 
       const grades = [
-        { label: "Lớp 12", value: 60, color: "#E53935" },
-        { label: "Lớp 11", value: 25, color: "#EF5350" },
-        { label: "Lớp 10", value: 15, color: "#FFCDD2" },
+        { label: "Lớp 12", value: 60, color: "#0d7f6e" },
+        { label: "Lớp 11", value: 25, color: "#2e8c7e" },
+        { label: "Lớp 10", value: 15, color: "#6ebcb1" },
       ];
 
       const interests = [
-        { label: "Công nghệ thông tin", value: 45, color: "#E53935" },
-        { label: "Điều dưỡng", value: 30, color: "#EF5350" },
-        { label: "Thiết kế đồ họa", value: 15, color: "#FFCDD2" },
+        { label: "Công nghệ thông tin", value: 45, color: "#0d7f6e" },
+        { label: "Điều dưỡng", value: 30, color: "#2e8c7e" },
+        { label: "Thiết kế đồ họa", value: 15, color: "#6ebcb1" },
         { label: "Khác", value: 10, color: "#F3F4F6" },
       ];
 
@@ -626,8 +626,8 @@
       ];
 
       const rfmGroups = [
-        { id: "high", label: "Potential", count: 326, color: "#E53935", desc: "Tương tác mạnh, điểm cao" },
-        { id: "atrisk", label: "At Risk", count: 412, color: "#FB8C00", desc: "Giảm tương tác gần đây" },
+        { id: "high", label: "Potential", count: 326, color: "#0d7f6e", desc: "Tương tác mạnh, điểm cao" },
+        { id: "atrisk", label: "At Risk", count: 412, color: "#f97316", desc: "Giảm tương tác gần đây" },
         { id: "cold", label: "Cold", count: 510, color: "#94A3B8", desc: "Không phản hồi" },
       ];
 
@@ -657,7 +657,7 @@
                 <option>THPT Kim Liên</option>
               </select>
             </div>
-            <button style={{ background: "#E53935", color: "#fff", border: "none", borderRadius: 10, padding: "9px 20px", fontSize: 13, fontWeight: 700, cursor: "pointer" }}>Xuất báo cáo</button>
+            <button style={{ background: "#0d7f6e", color: "#fff", border: "none", borderRadius: 10, padding: "9px 20px", fontSize: 13, fontWeight: 700, cursor: "pointer" }}>Xuất báo cáo</button>
           </div>
 
           {/* KPI Dashboard */}
@@ -742,7 +742,7 @@
                     <div key={i} style={{ width: "100%", textAlign: "center" }}>
                       <div style={{
                         width: f.w,
-                        background: "#E53935" + (90 - i * 15).toString(16).padStart(2, '0'),
+                        background: "#0d7f6e" + (90 - i * 15).toString(16).padStart(2, '0'),
                         padding: "8px",
                         borderRadius: 8,
                         margin: "0 auto",
@@ -765,7 +765,7 @@
                   <div key={s.name} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 10 }}>
                     <span style={{ width: 80, fontSize: 11.5, color: "#4B5563", fontWeight: 500 }}>{s.name}</span>
                     <div style={{ flex: 1, height: 16, background: "#F3F4F6", borderRadius: 4, overflow: "hidden" }}>
-                      <div style={{ width: `${(s.count / 420) * 100}%`, height: "100%", background: "#E53935" }} />
+                      <div style={{ width: `${(s.count / 420) * 100}%`, height: "100%", background: "#0d7f6e" }} />
                     </div>
                     <span style={{ fontSize: 11.5, fontWeight: 700, width: 30 }}>{s.count}</span>
                   </div>
@@ -809,7 +809,7 @@
                     "Tỷ lệ chuyển đổi hồ sơ cao hơn 5% khi Lead đến từ kênh Hotline."
                   ].map((txt, i) => (
                     <li key={i} style={{ display: "flex", gap: 10, fontSize: 12.5, color: "rgba(255,255,255,0.8)", marginBottom: 12, lineHeight: 1.5 }}>
-                      <span style={{ color: "#E53935", fontWeight: 900 }}>—</span> {txt}
+                      <span style={{ color: "#0d7f6e", fontWeight: 900 }}>—</span> {txt}
                     </li>
                   ))}
                 </ul>
@@ -2423,315 +2423,239 @@
     };
 
     const FunnelSalesRetail = ({ onOpenLeads }) => {
-        const [hoveredRow, setHoveredRow] = useState(null);
-        const brandColor = "#1a1a1a";
+      const brandColor = "#111827";
+      const [hoverState, setHoverState] = useState(null);
 
-        const kpis = [
-          { label: "Tổng lượt tiếp cận", val: "1.2M", sub: "+12% vs kỳ trước", positive: true },
-          { label: "Số khách quan tâm", val: "450K", sub: "-2% vs kỳ trước", positive: false },
-          { label: "Số thêm vào giỏ hàng", val: "85K", sub: "+5% vs kỳ trước", positive: true },
-          { label: "Số đơn hàng", val: "12.4K", sub: "+8% vs kỳ trước", positive: true },
-          { label: "Doanh thu", val: "8.4 tỷ VND", sub: "+15% vs kỳ trước", positive: true },
-          { label: "Tỷ lệ chuyển đổi", val: "2.76%", sub: "Ổn định", positive: null },
-        ];
+      const kpis = [
+        { label: "Lượt Tiếp Cận (Reach)", val: "1.2M", sub: "+12% vs kỳ trước", positive: true },
+        { label: "Khách Xem Sản Phẩm", val: "450K", sub: "+8.4% vs kỳ trước", positive: true },
+        { label: "Thêm Vào Giỏ", val: "85K", sub: "+15% vs kỳ trước", positive: true },
+        { label: "Thanh Toán Thành Công", val: "12.4K", sub: "+8% vs kỳ trước", positive: true },
+        { label: "Tổng Doanh Thu", val: "8.4 tỷ", sub: "+12% vs kỳ trước", positive: true },
+        { label: "CR (Tỷ Lệ Chuyển Đổi)", val: "2.76%", sub: "Tương đương kỳ trước", positive: null },
+      ];
 
-        const funnelData = [
-          { label: "TIẾP CẬN", val: "1.2M", desc: "Quảng cáo/Mạng xã hội", w: 100 },
-          { label: "QUAN TÂM", val: "450K", desc: "Xem chi tiết ngành học", w: 78, rate: "37.5%" },
-          { label: "ĐĂNG KÝ", val: "85K", desc: "Điền thông tin khảo sát", w: 56, rate: "18.9%" },
-          { label: "TƯ VẤN", val: "15K", desc: "Liên hệ trực tiếp", w: 38, rate: "15.9%" },
-          { label: "NHẬP HỌC", val: "12.4K", desc: "Thành công", w: 24, rate: "82.4%" },
-        ];
+      const funnelData = [
+        { label: "TIẾP CẬN", val: 1200000, desc: "Ads, Social, Cửa hàng", w: 100, trend: "+12%" },
+        { label: "XEM SẢN PHẨM", val: 450000, desc: "Xem chi tiết SP", w: 75, rate: "37.5%", drop: "62.5%", trend: "+8.4%" },
+        { label: "THÊM VÀO GIỎ", val: 85000, desc: "Add to Cart", w: 50, rate: "18.9%", drop: "81.1%", trend: "+15%" },
+        { label: "THANH TOÁN", val: 15000, desc: "Vào Checkout", w: 30, rate: "17.6%", drop: "82.4%", trend: "-2%" },
+        { label: "HOÀN TẤT", val: 12400, desc: "Đơn thành công", w: 15, rate: "82.6%", drop: "17.4%", trend: "+8%" },
+      ];
 
-        const products = [
-          { name: "Áo Polo", qty: 300, revenue: "1.05 tỷ VND", cr: "37.5%", growth: "+12.7%", pos: true },
-          { name: "Quần tây", qty: 158, revenue: "83K VND", cr: "18.9%", growth: "+18.3%", pos: true },
-          { name: "Áo tây", qty: 50, revenue: "50K VND", cr: "17.3%", growth: "+26.3%", pos: true },
-          { name: "Áo polo", qty: 20, revenue: "45K VND", cr: "16.4%", growth: "+13.9%", pos: true },
-          { name: "Phụ kiện", qty: 15, revenue: "27K VND", cr: "12.1%", growth: "+18.9%", pos: true },
-        ];
+      const products = [
+        { name: "Áo Sơ Mi Classic Trắng", qty: "1,240", revenue: "850M", cr: "4.2%", crTrend: "+1.2%", growth: "+12.4%" },
+        { name: "Quần Tây Vải Kaki Đen", qty: "980", revenue: "420M", cr: "3.8%", crTrend: "+0.5%", growth: "+8.1%" },
+        { name: "Áo Polo Tối Giản Navy", qty: "850", revenue: "310M", cr: "5.1%", crTrend: "-0.2%", growth: "-2.4%" },
+        { name: "Thắt Lưng Da Bò Essential", qty: "650", revenue: "215M", cr: "8.4%", crTrend: "+2.1%", growth: "+15.2%" },
+        { name: "Combo Quần Tây + Sơ Mi", qty: "420", revenue: "580M", cr: "3.1%", crTrend: "+1.8%", growth: "+22.8%" },
+      ];
 
-        const categories = [
-          { name: "Áo sơ mi", val: 1000, color: brandColor },
-          { name: "Quần tây", val: 800, color: "#666666" },
-          { name: "Áo polo", val: 600, color: "#999999" },
-          { name: "Phụ kiện", val: 350, color: "#CCCCCC" },
-        ];
+      const categories = [
+        { name: "Áo sơ mi", val: 3200, revenue: "2.4 tỷ", growth: "+15%", color: brandColor },
+        { name: "Quần tây", val: 2400, revenue: "1.8 tỷ", growth: "+8%", color: "#374151" },
+        { name: "Áo polo", val: 1800, revenue: "0.9 tỷ", growth: "-3%", color: "#6b7280" },
+        { name: "Phụ kiện", val: 950, revenue: "0.4 tỷ", growth: "+21%", color: "#9ca3af" },
+      ];
 
-        const channelsData = [
-          { name: "Website", qty: "1.2M", revenue: "675K VND", cr: "+12.3%", pos: true },
-          { name: "Facebook/Ads", qty: "400", revenue: "450K", cr: "37.5%", pos: true },
-          { name: "Sàn TMĐT", qty: "85", revenue: "12.4K", cr: "18.9%", pos: true },
-          { name: "Cửa hàng offline", qty: "1", revenue: "12.4K", cr: "0.8%", pos: false },
-        ];
+      const channelsData = [
+        { name: "Cửa hàng Offline", val: "4.2 tỷ", pct: 50, color: brandColor },
+        { name: "Website Torano", val: "2.1 tỷ", pct: 25, color: "#374151" },
+        { name: "Facebook & Instagram", val: "1.3 tỷ", pct: 15, color: "#6b7280" },
+        { name: "Sàn TMĐT", val: "0.8 tỷ", pct: 10, color: "#9ca3af" },
+      ];
 
-        const branchData = [
-          { name: "Áo sơ mi", store: 180, offline: 120 },
-          { name: "Quần tây", store: 150, offline: 80 },
-          { name: "Áo polo", store: 100, offline: 90 },
-          { name: "Phụ kiện", store: 60, offline: 40 },
-        ];
+      const selectStyle = { border: "1px solid #e2e8f0", borderRadius: 8, padding: "8px 14px", fontSize: 13, background: "#fff", color: "#111827", cursor: "pointer", outline: "none", fontWeight: 600 };
+      const cardStyle = { background: "#fff", borderRadius: 16, border: "1px solid #e5e7eb", padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.02)" };
+      const titleStyle = { fontSize: 15, fontWeight: 800, color: "#111827", margin: 0 };
+      const thStyle = { padding: "12px 16px", fontSize: 11, fontWeight: 700, color: "#6b7280", textTransform: "uppercase", textAlign: "left", borderBottom: "1px solid #f3f4f6", letterSpacing: 0.5 };
+      const tdStyle = { padding: "14px 16px", fontSize: 13, color: "#111827", borderBottom: "1px solid #f9fafb" };
 
-        const behaviorData = [
-          { name: "Top", val: 90 },
-          { name: "Quản", val: 65 },
-          { name: "Áo...", val: 50 },
-          { name: "Phụ...", val: 35 },
-          { name: "Gà...", val: 20 },
-        ];
+      const handleDrilldown = (type, detail) => { alert(`🔍 Drill-down xem danh sách KH/Đơn hàng:\nPhân loại: ${type}\nChi tiết: ${detail}`); };
 
-        const selectStyle = { border: "1px solid #e2e8f0", borderRadius: 8, padding: "7px 14px", fontSize: 12, background: "#fff", color: "#1e293b", cursor: "pointer", outline: "none", fontWeight: 500 };
-        const thStyle = { padding: "10px 14px", fontSize: 10.5, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase", textAlign: "left", borderBottom: "1px solid #f1f5f9" };
-        const tdStyle = { padding: "10px 14px", fontSize: 12.5, color: "#1e293b", borderBottom: "1px solid #f8f9fa" };
-
-        const MiniBar = ({ val, max, color = brandColor }) => (
-          <div style={{ width: "100%", height: 14, background: "#f1f5f9", borderRadius: 3, overflow: "hidden" }}>
-            <div style={{ width: `${(val / max) * 100}%`, height: "100%", background: color, borderRadius: 3, transition: "width .4s" }} />
+      return (
+        <div style={{ paddingBottom: 40, fontFamily: "Inter, sans-serif" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+              <div style={{ width: 44, height: 44, background: brandColor, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 900, fontSize: 18, boxShadow: "0 4px 12px rgba(17,24,39,0.2)" }}>T</div>
+              <div>
+                <h1 style={{ fontSize: 22, fontWeight: 900, color: "#111827", margin: 0, letterSpacing: -0.5 }}>Sale Performance – Torano</h1>
+                <div style={{ fontSize: 13, color: "#6b7280", marginTop: 4 }}>Báo cáo hành trình khách hàng & hiệu quả bán chéo</div>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+              <select style={selectStyle}><option>Thời gian: Tháng này</option><option>Quý này</option><option>Năm nay</option></select>
+              <select style={selectStyle}><option>Chi nhánh: Tất cả</option><option>KV Miền Nam</option><option>KV Miền Bắc</option></select>
+              <select style={selectStyle}><option>Danh mục: Tất cả</option><option>Thời trang Nam</option><option>Phụ kiện</option></select>
+              <button style={{ background: "#f3f4f6", border: "1px solid #e5e7eb", padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 700, color: "#111827", cursor: "pointer", display: "flex", gap: 8, alignItems: "center" }} onClick={() => alert("Xuất báo cáo!")}>
+                Export
+              </button>
+            </div>
           </div>
-        );
 
-        return (
-          <div style={{ paddingBottom: 40 }}>
-            {/* Header */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div style={{ width: 36, height: 36, background: brandColor, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 900, fontSize: 16 }}>T</div>
-                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#1e293b", margin: 0 }}>Phễu bán hàng – Torano</h1>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 16, marginBottom: 24 }}>
+            {kpis.map((k, i) => (
+              <div key={i} style={{ ...cardStyle, padding: "20px 20px", transition: "all 0.2s", cursor: "pointer" }}
+                   onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.06)"; }}
+                   onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.02)"; }}
+                   onClick={() => handleDrilldown('KPI', k.label)}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "#6b7280", textTransform: "uppercase", marginBottom: 10, letterSpacing: 0.5 }}>{k.label}</div>
+                <div style={{ fontSize: 24, fontWeight: 900, color: brandColor, marginBottom: 8, letterSpacing: -0.5 }}>{k.val}</div>
+                <div><span style={{ fontSize: 11, fontWeight: 700, padding: "3px 8px", borderRadius: 6, background: k.positive === true ? "#dcfce7" : k.positive === false ? "#fee2e2" : "#f3f4f6", color: k.positive === true ? "#16a34a" : k.positive === false ? "#ef4444" : "#4b5563" }}>{k.sub}</span></div>
               </div>
-              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                <select style={selectStyle}><option>Thời gian: 7 ngày qua</option><option>30 ngày qua</option><option>Quý này</option></select>
-                <select style={selectStyle}><option>Chi nhánh: Tất cả</option><option>Quận 1</option><option>Quận 7</option></select>
-                <select style={selectStyle}><option>Kênh: Online/Offline</option><option>Online</option><option>Offline</option></select>
-                <select style={selectStyle}><option>Danh mục: Tất cả</option><option>Áo</option><option>Quần</option></select>
+            ))}
+          </div>
+
+          <div style={{ ...cardStyle, marginBottom: 24 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
+              <div>
+                <div style={titleStyle}>Phễu chuyển đổi bán lẻ (Retail Funnel)</div>
+                <div style={{ fontSize: 13, color: "#6b7280", marginTop: 4 }}>Hành trình từ khi hiển thị Ads/Cửa hàng đến lúc ra bill</div>
               </div>
             </div>
-
-            {/* KPI Cards */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 12, marginBottom: 24 }}>
-              {kpis.map((k, i) => (
-                <div key={k.label} style={{ background: "#fff", borderRadius: 12, padding: "16px 18px", border: "1px solid #f1f3f5", transition: "box-shadow .2s" }}
-                  onMouseEnter={e => e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.06)"}
-                  onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}>
-                  <div style={{ fontSize: 10, fontWeight: 600, color: "#94a3b8", textTransform: "uppercase", letterSpacing: 0.2, marginBottom: 8 }}>{k.label}</div>
-                  <div style={{ fontSize: 22, fontWeight: 900, color: "#1e293b", marginBottom: 4 }}>{k.val}</div>
-                  <div style={{ fontSize: 10.5, fontWeight: 600, color: k.positive === true ? "#10b981" : k.positive === false ? brandColor : "#94a3b8" }}>{k.sub}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Main Content Row */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr 1fr", gap: 16, marginBottom: 16 }}>
-
-              {/* Sản phẩm bán chạy */}
-              <div style={{ background: "#fff", borderRadius: 14, padding: "18px", border: "1px solid #f1f3f5" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-                  <h3 style={{ fontSize: 14, fontWeight: 800, color: "#1e293b", margin: 0 }}>Sản phẩm bán chạy</h3>
-                  <div style={{ display: "flex", gap: 6 }}>
-                    <select style={{ ...selectStyle, padding: "4px 8px", fontSize: 10.5 }}><option>Số hay thu</option></select>
-                  </div>
-                </div>
-                <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                  <thead>
-                    <tr>
-                      <th style={thStyle}>Tên sản phẩm</th>
-                      <th style={thStyle}>Số lượng</th>
-                      <th style={thStyle}>Doanh thu</th>
-                      <th style={thStyle}>Tỷ lệ CR</th>
-                      <th style={thStyle}>% Tăng trưởng</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {products.map((p, i) => (
-                      <tr key={p.name} onMouseEnter={() => setHoveredRow(i)} onMouseLeave={() => setHoveredRow(null)}
-                        style={{ background: hoveredRow === i ? "#fafbfc" : "transparent", transition: "background .15s" }}>
-                        <td style={{ ...tdStyle, fontWeight: 600 }}>{p.name}</td>
-                        <td style={tdStyle}>{p.qty}</td>
-                        <td style={tdStyle}>{p.revenue}</td>
-                        <td style={tdStyle}>{p.cr}</td>
-                        <td style={tdStyle}>
-                          <span style={{ color: p.pos ? "#10b981" : brandColor, fontWeight: 600 }}>{p.growth}</span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <div style={{ textAlign: "center", marginTop: 12 }}>
-                  <span style={{ fontSize: 11, color: "#94a3b8", fontWeight: 600, cursor: "pointer" }}>Trang phẩm ▾</span>
-                </div>
-              </div>
-
-              {/* Funnel trung tâm */}
-              <div style={{ background: "#fff", borderRadius: 14, padding: "18px", border: "1px solid #f1f3f5", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0, width: "100%" }}>
-                  {funnelData.map((step, idx) => {
-                    const topW = idx === 0 ? 100 : funnelData[idx - 1].w;
-                    const botW = step.w;
-                    return (
-                      <div key={step.label} style={{ width: "100%", position: "relative" }}>
-                        {/* Conversion rate badge between funnels */}
-                        {step.rate && (
-                          <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", padding: "0 8px", height: 16 }}>
-                            <span style={{ fontSize: 10, fontWeight: 700, color: brandColor }}>{step.rate}</span>
+            
+            <div style={{ padding: "10px 0 20px 0" }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0, width: "100%", position: "relative" }}>
+                {funnelData.map((f, idx) => {
+                  return (
+                    <div key={idx} style={{ width: "100%", position: "relative", marginBottom: 6 }}>
+                      
+                      {/* Rate tag on the right, anchored between stages */}
+                      {idx < funnelData.length - 1 && (
+                        <div style={{ position: "absolute", right: "2%", bottom: -14, fontWeight: 800, fontSize: 13, color: brandColor, zIndex: 5, background: "#fff", padding: "2px 0" }}>
+                          {funnelData[idx + 1].rate}
+                        </div>
+                      )}
+                      
+                      {/* Trapezoid */}
+                      <div style={{ width: `${f.w}%`, margin: "0 auto", position: "relative", cursor: "pointer" }}
+                           onMouseEnter={() => setHoverState(`funnel_${idx}`)} onMouseLeave={() => setHoverState(null)} onClick={() => handleDrilldown('Funnel Step', f.label)}>
+                           
+                        {hoverState === `funnel_${idx}` && (
+                          <div style={{ position: "absolute", left: "103%", top: "50%", transform: "translateY(-50%)", width: 180, background: "#111827", color: "#fff", padding: "14px 16px", borderRadius: 10, zIndex: 10, textAlign: "left", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.3)" }}>
+                             <div style={{ fontSize: 11, color: "#9ca3af", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 4 }}>{f.label}</div>
+                             <div style={{ fontSize: 20, fontWeight: 900, marginBottom: 6 }}>{f.val.toLocaleString()}</div>
+                             <div style={{ fontSize: 11, color: "#e5e7eb", marginBottom: 10, paddingBottom: 10, borderBottom: "1px solid #374151" }}>{f.desc}</div>
+                             
+                             <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 4, marginBottom: 10 }}>
+                               {idx > 0 && <div style={{ fontSize: 11, color: "#e5e7eb" }}><span style={{color: "#9ca3af"}}>CR:</span> <strong style={{color:"#34d399"}}>{f.rate}</strong> <span style={{marginLeft: 4, color: "#9ca3af"}}>Rơi rớt:</span> <strong style={{color:"#f87171"}}>{f.drop}</strong></div>}
+                               <div style={{ fontSize: 11, color: "#e5e7eb" }}><span style={{color: "#9ca3af"}}>vs kỳ trước:</span> <strong style={{color: f.trend?.includes("+") ? "#34d399" : "#f87171"}}>{f.trend}</strong></div>
+                             </div>
+                             
+                             <div style={{ paddingTop: 10, borderTop: "1px solid #374151", fontSize: 11, color: "#60a5fa", fontWeight: 700 }}>Click xem {['THANH TOÁN', 'HOÀN TẤT'].includes(f.label) ? 'Đơn Hàng' : 'Danh sách KH'} →</div>
                           </div>
                         )}
-                        {/* Funnel step — trapezoid using clip-path */}
-                        <div style={{ width: `${step.w}%`, margin: "0 auto", position: "relative" }}>
-                          <div style={{
-                            background: idx === 0 ? brandColor :
-                              idx === 1 ? "#4d4d4d" :
-                              idx === 2 ? "#808080" :
-                              idx === 3 ? "#b3b3b3" : "#e6e6e6",
-                            padding: "12px 8px",
-                            textAlign: "center",
-                            borderRadius: idx === 0 ? "8px 8px 0 0" : idx === funnelData.length - 1 ? "0 0 8px 8px" : 0,
-                            clipPath: idx < funnelData.length - 1
-                              ? `polygon(0 0, 100% 0, ${50 + (funnelData[idx + 1].w / step.w) * 50}% 100%, ${50 - (funnelData[idx + 1].w / step.w) * 50}% 100%)`
-                              : "none",
-                            minHeight: idx === 0 ? 52 : 46,
-                            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                          }}>
-                            <div style={{ fontSize: 10, fontWeight: 700, color: "#fff", letterSpacing: 0.5, opacity: 0.9 }}>{step.label}</div>
-                            <div style={{ fontSize: 16, fontWeight: 900, color: "#fff" }}>{step.val}</div>
-                            <div style={{ fontSize: 9, color: "rgba(255,255,255,.75)", fontWeight: 500 }}>{step.desc}</div>
-                          </div>
+
+                        <div style={{
+                          background: idx === 0 ? brandColor :
+                            idx === 1 ? "#4b5563" :
+                            idx === 2 ? "#6b7280" :
+                            idx === 3 ? "#9ca3af" : "#e5e7eb",
+                          padding: "16px 8px",
+                          textAlign: "center",
+                          borderRadius: idx === funnelData.length - 1 ? "6px" : "0",
+                          clipPath: idx < funnelData.length - 1
+                            ? `polygon(0 0, 100% 0, ${50 + (funnelData[idx + 1].w / f.w) * 50}% 100%, ${50 - (funnelData[idx + 1].w / f.w) * 50}% 100%)`
+                            : "none",
+                          minHeight: 85,
+                          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+                          opacity: hoverState === `funnel_${idx}` ? 0.9 : 1, transition: "background .2s"
+                        }}>
+                          <div style={{ fontSize: 13, fontWeight: 800, color: idx === 4 ? "#111827" : "#fff", letterSpacing: 0.5, textTransform: "uppercase" }}>{f.label}</div>
+                          <div style={{ fontSize: 24, fontWeight: 900, color: idx === 4 ? "#111827" : "#fff", marginTop: 2, marginBottom: 2 }}>{f.val >= 1000 ? (f.val/1000).toFixed(f.val % 1000 === 0 ? 0 : 1) + 'K' : f.val}</div>
+                          <div style={{ fontSize: 11, color: idx === 4 ? "#4b5563" : "rgba(255,255,255,.75)", fontWeight: 500 }}>{f.desc}</div>
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
-                {/* Bottom note */}
-                <div style={{ marginTop: 12, display: "flex", gap: 16, justifyContent: "center" }}>
-                  <div style={{ background: "#f1f5f9", padding: "4px 10px", borderRadius: 6, fontSize: 10, fontWeight: 700, color: "#333333" }}>Tỷ lệ rời cao: 82.4%</div>
-                </div>
+                    </div>
+                  );
+                })}
               </div>
-
-              {/* Hiệu quả theo danh mục + Metrics */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                <div style={{ background: "#fff", borderRadius: 14, padding: "18px", border: "1px solid #f1f3f5", flex: 1 }}>
-                  <h3 style={{ fontSize: 14, fontWeight: 800, color: "#1e293b", margin: 0, marginBottom: 4 }}>Hiệu quả theo danh mục</h3>
-                  <div style={{ display: "flex", gap: 6, marginBottom: 14, flexWrap: "wrap" }}>
-                    {categories.map(c => (
-                      <span key={c.name} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 10, color: "#64748b" }}>
-                        <div style={{ width: 8, height: 8, borderRadius: 2, background: c.color }} />{c.name}
-                      </span>
-                    ))}
-                  </div>
-                  {/* Bar chart */}
-                  <div style={{ display: "flex", gap: 8, alignItems: "flex-end", height: 100, marginBottom: 12 }}>
-                    {categories.map(c => (
-                      <div key={c.name} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-                        <div style={{ width: "100%", height: `${(c.val / 1000) * 100}%`, background: c.color, borderRadius: "4px 4px 0 0", minHeight: 10, transition: "height .4s" }} />
-                        <span style={{ fontSize: 8.5, color: "#94a3b8", fontWeight: 600 }}>{c.name.split(" ").pop()}</span>
-                      </div>
-                    ))}
-                  </div>
-                  {/* Donut mini */}
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, padding: "8px 0" }}>
-                    <svg width={60} height={60} viewBox="0 0 60 60">
-                      <circle cx="30" cy="30" r="22" fill="none" stroke="#E6E6E6" strokeWidth="8" />
-                      <circle cx="30" cy="30" r="22" fill="none" stroke="#808080" strokeWidth="8" strokeDasharray="55 83" transform="rotate(-90 30 30)" />
-                      <circle cx="30" cy="30" r="22" fill="none" stroke="#4d4d4d" strokeWidth="8" strokeDasharray="35 103" transform="rotate(-90 30 30)" />
-                      <circle cx="30" cy="30" r="22" fill="none" stroke={brandColor} strokeWidth="8" strokeDasharray="20 118" transform="rotate(-90 30 30)" />
-                    </svg>
-                    <div>
-                      <div style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600 }}>Doanh VND</div>
-                    </div>
-                  </div>
-                </div>
-                {/* Bottom metrics */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-                  {[
-                    { label: "AOV", val: "675K VND" },
-                    { label: "Tỷ lệ quay lại", val: "22%" },
-                    { label: "Thời gian xem → mua", val: "45 phút" },
-                  ].map(m => (
-                    <div key={m.label} style={{ background: "#fff", borderRadius: 10, padding: "12px 10px", border: "1px solid #f1f3f5", textAlign: "center" }}>
-                      <div style={{ fontSize: 9, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", marginBottom: 4 }}>{m.label}</div>
-                      <div style={{ fontSize: 14, fontWeight: 800, color: "#1e293b" }}>{m.val}</div>
-                    </div>
-                  ))}
-                </div>
+              <div style={{ marginTop: 24, display: "flex", justifyContent: "center" }}>
+                <div style={{ background: "#f8fafc", padding: "6px 14px", borderRadius: 8, fontSize: 12, fontWeight: 700, color: "#111827", border: "1px solid #e2e8f0" }}>Tỷ lệ rơi cao nhất: Thêm vào giỏ (81.1%)</div>
               </div>
             </div>
+          </div>
 
-            {/* Bottom Row */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
-
-              {/* Kênh bán hàng */}
-              <div style={{ background: "#fff", borderRadius: 14, padding: "18px", border: "1px solid #f1f3f5" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-                  <h3 style={{ fontSize: 14, fontWeight: 800, color: "#1e293b", margin: 0 }}>Kênh bán hàng</h3>
-                  <span style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600, background: "#f8f9fa", padding: "3px 8px", borderRadius: 4 }}>Một CR</span>
-                </div>
-                <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                  <thead>
-                    <tr>
-                      <th style={thStyle}>Tên sản phẩm</th>
-                      <th style={thStyle}>Số lượng</th>
-                      <th style={thStyle}>Doanh thu</th>
-                      <th style={thStyle}>Tỷ CR</th>
+          <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 24 }}>
+            <div style={cardStyle}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+                <div style={titleStyle}>Top Selling Products</div>
+                <button onClick={() => alert("Mở báo cáo SP")} style={{ background: "transparent", border: "none", fontSize: 13, fontWeight: 700, cursor: "pointer", color: "#60a5fa" }}>Xem tất cả →</button>
+              </div>
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr>
+                    <th style={thStyle}>Tên sản phẩm</th>
+                    <th style={{...thStyle, textAlign: "right"}}>Đã bán</th>
+                    <th style={{...thStyle, textAlign: "right"}}>Doanh thu</th>
+                    <th style={{...thStyle, textAlign: "right"}}>CR (%)</th>
+                    <th style={{...thStyle, textAlign: "right"}}>Tăng trưởng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((p, i) => (
+                    <tr key={i} style={{ transition: "background 0.2s", cursor: "pointer" }} onMouseEnter={e => e.currentTarget.style.background = "#f8fafc"} onMouseLeave={e => e.currentTarget.style.background = "transparent"} onClick={() => handleDrilldown('Sản phẩm', p.name)}>
+                      <td style={{ ...tdStyle, fontWeight: 700 }}>{p.name}</td>
+                      <td style={{ ...tdStyle, fontWeight: 600, color: "#4b5563", textAlign: "right" }}>{p.qty}</td>
+                      <td style={{ ...tdStyle, fontWeight: 800, textAlign: "right" }}>{p.revenue}</td>
+                      <td style={{ ...tdStyle, fontWeight: 700, textAlign: "right", color: p.crTrend.includes("+") ? "#16a34a" : "#ef4444" }}>
+                        {p.cr} <span style={{fontSize: 10, marginLeft: 4}}>{p.crTrend.includes("+") ? "↑" : "↓"}</span>
+                      </td>
+                      <td style={{ ...tdStyle, fontWeight: 700, color: p.growth.includes("+") ? "#16a34a" : "#ef4444", textAlign: "right" }}>{p.growth}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {channelsData.map(c => (
-                      <tr key={c.name}>
-                        <td style={{ ...tdStyle, fontWeight: 600 }}>{c.name}</td>
-                        <td style={tdStyle}>{c.qty}</td>
-                        <td style={tdStyle}>{c.revenue}</td>
-                        <td style={tdStyle}>
-                          <span style={{ color: c.pos ? "#10b981" : "#94a3b8", fontWeight: 600 }}>{c.cr}</span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-              {/* Hiệu suất chi nhánh */}
-              <div style={{ background: "#fff", borderRadius: 14, padding: "18px", border: "1px solid #f1f3f5" }}>
-                <h3 style={{ fontSize: 14, fontWeight: 800, color: "#1e293b", margin: 0, marginBottom: 6 }}>Hiệu suất chi nhánh</h3>
-                <div style={{ display: "flex", gap: 16, marginBottom: 14, fontSize: 10 }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#64748b" }}><div style={{ width: 8, height: 8, borderRadius: "50%", background: brandColor }} />Top sản store</span>
-                  <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#64748b" }}><div style={{ width: 8, height: 8, borderRadius: "50%", background: "#cccccc" }} />Cửa hàng offline</span>
-                </div>
-                {/* Grouped bar chart */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  {branchData.map(b => (
-                    <div key={b.name}>
-                      <div style={{ fontSize: 10.5, color: "#64748b", fontWeight: 600, marginBottom: 4 }}>{b.name}</div>
-                      <div style={{ display: "flex", gap: 3 }}>
-                        <div style={{ height: 10, background: brandColor, borderRadius: 2, width: `${(b.store / 200) * 100}%`, transition: "width .4s" }} />
-                        <div style={{ height: 10, background: "#cccccc", borderRadius: 2, width: `${(b.offline / 200) * 100}%`, transition: "width .4s" }} />
+            <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+              <div style={cardStyle}>
+                <div style={{ ...titleStyle, marginBottom: 24 }}>Hiệu quả Kênh bán</div>
+                {channelsData.map((c, i) => (
+                  <div key={i} style={{ marginBottom: 18, cursor: "pointer", position: "relative" }}
+                       onMouseEnter={() => setHoverState(`chan_${i}`)} onMouseLeave={() => setHoverState(null)} onClick={() => handleDrilldown('Kênh bán', c.name)}>
+                       
+                    {hoverState === `chan_${i}` && (
+                      <div style={{ position: "absolute", top: -45, left: "50%", transform: "translateX(-50%)", width: 140, background: "#111827", color: "#fff", padding: 8, borderRadius: 8, zIndex: 10, textAlign: "center", fontSize: 12, boxShadow: "0 10px 15px -3px rgba(0,0,0,0.15)" }}>
+                         <div style={{ fontWeight: 800, marginBottom: 2 }}>{c.val} VND</div>
+                         <div style={{ color: "#9ca3af", fontSize: 11 }}>Click xem hiệu suất kênh</div>
                       </div>
+                    )}
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 700, color: "#4b5563", marginBottom: 8 }}>
+                      <span>{c.name}</span>
+                      <span style={{ color: "#111827" }}>{c.pct}%</span>
                     </div>
-                  ))}
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10 }}>
-                  {["0", "50K", "100K", "150K", "200K"].map(v => (
-                    <span key={v} style={{ fontSize: 9, color: "#cbd5e1" }}>{v}</span>
-                  ))}
-                </div>
+                    <div style={{ height: 10, background: "#f3f4f6", borderRadius: 5, overflow: "hidden" }}>
+                      <div style={{ width: `${c.pct}%`, height: "100%", background: c.color, borderRadius: 5, transition: "width 0.4s" }} />
+                    </div>
+                  </div>
+                ))}
               </div>
 
-              {/* Hành vi khách hàng */}
-              <div style={{ background: "#fff", borderRadius: 14, padding: "18px", border: "1px solid #f1f3f5" }}>
-                <h3 style={{ fontSize: 14, fontWeight: 800, color: "#1e293b", margin: 0, marginBottom: 6 }}>Hành vi khách hàng</h3>
-                <div style={{ display: "flex", gap: 16, marginBottom: 14, fontSize: 10 }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#64748b" }}><div style={{ width: 8, height: 8, borderRadius: "50%", background: brandColor }} />Mức vị chi nhánh</span>
-                </div>
-                <div style={{ display: "flex", gap: 6, alignItems: "flex-end", height: 120 }}>
-                  {behaviorData.map(b => (
-                    <div key={b.name} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-                      <span style={{ fontSize: 9, color: "#64748b", fontWeight: 700 }}>{b.val}K</span>
-                      <div style={{ width: "80%", height: `${b.val}%`, background: brandColor, borderRadius: "3px 3px 0 0", transition: "height .5s", opacity: 0.7 + (b.val / 300) }} />
-                      <span style={{ fontSize: 8.5, color: "#94a3b8", fontWeight: 600 }}>{b.name}</span>
+              <div style={cardStyle}>
+                <div style={{ ...titleStyle, marginBottom: 24 }}>Doanh thu danh mục</div>
+                <div style={{ display: "flex", gap: 16, height: 140, alignItems: "flex-end", paddingTop: 30 }}>
+                  {categories.map((c, i) => (
+                    <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", alignItems: "center", position: "relative", cursor: "pointer" }}
+                         onMouseEnter={() => setHoverState(`cat_${i}`)} onMouseLeave={() => setHoverState(null)} onClick={() => handleDrilldown('Danh mục', c.name)}>
+                      
+                      {hoverState === `cat_${i}` && (
+                        <div style={{ position: "absolute", bottom: "100%", width: 110, background: "#111827", color: "#fff", padding: "10px", borderRadius: 8, zIndex: 10, marginBottom: 8, textAlign: "center", boxShadow: "0 10px 15px -3px rgba(0,0,0,0.15)" }}>
+                           <div style={{ fontSize: 11, color: "#9ca3af", marginBottom: 2 }}>{c.name}</div>
+                           <div style={{ fontSize: 14, fontWeight: 800 }}>{c.revenue}</div>
+                           <div style={{ fontSize: 11, color: c.growth.includes("+") ? "#34d399" : "#f87171", marginTop: 4, fontWeight: 700 }}>{c.growth} <span style={{fontSize:9, fontWeight: 500}}>kỳ trước</span></div>
+                        </div>
+                      )}
+                      <div style={{ width: "100%", maxWidth: 36, background: c.color, height: `${(c.val / 3200) * 100}%`, borderRadius: "6px 6px 0 0", minHeight: 4, opacity: hoverState === `cat_${i}` ? 1 : 0.8, transition: "all 0.2s" }} />
+                      <div style={{ fontSize: 11, fontWeight: 700, color: "#6b7280", marginTop: 10, textAlign: "center", lineHeight: 1.2 }}>{c.name}</div>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
           </div>
-        );
+        </div>
+      );
     };
 
     const MarketingFunnelView = ({ onOpenLeads, activeFunnel = "marketing_funnel" }) => {
@@ -3030,11 +2954,11 @@
               <h3 style={{ fontSize: 16, fontWeight: 800, color: "#1a2d47", marginBottom: 20 }}>Phễu chuyển đổi (Conversion Funnel)</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 {[
-                  { label: "Người tiếp cận", val: 24000, w: "100%", color: "#1a2d47" },
-                  { label: "Người quan tâm", val: 8500, w: "75%", color: "#23395d" },
-                  { label: "Điền Form khảo sát", val: 3200, w: "55%", color: "#3d6494" },
-                  { label: "Trở thành Lead", val: 1245, w: "35%", color: "#10b981" },
-                  { label: "Chuyển đổi (Win)", val: 185, w: "15%", color: "#f5a623" }
+                  { label: "Người tiếp cận", val: 24000, w: "100%", color: "#06332c" },
+                  { label: "Người quan tâm", val: 8500, w: "75%", color: "#0d7f6e" },
+                  { label: "Điền Form khảo sát", val: 3200, w: "55%", color: "#4ca497" },
+                  { label: "Trở thành Lead", val: 1245, w: "35%", color: "#6ebcb1" },
+                  { label: "Chuyển đổi (Win)", val: 185, w: "15%", color: "#f97316" }
                 ].map((f, i) => (
                   <div key={f.label} style={{ display: "flex", alignItems: "center", gap: 16 }}>
                     <div style={{ width: 140, fontSize: 12, fontWeight: 600, color: "#64748b" }}>{f.label}</div>
