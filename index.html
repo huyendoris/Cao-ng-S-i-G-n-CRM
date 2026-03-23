@@ -252,7 +252,7 @@
     };
 
     const TempBadge = ({ temp }) => {
-      const m = { hot: "● Nóng", warm: "● Ấm", cold: "● Lạnh" };
+      const m = { hot: "Nóng", warm: "Ấm", cold: "Lạnh" };
       const color = getTempColor(temp);
       return <span style={{ background: `${color}15`, color: color, borderRadius: 20, padding: "2px 9px", fontSize: 10.5, fontWeight: 600, whiteSpace: "nowrap", letterSpacing: 0.1 }}>{m[temp] || m.cold}</span>;
     };
@@ -332,16 +332,16 @@
       const avg = Math.round(leads.reduce((s, l) => s + l.score, 0) / leads.length);
       const enrolled = leads.filter(l => l.stage === "nhap_hoc").length;
       const cards = [
-        { icon: "👥", label: "Tổng Lead", val: leads.length, sub: "đang theo dõi", highlight: false },
-        { icon: "🔥", label: "Lead Nóng", val: hot, sub: `${Math.round(hot / leads.length * 100)}% tổng số`, highlight: false },
-        { icon: "🎓", label: "Đã Nhập Học", val: enrolled, sub: "kỳ tuyển sinh này", highlight: true },
-        { icon: "⭐", label: "Điểm TB", val: avg, sub: "trên 100 điểm", highlight: false },
+        { label: "Tổng Lead", val: leads.length, sub: "đang theo dõi", highlight: false },
+        { label: "Lead Nóng", val: hot, sub: `${Math.round(hot / leads.length * 100)}% tổng số`, highlight: false },
+        { label: "Đã Nhập Học", val: enrolled, sub: "kỳ tuyển sinh này", highlight: true },
+        { label: "Điểm TB", val: avg, sub: "trên 100 điểm", highlight: false },
       ];
       return (
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 20 }}>
-          {cards.map(({ icon, label, val, sub, highlight }) => (
+          {cards.map(({ label, val, sub, highlight }) => (
             <div key={label} style={{ background: "#fff", borderRadius: 12, padding: "16px 18px", border: "1px solid #E6E8EC", boxShadow: highlight ? "0 4px 16px rgba(13,127,110,0.15)" : "0 1px 4px rgba(0,0,0,0.04)" }}>
-              <div style={{ fontSize: 11, color: "#8c96a6", marginBottom: 6, fontWeight: 500 }}>{icon} {label}</div>
+              <div style={{ fontSize: 11, color: "#8c96a6", marginBottom: 6, fontWeight: 500 }}>{label}</div>
               <div style={{ fontSize: 28, fontWeight: 800, color: "#0d7f6e", lineHeight: 1 }}>{val}</div>
               <div style={{ fontSize: 10.5, color: "#adb5bd", marginTop: 5 }}>{sub}</div>
             </div>
@@ -1666,7 +1666,7 @@
                 </div>
               </div>
               <div style={{ background: "#fff", padding: 14, borderRadius: 8, border: "1px solid #fee2e2", borderLeft: "4px solid #ef4444", boxShadow: "0 2px 8px rgba(239,68,68,0.1)" }}>
-                <div style={{ fontSize: 11.5, fontWeight: 800, color: "#ef4444", marginBottom: 6 }}>💡 Zia Gợi ý (Real-time):</div>
+                <div style={{ fontSize: 11.5, fontWeight: 800, color: "#ef4444", marginBottom: 6 }}>Zia Gợi ý (Real-time):</div>
                 <div style={{ fontSize: 12.5, color: "#1e293b", lineHeight: 1.5 }}>Khách hàng nhắc cụm từ "Học phí" 3 lần. Đề xuất: Tư vấn ngay <strong>Chính sách Học bổng Tân sinh viên</strong> giảm 500k.</div>
               </div>
             </Card>
@@ -1675,9 +1675,9 @@
             <Card title="Lead Priority AI" icon="fire" color="#e8421a" desc="Xếp hạng khách tự động, gợi ý ai cần gọi trước">
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {[
-                  { name: "Phạm Minh Đức", action: "Đã tải Brochure", tag: "🔥 Hot Lead", color: "#ef4444", score: 95 },
-                  { name: "Nguyễn Thị Lan", action: "Xem học phí > 2 lần", tag: "⚡ Warm Lead", color: "#f59e0b", score: 72 },
-                  { name: "Phan Văn Khoa", action: "Mới đăng ký form", tag: "🧊 Cold Lead", color: "#3b82f6", score: 30 },
+                  { name: "Phạm Minh Đức", action: "Đã tải Brochure", tag: "Hot Lead", color: "#ef4444", score: 95 },
+                  { name: "Nguyễn Thị Lan", action: "Xem học phí > 2 lần", tag: "Warm Lead", color: "#f59e0b", score: 72 },
+                  { name: "Phan Văn Khoa", action: "Mới đăng form", tag: "Cold Lead", color: "#3b82f6", score: 30 },
                 ].map(l => (
                   <div key={l.name} onClick={() => onLeadClick({ name: l.name, phone: "09xxxxxxxx", score: l.score, stage: "lead_moi" })} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#fff", padding: "12px 14px", borderRadius: 10, border: "1px solid #e2e8f0", boxShadow: "0 2px 4px rgba(0,0,0,0.02)", cursor: "pointer" }}>
                     <div>
@@ -1772,21 +1772,21 @@
         const P2 = "#f97316";  // orange accent
 
         const kpis = [
-          { label: "Tong lead",             val: "15,840", sub: "+22% vs tháng trước",  up: true  },
-          { label: "Lead moi",              val: "3,120",  sub: "Tuan nay: 680",         up: true  },
-          { label: "Lead chat luong",       val: "6,270",  sub: "39.6% qualified",       up: null  },
-          { label: "Dang ky xet tuyen",     val: "2,410",  sub: "38.4% vs lead CL",     up: true  },
-          { label: "Nhap hoc",              val: "1,185",  sub: "49.2% vs dang ky",     up: null  },
-          { label: "Ty le chuyen doi",      val: "7.5%",   sub: "+1.2% vs ky truoc",    up: true  },
+          { label: "Tổng lead",             val: "15,840", sub: "+22% vs tháng trước",  up: true  },
+          { label: "Lead mới",              val: "3,120",  sub: "Tuần này: 680",         up: true  },
+          { label: "Lead chất lượng",       val: "6,270",  sub: "39.6% qualified",       up: null  },
+          { label: "Đăng ký xét tuyển",     val: "2,410",  sub: "38.4% vs lead chất lượng",     up: true  },
+          { label: "Nhập học",              val: "1,185",  sub: "49.2% vs đăng ký",     up: null  },
+          { label: "Tỷ lệ chuyển đổi",      val: "7.5%",   sub: "+1.2% vs kỳ trước",    up: true  },
         ];
 
         const funnel = [
-          { label: "Tiep can",          val: 45200, desc: "Ads / Event / Truong THPT", dropWarn: false },
-          { label: "Quan tam",          val: 15840, desc: "Click / Mini game / Khao sat", dropWarn: false },
-          { label: "Dien form",         val: 8920,  desc: "Dang ky tu van / Xet tuyen", dropWarn: false },
-          { label: "Duoc tu van",       val: 4210,  desc: "Nhan vien lien he thanh cong", dropWarn: true  },
-          { label: "Dang ky xet tuyen", val: 2410,  desc: "Da nop ho so chinh thuc",  dropWarn: false },
-          { label: "Nhap hoc",          val: 1185,  desc: "Da dong hoc phi",           dropWarn: false },
+          { label: "Tiếp cận",          val: 45200, desc: "Ads / Event / Trường THPT", dropWarn: false },
+          { label: "Quan tâm",          val: 15840, desc: "Click / Mini game / Khảo sát", dropWarn: false },
+          { label: "Điền form",         val: 8920,  desc: "Đăng ký tư vấn / Xét tuyển", dropWarn: false },
+          { label: "Được tư vấn",       val: 4210,  desc: "Nhân viên liên hệ thành công", dropWarn: true  },
+          { label: "Đăng ký xét tuyển", val: 2410,  desc: "Đã nộp hồ sơ chính thức",  dropWarn: false },
+          { label: "Nhập học",          val: 1185,  desc: "Đã đóng học phí",           dropWarn: false },
         ];
 
         const sources = [
@@ -1794,40 +1794,40 @@
           { name: "TikTok",       leads: 3810, cost: "19K", conv: "5.2%", quality: 74, trending: "up"   },
           { name: "Website",      leads: 2190, cost: "12K", conv: "9.1%", quality: 88, trending: "up"   },
           { name: "Zalo",         leads: 1680, cost: "8K",  conv: "11.3%",quality: 95, trending: "up"   },
-          { name: "Su kien truong",leads: 1210, cost: "Mien phi", conv: "18.4%", quality: 97, trending: "up" },
+          { name: "Sự kiện trường",leads: 1210, cost: "Miễn phí", conv: "18.4%", quality: 97, trending: "up" },
           { name: "Mini game",    leads: 710,  cost: "5K",  conv: "6.2%", quality: 68, trending: "down" },
         ];
 
-        const survey = { filled: 4820, topMajors: ["CNTT", "Dieu duong", "QTKD", "Ke toan", "TKTD"], convRate: "34.2%" };
+        const survey = { filled: 4820, topMajors: ["CNTT", "Điều dưỡng", "QTKD", "Kế toán", "TKTD"], convRate: "34.2%" };
 
         const miniGame = [
-          { name: "Chon nganh nao hop voi ban?", participants: 8420, leads: 612, conv: "7.3%" },
-          { name: "IQ tuyen sinh 2025",          participants: 5310, leads: 388, conv: "7.3%" },
-          { name: "Tim truong phu hop",           participants: 3280, leads: 191, conv: "5.8%" },
+          { name: "Chọn ngành nào hợp với bạn?", participants: 8420, leads: 612, conv: "7.3%" },
+          { name: "IQ tuyển sinh 2025",          participants: 5310, leads: 388, conv: "7.3%" },
+          { name: "Tìm trường phù hợp",           participants: 3280, leads: 191, conv: "5.8%" },
         ];
 
         const majors = [
-          { name: "Cong nghe thong tin",    cnt: 3280, pct: 20.7, color: P      },
-          { name: "Quan tri kinh doanh",    cnt: 2840, pct: 17.9, color: "#2e7dbf" },
-          { name: "Dieu duong",             cnt: 2610, pct: 16.5, color: "#7c3aed" },
-          { name: "Ke toan",                cnt: 2100, pct: 13.3, color: P2     },
-          { name: "Thiet ke do hoa",        cnt: 1920, pct: 12.1, color: "#e8421a" },
-          { name: "Duoc hoc",               cnt: 1520, pct: 9.6,  color: "#0ea5e9" },
-          { name: "Khac",                   cnt: 1570, pct: 9.9,  color: "#94a3b8" },
+          { name: "Công nghệ thông tin",    cnt: 3280, pct: 20.7, color: P      },
+          { name: "Quản trị kinh doanh",    cnt: 2840, pct: 17.9, color: "#2e7dbf" },
+          { name: "Điều dưỡng",             cnt: 2610, pct: 16.5, color: "#7c3aed" },
+          { name: "Kế toán",                cnt: 2100, pct: 13.3, color: P2     },
+          { name: "Thiết kế đồ họa",        cnt: 1920, pct: 12.1, color: "#e8421a" },
+          { name: "Dược học",               cnt: 1520, pct: 9.6,  color: "#0ea5e9" },
+          { name: "Khác",                   cnt: 1570, pct: 9.9,  color: "#94a3b8" },
         ];
 
         const advisors = [
-          { name: "Minh Tu",      leads: 580, conv: "52.4%", avg: "2.1h" },
-          { name: "Hong Nhung",   leads: 510, conv: "48.0%", avg: "1.8h" },
-          { name: "Van Nam",      leads: 490, conv: "44.5%", avg: "3.2h" },
-          { name: "Ngoc Anh",     leads: 420, conv: "40.2%", avg: "2.7h" },
-          { name: "Bao Chau",     leads: 380, conv: "36.8%", avg: "4.5h" },
+          { name: "Minh Tú",      leads: 580, conv: "52.4%", avg: "2.1h" },
+          { name: "Hồng Nhung",   leads: 510, conv: "48.0%", avg: "1.8h" },
+          { name: "Văn Nam",      leads: 490, conv: "44.5%", avg: "3.2h" },
+          { name: "Ngọc Anh",     leads: 420, conv: "40.2%", avg: "2.7h" },
+          { name: "Bảo Châu",     leads: 380, conv: "36.8%", avg: "4.5h" },
         ];
 
         const campuses = [
-          { name: "Co so 1 – Q.Binh Thanh", leads: 6820, enrolled: 480, conv: "7.0%" },
-          { name: "Co so 2 – Q.Tan Binh",   leads: 5490, enrolled: 410, conv: "7.5%" },
-          { name: "Co so 3 – Q.7",           leads: 3530, enrolled: 295, conv: "8.4%" },
+          { name: "Cơ sở 1 – Q.Bình Thạnh", leads: 6820, enrolled: 480, conv: "7.0%" },
+          { name: "Cơ sở 2 – Q.Tân Bình",   leads: 5490, enrolled: 410, conv: "7.5%" },
+          { name: "Cơ sở 3 – Q.7",           leads: 3530, enrolled: 295, conv: "8.4%" },
         ];
 
         const selStyle = { border: "1px solid #e2e8f0", borderRadius: 8, padding: "7px 12px", fontSize: 12, background: "#fff", color: "#1a2d47", cursor: "pointer", outline: "none", fontWeight: 500, fontFamily: "inherit" };
@@ -1854,27 +1854,27 @@
             {/* Header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 22 }}>
               <div>
-                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#1a2d47", margin: 0 }}>Pheu giao duc – Cao Dang Sai Gon</h1>
-                <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 3 }}>Theo doi hanh trinh tuyen sinh tu tiep can den nhap hoc · Cap nhat hom nay</div>
+                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#1a2d47", margin: 0 }}>Phễu giáo dục – Cao Đẳng Sài Gòn</h1>
+                <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 3 }}>Theo dõi hành trình tuyển sinh từ tiếp cận đến nhập học · Cập nhật hôm nay</div>
               </div>
               <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
                 <select value={filterTime} onChange={e => setFilterTime(e.target.value)} style={selStyle}>
-                  <option value="today">Hom nay</option>
-                  <option value="this_week">Tuan nay</option>
-                  <option value="this_month">Thang nay</option>
-                  <option value="this_quarter">Quy nay</option>
+                  <option value="today">Hôm nay</option>
+                  <option value="this_week">Tuần này</option>
+                  <option value="this_month">Tháng này</option>
+                  <option value="this_quarter">Quý này</option>
                 </select>
                 <select value={filterCampus} onChange={e => setFilterCampus(e.target.value)} style={selStyle}>
-                  <option value="all">Tat ca co so</option>
-                  <option value="cs1">Co so 1 – Q.Binh Thanh</option>
-                  <option value="cs2">Co so 2 – Q.Tan Binh</option>
-                  <option value="cs3">Co so 3 – Q.7</option>
+                  <option value="all">Tất cả cơ sở</option>
+                  <option value="cs1">Cơ sở 1 – Q.Bình Thạnh</option>
+                  <option value="cs2">Cơ sở 2 – Q.Tân Bình</option>
+                  <option value="cs3">Cơ sở 3 – Q.7</option>
                 </select>
                 <select value={filterMajor} onChange={e => setFilterMajor(e.target.value)} style={selStyle}>
                   <option value="all">Tat ca nganh</option>
-                  <option value="cntt">Cong nghe thong tin</option>
-                  <option value="dd">Dieu duong</option>
-                  <option value="qtkd">Quan tri kinh doanh</option>
+                  <option value="cntt">Công nghệ thông tin</option>
+                  <option value="dd">Điều dưỡng</option>
+                  <option value="qtkd">Quản trị kinh doanh</option>
                 </select>
                 <select value={filterSrc} onChange={e => setFilterSrc(e.target.value)} style={selStyle}>
                   <option value="all">Tat ca nguon</option>
@@ -1909,7 +1909,7 @@
 
               {/* Funnel */}
               <Card>
-                <SecTitle title="Pheu tuyen sinh" sub="Hanh trinh tu tiep can den nhap hoc – highlight diem roi nhieu" />
+                <SecTitle title="Phễu tuyển sinh" sub="Hanh trinh tu tiep can den nhap hoc – highlight điểm rơi nhiều" />
                 <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   {funnel.map((step, idx) => {
                     const wPct = Math.round((step.val / maxFunnel) * 100);
@@ -1921,7 +1921,7 @@
                         {idx > 0 && (
                           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, padding: "2px 0" }}>
                             <span style={{ fontSize: 9.5, fontWeight: 600, color: isWarn ? "#ef4444" : "#94a3b8", background: isWarn ? "#fef2f2" : "#f8fafc", padding: "1px 10px", borderRadius: 8, border: `1px solid ${isWarn ? "#fecaca" : "#f1f5f9"}` }}>
-                              {conv}% chuyen doi {isWarn && "– drop-off cao!"}
+                              {conv}% chuyển đổi {isWarn && "– drop-off cao!"}
                             </span>
                           </div>
                         )}
@@ -1946,16 +1946,16 @@
 
                 {/* Drop-off warning box */}
                 <div style={{ marginTop: 14, padding: "10px 14px", background: "#fef2f2", borderRadius: 10, border: "1px solid #fecaca" }}>
-                  <div style={{ fontSize: 11.5, fontWeight: 700, color: "#ef4444", marginBottom: 3 }}>Canh bao drop-off</div>
+                  <div style={{ fontSize: 11.5, fontWeight: 700, color: "#ef4444", marginBottom: 3 }}>Cảnh báo drop-off</div>
                   <div style={{ fontSize: 11, color: "#64748b", lineHeight: 1.6 }}>
-                    Buoc "Duoc tu van" co ti le roi cao: 52.8% lead khong duoc phan cong kip. Khuyen nghi: Tang lap tuong phan cong tu dong hoac chia se vong Round Robin.
+                    Buoc "Được tư vấn" có tỉ lệ rơi cao: 52.8% lead không được phân công kịp. Khuyến nghị: Tăng lập tường phân công tự động hoặc chia sẻ vòng Round Robin.
                   </div>
                 </div>
               </Card>
 
               {/* Lead sources */}
               <Card>
-                <SecTitle title="Nguon lead" sub="Hieu qua thu lead theo kenh – so sanh cost/lead & chuyen doi" />
+                <SecTitle title="Nguồn lead" sub="Hiệu quả thu lead theo kênh – so sánh cost/lead & chuyển đổi" />
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   {sources.map((s, i) => (
                     <div key={s.name}
@@ -1992,16 +1992,16 @@
 
               {/* Survey */}
               <Card>
-                <SecTitle title="Phieu khao sat nguyen vong" sub="Cap nhat moi nhat" />
+                <SecTitle title="Phiếu khảo sát nguyện vọng" sub="Cập nhật mới nhất" />
                 <div style={{ textAlign: "center", padding: "10px 0 14px" }}>
                   <div style={{ fontSize: 36, fontWeight: 900, color: P }}>{survey.filled.toLocaleString()}</div>
-                  <div style={{ fontSize: 11, color: "#94a3b8", marginBottom: 12 }}>hoc sinh da dien phieu</div>
+                  <div style={{ fontSize: 11, color: "#94a3b8", marginBottom: 12 }}>học sinh đã điền phiếu</div>
                   <div style={{ display: "inline-flex", gap: 6, background: "#f0fdf4", padding: "5px 12px", borderRadius: 8 }}>
                     <span style={{ fontSize: 11, fontWeight: 700, color: "#10b981" }}>CR: {survey.convRate}</span>
-                    <span style={{ fontSize: 11, color: "#94a3b8" }}>khao sat → lead</span>
+                    <span style={{ fontSize: 11, color: "#94a3b8" }}>khảo sát → lead</span>
                   </div>
                 </div>
-                <div style={{ fontSize: 11, fontWeight: 600, color: "#64748b", marginBottom: 8 }}>Top nganh quan tam</div>
+                <div style={{ fontSize: 11, fontWeight: 600, color: "#64748b", marginBottom: 8 }}>Top ngành quan tâm</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
                   {survey.topMajors.map((m, i) => (
                     <div key={m} style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -2014,7 +2014,7 @@
 
               {/* Mini game */}
               <Card>
-                <SecTitle title="Mini game tuyen sinh" sub="Hieu qua thu lead theo chien dich game" />
+                <SecTitle title="Mini game tuyển sinh" sub="Hiệu quả thu lead theo chiến dịch game" />
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {miniGame.map((g, i) => (
                     <div key={g.name} style={{ padding: "12px 14px", background: "#f8fafc", borderRadius: 10, border: "1px solid #f1f5f9" }}>
@@ -2040,7 +2040,7 @@
 
               {/* Top majors */}
               <Card>
-                <SecTitle title="Nganh hoc quan tam" sub="Phan bo dang ky theo nganh" />
+                <SecTitle title="Ngành học quan tâm" sub="Phân bổ đăng ký theo ngành" />
                 <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
                   {majors.map((m, i) => (
                     <div key={m.name}>
@@ -2065,7 +2065,7 @@
 
               {/* Advisor performance */}
               <Card>
-                <SecTitle title="Hieu suat doi tu van" sub="So lead xu ly, ty le chuyen doi va thoi gian phan hoi" />
+                <SecTitle title="Hiệu suất đội tư vấn" sub="Số lead xử lý, tỷ lệ chuyển đổi và thời gian phản hồi" />
                 <div style={{ borderRadius: 10, overflow: "hidden", border: "1px solid #f1f5f9" }}>
                   <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", padding: "8px 14px", background: "#f8fafc", borderBottom: "1px solid #f1f5f9" }}>
                     {["Tu van vien", "Lead xu ly", "Ti le CR", "Thoi gian PH"].map(h => (
@@ -2095,7 +2095,7 @@
 
               {/* Campus comparison */}
               <Card>
-                <SecTitle title="Hieu suat theo co so" sub="So sanh so lead va nhap hoc – ti le chuyen doi" />
+                <SecTitle title="Hiệu suất theo cơ sở" sub="So sánh số lead và nhập học – tỉ lệ chuyển đổi" />
                 <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                   {campuses.map((c, i) => {
                     const maxL = Math.max(...campuses.map(x => x.leads));
@@ -2110,11 +2110,11 @@
                         </div>
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 10 }}>
                           <div>
-                            <div style={{ fontSize: 9, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", marginBottom: 3 }}>Tong lead</div>
+                            <div style={{ fontSize: 9, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", marginBottom: 3 }}>Tổng lead</div>
                             <div style={{ fontSize: 18, fontWeight: 800, color: "#1a2d47" }}>{c.leads.toLocaleString()}</div>
                           </div>
                           <div>
-                            <div style={{ fontSize: 9, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", marginBottom: 3 }}>Nhap hoc</div>
+                            <div style={{ fontSize: 9, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", marginBottom: 3 }}>Nhập học</div>
                             <div style={{ fontSize: 18, fontWeight: 800, color: P }}>{c.enrolled}</div>
                           </div>
                         </div>
@@ -2226,7 +2226,7 @@
               </svg>
               <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                 <div style={{ fontSize: 20, fontWeight: 800, color: "#1a2d47" }}>{total.toLocaleString()}</div>
-                <div style={{ fontSize: 10, color: "#94a3b8", fontWeight: 500 }}>giao dich</div>
+                <div style={{ fontSize: 10, color: "#94a3b8", fontWeight: 500 }}>giao dịch</div>
               </div>
             </div>
           );
@@ -2236,29 +2236,29 @@
           <div style={{ paddingBottom: 40 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 22 }}>
               <div>
-                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#1a2d47", margin: 0 }}>Pheu tra gop — Di Dong Viet</h1>
-                <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 3 }}>Phan tich hanh trinh khach hang tra gop · Cap nhat hom nay</div>
+                <h1 style={{ fontSize: 20, fontWeight: 800, color: "#1a2d47", margin: 0 }}>Phễu trả góp — Di Động Việt</h1>
+                <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 3 }}>Phân tích hành trình khách hàng trả góp · Cập nhật hôm nay</div>
               </div>
               <div style={{ display: "flex", gap: 8 }}>
                 <select value={filterTime} onChange={e => setFilterTime(e.target.value)} style={selStyle}>
-                  <option value="today">Hom nay</option>
-                  <option value="this_week">Tuan nay</option>
-                  <option value="this_month">Thang nay</option>
-                  <option value="this_quarter">Quy nay</option>
+                  <option value="today">Hôm nay</option>
+                  <option value="this_week">Tuần này</option>
+                  <option value="this_month">Tháng này</option>
+                  <option value="this_quarter">Quý này</option>
                 </select>
                 <select value={filterBranch} onChange={e => setFilterBranch(e.target.value)} style={selStyle}>
-                  <option value="all">Tat ca chi nhanh</option>
-                  <option value="q1">Quan 1</option>
-                  <option value="q7">Quan 7</option>
-                  <option value="td">Thu Duc</option>
+                  <option value="all">Tất cả chi nhánh</option>
+                  <option value="q1">Quận 1</option>
+                  <option value="q7">Quận 7</option>
+                  <option value="td">Thủ Đức</option>
                 </select>
                 <select value={filterChannel} onChange={e => setFilterChannel(e.target.value)} style={selStyle}>
-                  <option value="all">Tat ca kenh</option>
+                  <option value="all">Tất cả kênh</option>
                   <option value="online">Online</option>
-                  <option value="store">Cua hang</option>
+                  <option value="store">Cửa hàng</option>
                 </select>
                 <button style={{ background: "#b91c1c", color: "#fff", padding: "7px 18px", borderRadius: 8, border: "none", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>
-                  Xuat bao cao
+                  Xuất báo cáo
                 </button>
               </div>
             </div>
@@ -2278,7 +2278,7 @@
 
             <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 16, marginBottom: 16 }}>
               <Card>
-                <SecTitle title="Pheu chuyen doi tra gop" sub="Hanh trinh khach hang tu tiep can den mua tra gop" />
+                <SecTitle title="Phễu chuyển đổi trả góp" sub="Hành trình khách hàng từ tiếp cận đến mua trả góp" />
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   {funnelSteps.map((step, idx) => {
                     const widthPct = Math.round((step.val / funnelSteps[0].val) * 100);
@@ -2288,7 +2288,7 @@
                       <div key={step.label}>
                         {idx > 0 && (
                           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, padding: "3px 0" }}>
-                            <span style={{ fontSize: 10, fontWeight: 600, color: "#94a3b8", background: "#f8fafc", padding: "1px 10px", borderRadius: 8, border: "1px solid #f1f5f9" }}>{convRate}% chuyen doi</span>
+                            <span style={{ fontSize: 10, fontWeight: 600, color: "#94a3b8", background: "#f8fafc", padding: "1px 10px", borderRadius: 8, border: "1px solid #f1f5f9" }}>{convRate}% chuyển đổi</span>
                           </div>
                         )}
                         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -2307,7 +2307,7 @@
               </Card>
 
               <Card>
-                <SecTitle title="Hinh thuc tra gop" sub="Phan bo theo loai the tin dung" />
+                <SecTitle title="Hình thức trả góp" sub="Phân bổ theo loại thẻ tín dụng" />
                 <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
                   <PaymentDonut />
                   <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
@@ -2330,7 +2330,7 @@
 
             <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 16, marginBottom: 16 }}>
               <Card>
-                <SecTitle title="Top san pham mua tra gop" sub="San pham co luot tra gop cao nhat" />
+                <SecTitle title="Top sản phẩm mua trả góp" sub="Sản phẩm có lượt trả góp cao nhất" />
                 <div style={{ borderRadius: 10, overflow: "hidden", border: "1px solid #f1f5f9" }}>
                   <div style={{ display: "grid", gridTemplateColumns: "2.2fr 1fr 1fr 1fr", padding: "9px 14px", background: "#f8fafc", borderBottom: "1px solid #f1f5f9" }}>
                     {["San pham", "So luong", "TB gia tri", "Tang truong"].map(h => (
@@ -2357,7 +2357,7 @@
               </Card>
 
               <Card>
-                <SecTitle title="Kenh mang lai khach tra gop" sub="So lead va ty le chuyen doi tung kenh" />
+                <SecTitle title="Kênh mang lại khách trả góp" sub="Số lead và tỷ lệ chuyển đổi từng kênh" />
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {channels.map(ch => {
                     const maxLeads = Math.max(...channels.map(c => c.leads));
@@ -2384,7 +2384,7 @@
             </div>
 
             <Card>
-              <SecTitle title="Hieu suat chi nhanh" sub="Top cua hang co nhieu giao dich tra gop nhat" />
+              <SecTitle title="Hiệu suất chi nhánh" sub="Top cửa hàng có nhiều giao dịch trả góp nhất" />
               <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
                 {branches.map((br, i) => (
                   <div key={br.name}
@@ -2397,7 +2397,7 @@
                     </div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 10 }}>
                       <div style={{ background: "#fff", padding: "7px 10px", borderRadius: 7, border: "1px solid #f1f5f9" }}>
-                        <div style={{ fontSize: 9, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", marginBottom: 2 }}>Giao dich</div>
+                        <div style={{ fontSize: 9, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", marginBottom: 2 }}>Giao dịch</div>
                         <div style={{ fontSize: 16, fontWeight: 800, color: "#1a2d47" }}>{br.deals}</div>
                       </div>
                       <div style={{ background: "#fff", padding: "7px 10px", borderRadius: 7, border: "1px solid #f1f5f9" }}>
@@ -2407,7 +2407,7 @@
                     </div>
                     <div>
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                        <span style={{ fontSize: 10, color: "#94a3b8" }}>Hieu suat</span>
+                        <span style={{ fontSize: 10, color: "#94a3b8" }}>Hiệu suất</span>
                         <span style={{ fontSize: 10, fontWeight: 700, color: "#1a2d47" }}>{br.perf}%</span>
                       </div>
                       <div style={{ height: 4, background: "#e2e8f0", borderRadius: 3, overflow: "hidden" }}>
